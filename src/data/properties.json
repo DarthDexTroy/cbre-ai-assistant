@@ -1,0 +1,197 @@
+[
+  {
+    "id": "prop-001",
+    "title": "Downtown Austin Class A Office Tower",
+    "address": "123 Congress Avenue, Austin, TX 78701",
+    "type": "Office",
+    "class": "A",
+    "price": 45000000,
+    "sqft": 125000,
+    "status": "for-sale",
+    "lat": 30.2672,
+    "lng": -97.7431,
+    "yearBuilt": 2018,
+    "occupancy": 92,
+    "trustScore": 94,
+    "lastUpdated": "2025-01-15T10:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Premier Class A office tower in the heart of downtown Austin. Features state-of-the-art amenities, sustainable design, and high-profile tenants.",
+    "keyFeatures": [
+      "LEED Platinum Certified",
+      "Floor-to-ceiling windows",
+      "Rooftop terrace",
+      "On-site parking garage"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-15" },
+      { "name": "Travis County Records", "verified": true, "date": "2025-01-10" },
+      { "name": "Austin Business Journal", "verified": true, "date": "2025-01-12" }
+    ],
+    "risks": [],
+    "opportunities": ["Growing tech sector", "Limited Class A inventory"]
+  },
+  {
+    "id": "prop-002",
+    "title": "Port of Long Beach Cold Storage Facility",
+    "address": "5500 Harbor Drive, Long Beach, CA 90802",
+    "type": "Industrial",
+    "class": "B",
+    "price": 28000000,
+    "sqft": 180000,
+    "status": "off-market",
+    "lat": 33.7701,
+    "lng": -118.1937,
+    "yearBuilt": 2015,
+    "occupancy": 100,
+    "trustScore": 88,
+    "lastUpdated": "2025-01-14T15:45:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=800"
+    ],
+    "description": "Strategic cold storage facility near Port of Long Beach. Excellent for food distribution and pharmaceutical logistics.",
+    "keyFeatures": [
+      "Temperature-controlled zones",
+      "Rail access",
+      "24/7 security",
+      "Backup power systems"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-14" },
+      { "name": "Port Authority Records", "verified": true, "date": "2025-01-08" }
+    ],
+    "risks": ["Proximity to port regulations"],
+    "opportunities": ["E-commerce growth", "Cold chain demand"]
+  },
+  {
+    "id": "prop-003",
+    "title": "Miami Beach Luxury Retail Center",
+    "address": "1200 Ocean Drive, Miami Beach, FL 33139",
+    "type": "Retail",
+    "class": "A",
+    "price": 62000000,
+    "sqft": 85000,
+    "status": "for-sale",
+    "lat": 25.7907,
+    "lng": -80.1300,
+    "yearBuilt": 2020,
+    "occupancy": 96,
+    "trustScore": 91,
+    "lastUpdated": "2025-01-16T09:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
+    ],
+    "description": "High-end retail destination on Ocean Drive. Prime location with luxury brand tenants and strong foot traffic.",
+    "keyFeatures": [
+      "Ocean views",
+      "High-end finishes",
+      "Valet parking",
+      "Restaurant spaces"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" },
+      { "name": "Miami-Dade Property Records", "verified": true, "date": "2025-01-15" },
+      { "name": "Retail Industry Report", "verified": true, "date": "2025-01-10" }
+    ],
+    "risks": ["Hurricane exposure"],
+    "opportunities": ["Tourism recovery", "Luxury market strength"]
+  },
+  {
+    "id": "prop-004",
+    "title": "Denver Tech Campus",
+    "address": "3400 Tech Center Way, Denver, CO 80237",
+    "type": "Office",
+    "class": "A",
+    "price": 38000000,
+    "sqft": 95000,
+    "status": "trending",
+    "lat": 39.6157,
+    "lng": -104.8777,
+    "yearBuilt": 2019,
+    "occupancy": 89,
+    "trustScore": 79,
+    "lastUpdated": "2025-01-13T14:10:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "Modern tech campus in Denver Tech Center. Collaborative spaces and amenities designed for tech companies.",
+    "keyFeatures": [
+      "Open floor plans",
+      "Outdoor workspace",
+      "Fitness center",
+      "Electric vehicle charging"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-13" },
+      { "name": "Denver Post", "verified": false, "date": "2025-01-11" }
+    ],
+    "risks": ["Recent vacancy increase", "Market softening"],
+    "opportunities": ["Tech sector expansion"]
+  },
+  {
+    "id": "prop-005",
+    "title": "Phoenix Distribution Warehouse",
+    "address": "8900 Industrial Parkway, Phoenix, AZ 85043",
+    "type": "Industrial",
+    "class": "A",
+    "price": 19500000,
+    "sqft": 220000,
+    "status": "for-sale",
+    "lat": 33.4152,
+    "lng": -112.0849,
+    "yearBuilt": 2021,
+    "occupancy": 100,
+    "trustScore": 96,
+    "lastUpdated": "2025-01-17T11:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800"
+    ],
+    "description": "State-of-the-art distribution center with excellent highway access. Fully leased to national retailer.",
+    "keyFeatures": [
+      "36' clear height",
+      "Cross-dock capability",
+      "LED lighting",
+      "ESFR sprinkler system"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" },
+      { "name": "Maricopa County Records", "verified": true, "date": "2025-01-16" },
+      { "name": "Supply Chain Quarterly", "verified": true, "date": "2025-01-14" }
+    ],
+    "risks": [],
+    "opportunities": ["Southwest logistics hub", "E-commerce demand"]
+  },
+  {
+    "id": "prop-006",
+    "title": "Manhattan Mixed-Use Development",
+    "address": "450 West 42nd Street, New York, NY 10036",
+    "type": "Mixed-Use",
+    "class": "A",
+    "price": 125000000,
+    "sqft": 280000,
+    "status": "flagged",
+    "lat": 40.7589,
+    "lng": -73.9935,
+    "yearBuilt": 2017,
+    "occupancy": 78,
+    "trustScore": 68,
+    "lastUpdated": "2025-01-12T16:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1529769707791-3d585f6b4def?w=800"
+    ],
+    "description": "Premier mixed-use property in Hudson Yards area. Retail, office, and residential components.",
+    "keyFeatures": [
+      "Hudson Yards proximity",
+      "Luxury finishes",
+      "Retail frontage",
+      "Residential units"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-12" },
+      { "name": "NYC Property Records", "verified": true, "date": "2025-01-09" }
+    ],
+    "risks": ["Zoning dispute pending", "Higher vacancy than expected", "Potential legal issues"],
+    "opportunities": ["Hudson Yards development"]
+  }
+]
