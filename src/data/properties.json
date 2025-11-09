@@ -33,6 +33,564 @@
     "opportunities": ["Growing tech sector", "Limited Class A inventory"]
   },
   {
+    "id": "prop-083",
+    "title": "Boulder Kendall Tech Labs",
+    "address": "1950 Walnut Street, Boulder, CO 80302",
+    "type": "Office",
+    "class": "A",
+    "price": 42000000,
+    "sqft": 140000,
+    "status": "for-sale",
+    "lat": 40.0176,
+    "lng": -105.2797,
+    "yearBuilt": 2019,
+    "occupancy": 90,
+    "trustScore": 89,
+    "lastUpdated": "2025-01-18T14:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1532960401447-7dd02b7d06c1?w=800"
+    ],
+    "description": "Modern R&D office with lab-capable infrastructure in downtown Boulder near the Pearl Street corridor. Enhanced HVAC, upgraded power, and flexible floorplates support software, robotics, and materials research tenants. Lifestyle amenities, mountain access, and proximity to the University of Colorado strengthen talent attraction and retention.",
+    "keyFeatures": [
+      "Lab-ready infrastructure",
+      "Flexible floorplates",
+      "Downtown Boulder location",
+      "Energy-efficient systems"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Regional office headwinds"],
+    "opportunities": ["University adjacency", "Deep tech ecosystem"]
+  },
+  {
+    "id": "prop-084",
+    "title": "Colorado Springs Aerospace Business Park",
+    "address": "985 Space Center Drive, Colorado Springs, CO 80915",
+    "type": "Industrial",
+    "class": "A",
+    "price": 31000000,
+    "sqft": 210000,
+    "status": "for-sale",
+    "lat": 38.8339,
+    "lng": -104.8214,
+    "yearBuilt": 2018,
+    "occupancy": 97,
+    "trustScore": 88,
+    "lastUpdated": "2025-01-18T14:05:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1541976076758-347942db1970?w=800"
+    ],
+    "description": "Institutional industrial with 32' clear height, ESFR protection, and a mix of office/lab suites serving aerospace and defense contractors near Peterson SFB and Schriever SFB. Secure yard, controlled access, and high-power distribution enable mission-critical operations.",
+    "keyFeatures": [
+      "32' clear",
+      "Secure yard",
+      "High power",
+      "Office/lab suites"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Defense budget cycles"],
+    "opportunities": ["Space/defense growth cluster"]
+  },
+  {
+    "id": "prop-085",
+    "title": "Beaverton Tech Ridge Offices",
+    "address": "14520 SW Millikan Way, Beaverton, OR 97005",
+    "type": "Office",
+    "class": "A",
+    "price": 36000000,
+    "sqft": 130000,
+    "status": "for-sale",
+    "lat": 45.4909,
+    "lng": -122.8010,
+    "yearBuilt": 2017,
+    "occupancy": 91,
+    "trustScore": 87,
+    "lastUpdated": "2025-01-18T14:10:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1496302662116-85c24c76ac61?w=800"
+    ],
+    "description": "Suburban Class A office near major footwear and semiconductor campuses in Portland’s westside tech corridor. Open-plan floors, collaboration lounges, and transit access via MAX light rail support a diverse tenant mix from product design to software engineering.",
+    "keyFeatures": [
+      "Transit-accessible",
+      "Open-plan floors",
+      "Collaboration lounges",
+      "Westside tech corridor"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Hybrid work impacts"],
+    "opportunities": ["Flight-to-quality demand"]
+  },
+  {
+    "id": "prop-086",
+    "title": "Eugene University Research Annex",
+    "address": "721 East 11th Avenue, Eugene, OR 97401",
+    "type": "Office",
+    "class": "B",
+    "price": 21000000,
+    "sqft": 95000,
+    "status": "for-sale",
+    "lat": 44.0521,
+    "lng": -123.0868,
+    "yearBuilt": 2012,
+    "occupancy": 92,
+    "trustScore": 82,
+    "lastUpdated": "2025-01-18T14:15:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1529694157871-0e7dc01b0f2a?w=800"
+    ],
+    "description": "Flexible R&D and office space adjacent to the University of Oregon serving education technology and sustainable materials startups. Efficient plates, maker spaces, and bike-friendly access align with university-driven innovation and workforce preferences.",
+    "keyFeatures": [
+      "University adjacency",
+      "Maker spaces",
+      "Efficient plates",
+      "Bike-friendly access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Small market absorption"],
+    "opportunities": ["Academic partnerships"]
+  },
+  {
+    "id": "prop-087",
+    "title": "Savannah Portside Logistics",
+    "address": "1100 Telfair Road, Savannah, GA 31415",
+    "type": "Industrial",
+    "class": "A",
+    "price": 52000000,
+    "sqft": 340000,
+    "status": "for-sale",
+    "lat": 32.0809,
+    "lng": -81.0912,
+    "yearBuilt": 2020,
+    "occupancy": 99,
+    "trustScore": 92,
+    "lastUpdated": "2025-01-18T14:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800"
+    ],
+    "description": "Class A distribution with 40' clear height, ESFR, and deep truck courts serving the Port of Savannah. Suited for import distribution, furniture, and retail e-commerce with high door counts and abundant trailer parking.",
+    "keyFeatures": [
+      "40' clear",
+      "Deep truck courts",
+      "High door count",
+      "Trailer parking"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Port congestion risk"],
+    "opportunities": ["Southeast population growth"]
+  },
+  {
+    "id": "prop-088",
+    "title": "Augusta Medical Commons",
+    "address": "1120 Broad Street, Augusta, GA 30901",
+    "type": "Office",
+    "class": "B",
+    "price": 18500000,
+    "sqft": 88000,
+    "status": "for-sale",
+    "lat": 33.4742,
+    "lng": -81.9748,
+    "yearBuilt": 2011,
+    "occupancy": 93,
+    "trustScore": 83,
+    "lastUpdated": "2025-01-18T14:25:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800"
+    ],
+    "description": "Medical office serving clinics and outpatient specialists with efficient clinical layouts and covered access. Tenant mix supported by proximity to major hospitals, the medical college, and Fort Eisenhower population.",
+    "keyFeatures": [
+      "Clinical layouts",
+      "Covered access",
+      "Hospital proximity",
+      "Downtown corridor"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Healthcare policy shifts"],
+    "opportunities": ["Outpatient growth"]
+  },
+  {
+    "id": "prop-089",
+    "title": "Cambridge Kendall Life Sciences Tower",
+    "address": "300 Binney Street, Cambridge, MA 02142",
+    "type": "Office",
+    "class": "A",
+    "price": 165000000,
+    "sqft": 260000,
+    "status": "for-sale",
+    "lat": 42.3662,
+    "lng": -71.0892,
+    "yearBuilt": 2021,
+    "occupancy": 92,
+    "trustScore": 95,
+    "lastUpdated": "2025-01-18T14:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1581091012184-7c54c1a6f39b?w=800"
+    ],
+    "description": "Kendall Square high-rise with wet labs, clean rooms, and robust MEP systems tailored to top-tier life sciences tenants. Direct access to MIT, venture ecosystems, and Red Line transit underpins premium rents and low structural vacancy.",
+    "keyFeatures": [
+      "Wet labs & clean rooms",
+      "Robust MEP",
+      "MIT adjacency",
+      "Transit access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Capex intensity"],
+    "opportunities": ["Biotech funding tailwinds"]
+  },
+  {
+    "id": "prop-090",
+    "title": "Worcester BioManufacturing Center",
+    "address": "55 Lake Avenue North, Worcester, MA 01655",
+    "type": "Industrial",
+    "class": "A",
+    "price": 74000000,
+    "sqft": 200000,
+    "status": "for-sale",
+    "lat": 42.2626,
+    "lng": -71.8023,
+    "yearBuilt": 2020,
+    "occupancy": 94,
+    "trustScore": 92,
+    "lastUpdated": "2025-01-18T14:35:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1556761175-129418cb2dfe?w=800"
+    ],
+    "description": "Advanced biomanufacturing facility with GMP suites, redundant utilities, and specialized ventilation. Anchored by contract development and manufacturing organizations serving the greater Boston biotech cluster.",
+    "keyFeatures": [
+      "GMP suites",
+      "Redundant utilities",
+      "Specialized ventilation",
+      "Biotech cluster access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Specialized backfill"],
+    "opportunities": ["CDMO demand growth"]
+  },
+  {
+    "id": "prop-091",
+    "title": "Madison Research Park Offices",
+    "address": "510 Science Drive, Madison, WI 53711",
+    "type": "Office",
+    "class": "A",
+    "price": 30000000,
+    "sqft": 120000,
+    "status": "for-sale",
+    "lat": 43.0731,
+    "lng": -89.4012,
+    "yearBuilt": 2016,
+    "occupancy": 92,
+    "trustScore": 87,
+    "lastUpdated": "2025-01-18T14:40:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=800"
+    ],
+    "description": "Research & office building near the University of Wisconsin with lab-capable zones and collaborative amenities. Tenant demand driven by health tech, bioinformatics, and university spinouts.",
+    "keyFeatures": [
+      "Lab-capable zones",
+      "Collaboration areas",
+      "University proximity",
+      "Efficient cores"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["University dependency"],
+    "opportunities": ["Health-tech growth"]
+  },
+  {
+    "id": "prop-092",
+    "title": "Green Bay Regional Distribution",
+    "address": "1400 Marine Street, Green Bay, WI 54301",
+    "type": "Industrial",
+    "class": "A",
+    "price": 26000000,
+    "sqft": 200000,
+    "status": "for-sale",
+    "lat": 44.5133,
+    "lng": -88.0133,
+    "yearBuilt": 2017,
+    "occupancy": 98,
+    "trustScore": 86,
+    "lastUpdated": "2025-01-18T14:45:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800"
+    ],
+    "description": "Rear-load, ESFR-protected warehouse with 32' clear height serving food distribution, paper, and consumer goods. Interstate proximity and strong logistics labor support sustained performance.",
+    "keyFeatures": [
+      "32' clear",
+      "Rear-load",
+      "ESFR",
+      "Interstate access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Single-market exposure"],
+    "opportunities": ["Upper Midwest distribution"]
+  },
+  {
+    "id": "prop-093",
+    "title": "Lincoln Innovation Offices",
+    "address": "202 P Street, Lincoln, NE 68508",
+    "type": "Office",
+    "class": "A",
+    "price": 22000000,
+    "sqft": 100000,
+    "status": "for-sale",
+    "lat": 40.8136,
+    "lng": -96.7026,
+    "yearBuilt": 2016,
+    "occupancy": 93,
+    "trustScore": 84,
+    "lastUpdated": "2025-01-18T14:50:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "Downtown office with flexible suites targeting ag-tech, fintech, and professional services. Walkable to Husker Hub and Haymarket, with modern amenity spaces for collaboration and events.",
+    "keyFeatures": [
+      "Flexible suites",
+      "Amenity spaces",
+      "Downtown location",
+      "University access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Regional demand depth"],
+    "opportunities": ["Ag-tech ecosystem"]
+  },
+  {
+    "id": "prop-094",
+    "title": "Lexington Bluegrass Logistics",
+    "address": "1500 Mercer Road, Lexington, KY 40511",
+    "type": "Industrial",
+    "class": "A",
+    "price": 24000000,
+    "sqft": 190000,
+    "status": "for-sale",
+    "lat": 38.0406,
+    "lng": -84.5037,
+    "yearBuilt": 2018,
+    "occupancy": 97,
+    "trustScore": 85,
+    "lastUpdated": "2025-01-18T14:55:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800"
+    ],
+    "description": "Cross-dock logistics with 32' clear height and ESFR protection serving Central Kentucky manufacturing and equine industries. Quick access to I-64/I-75 supports multi-state distribution.",
+    "keyFeatures": [
+      "Cross-dock",
+      "32' clear",
+      "ESFR",
+      "I-64/I-75 access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Tenant rollover"],
+    "opportunities": ["Manufacturing logistics growth"]
+  },
+  {
+    "id": "prop-095",
+    "title": "Coeur d’Alene Waterfront Office",
+    "address": "201 North 1st Street, Coeur d'Alene, ID 83814",
+    "type": "Office",
+    "class": "A",
+    "price": 25000000,
+    "sqft": 95000,
+    "status": "for-sale",
+    "lat": 47.6777,
+    "lng": -116.7805,
+    "yearBuilt": 2017,
+    "occupancy": 90,
+    "trustScore": 84,
+    "lastUpdated": "2025-01-18T15:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800"
+    ],
+    "description": "Lakefront office with boutique tenants in financial services, real estate, and hospitality. Outdoor terraces, modern lobbies, and walkable downtown access support premium tenancy.",
+    "keyFeatures": [
+      "Lakefront terraces",
+      "Modern lobbies",
+      "Boutique tenancy",
+      "Downtown access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Small market size"],
+    "opportunities": ["Lifestyle-driven tenancy"]
+  },
+  {
+    "id": "prop-096",
+    "title": "Rockville Biotech Plaza",
+    "address": "9601 Blackwell Road, Rockville, MD 20850",
+    "type": "Office",
+    "class": "A",
+    "price": 82000000,
+    "sqft": 230000,
+    "status": "for-sale",
+    "lat": 39.0839,
+    "lng": -77.1528,
+    "yearBuilt": 2020,
+    "occupancy": 91,
+    "trustScore": 93,
+    "lastUpdated": "2025-01-18T15:05:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1581091870622-2c0b1d062dc1?w=800"
+    ],
+    "description": "Life-sciences campus with wet labs, GMP-ready suites, and vivarium-capable areas in the I-270 biotech corridor. Anchored by established pharma and diagnostics tenants with strong funding support.",
+    "keyFeatures": [
+      "Wet labs",
+      "GMP-ready suites",
+      "Vivarium-capable",
+      "I-270 corridor"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Capex demands"],
+    "opportunities": ["Pharma cluster growth"]
+  },
+  {
+    "id": "prop-097",
+    "title": "Tysons Corner Transit Office",
+    "address": "7900 Tysons One Place, McLean, VA 22102",
+    "type": "Office",
+    "class": "A",
+    "price": 88000000,
+    "sqft": 250000,
+    "status": "for-sale",
+    "lat": 38.9187,
+    "lng": -77.2311,
+    "yearBuilt": 2019,
+    "occupancy": 88,
+    "trustScore": 90,
+    "lastUpdated": "2025-01-18T15:10:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1496302662116-85c24c76ac61?w=800"
+    ],
+    "description": "Transit-served Class A office at Tysons with Silver Line access, premium amenities, and efficient plates appealing to technology, consulting, and federal contractors. Retail integration and residential density support a 24/7 environment.",
+    "keyFeatures": [
+      "Silver Line transit",
+      "Premium amenities",
+      "Efficient plates",
+      "Retail integration"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Office market normalization"],
+    "opportunities": ["Flight-to-quality"]
+  },
+  {
+    "id": "prop-098",
+    "title": "Cedar Rapids Logistics Center",
+    "address": "920 50th Avenue SW, Cedar Rapids, IA 52404",
+    "type": "Industrial",
+    "class": "A",
+    "price": 21500000,
+    "sqft": 175000,
+    "status": "for-sale",
+    "lat": 41.9779,
+    "lng": -91.6656,
+    "yearBuilt": 2016,
+    "occupancy": 98,
+    "trustScore": 86,
+    "lastUpdated": "2025-01-18T15:15:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800"
+    ],
+    "description": "Interstate-served logistics facility with 32' clear height, ESFR, and multiple dock positions supporting agribusiness and consumer goods distribution across the Upper Midwest.",
+    "keyFeatures": [
+      "32' clear",
+      "ESFR",
+      "Interstate access",
+      "Multi-dock loading"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Limited local backfill"],
+    "opportunities": ["Regional consolidation"]
+  },
+  {
+    "id": "prop-099",
+    "title": "Warwick Airport Logistics",
+    "address": "2000 Post Road, Warwick, RI 02886",
+    "type": "Industrial",
+    "class": "B",
+    "price": 17500000,
+    "sqft": 140000,
+    "status": "for-sale",
+    "lat": 41.7001,
+    "lng": -71.4162,
+    "yearBuilt": 2012,
+    "occupancy": 94,
+    "trustScore": 82,
+    "lastUpdated": "2025-01-18T15:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1541976076758-347942db1970?w=800"
+    ],
+    "description": "Airport-adjacent logistics property serving last-mile and air cargo users for the Providence metro. Flexible loading, improved lighting, and quick access to I-95 bolster operations.",
+    "keyFeatures": [
+      "Airport adjacency",
+      "Flexible loading",
+      "I-95 access",
+      "Improved lighting"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Older building specs"],
+    "opportunities": ["Air cargo growth"]
+  },
+  {
+    "id": "prop-100",
+    "title": "Baton Rouge Petro-Chem Services Park",
+    "address": "7000 Industriplex Boulevard, Baton Rouge, LA 70809",
+    "type": "Industrial",
+    "class": "B",
+    "price": 23000000,
+    "sqft": 180000,
+    "status": "for-sale",
+    "lat": 30.4515,
+    "lng": -91.1871,
+    "yearBuilt": 2014,
+    "occupancy": 96,
+    "trustScore": 84,
+    "lastUpdated": "2025-01-18T15:25:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1581093458791-9d1b1d6ae2bc?w=800"
+    ],
+    "description": "Industrial service park catering to petrochemical contractors and logistics providers. Drive-in and dock-high mix, yard storage, and reinforced slabs support equipment-heavy operations near major plants and I-10.",
+    "keyFeatures": [
+      "Drive-in & dock-high",
+      "Yard storage",
+      "Reinforced slabs",
+      "I-10 proximity"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Sector cyclicality"],
+    "opportunities": ["Industrial services demand"]
+  },
+  {
     "id": "prop-002",
     "title": "Port of Long Beach Cold Storage Facility",
     "address": "5500 Harbor Drive, Long Beach, CA 90802",
@@ -1449,5 +2007,1121 @@
     ],
     "risks": ["Gaming competition", "Market saturation"],
     "opportunities": ["Convention business", "Tourism"]
+  },
+  {
+    "id": "prop-047",
+    "title": "Birmingham Financial Center",
+    "address": "1901 6th Avenue North, Birmingham, AL 35203",
+    "type": "Office",
+    "class": "A",
+    "price": 32000000,
+    "sqft": 120000,
+    "status": "for-sale",
+    "lat": 33.5207,
+    "lng": -86.8025,
+    "yearBuilt": 2016,
+    "occupancy": 92,
+    "trustScore": 88,
+    "lastUpdated": "2025-01-18T10:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1521540216272-a50305cd4421?w=800"
+    ],
+    "description": "Class A office tower in Birmingham’s Central Business District serving regional banking, insurance, and professional services tenants. The building offers efficient floor plates, a renovated lobby with concierge services, and tenant amenities including a fitness room and conferencing center. Proximity to major highways and the University of Alabama at Birmingham enhances access to talent and clients. Strong mid-market demand and sustained urban revitalization support continued leasing momentum.",
+    "keyFeatures": [
+      "CBD location",
+      "Conference center",
+      "Fitness facility",
+      "Structured parking"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Regional banking exposure"],
+    "opportunities": ["Downtown revitalization", "Growing healthcare ecosystem"]
+  },
+  {
+    "id": "prop-048",
+    "title": "Huntsville Advanced Logistics Park",
+    "address": "4800 Research Park Boulevard NW, Huntsville, AL 35805",
+    "type": "Industrial",
+    "class": "A",
+    "price": 28000000,
+    "sqft": 210000,
+    "status": "for-sale",
+    "lat": 34.7304,
+    "lng": -86.5861,
+    "yearBuilt": 2020,
+    "occupancy": 100,
+    "trustScore": 91,
+    "lastUpdated": "2025-01-18T10:40:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800"
+    ],
+    "description": "Modern distribution facility within the Huntsville technology and research corridor. 36' clear height, cross-dock configuration, ESFR sprinklers, and abundant trailer parking enable high-throughput operations. Tenancy includes aerospace and defense-related logistics linked to Redstone Arsenal and NASA Marshall. The region’s expanding tech workforce and I-565 connectivity support continued industrial demand.",
+    "keyFeatures": [
+      "36' clear height",
+      "Cross-dock",
+      "ESFR sprinkler",
+      "Trailer parking"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Single-tenant rollover"],
+    "opportunities": ["Defense supply chain growth", "Near-shoring trends"]
+  },
+  {
+    "id": "prop-049",
+    "title": "Anchorage Waterfront Mixed-Use",
+    "address": "545 West 2nd Avenue, Anchorage, AK 99501",
+    "type": "Mixed-Use",
+    "class": "B",
+    "price": 24000000,
+    "sqft": 85000,
+    "status": "for-sale",
+    "lat": 61.2181,
+    "lng": -149.9003,
+    "yearBuilt": 2012,
+    "occupancy": 87,
+    "trustScore": 82,
+    "lastUpdated": "2025-01-18T10:50:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1508261400542-18f0e710a34e?w=800"
+    ],
+    "description": "Waterfront property in downtown Anchorage featuring ground-floor retail, boutique offices, and short-stay residential units catering to seasonal tourism and energy sector demand. The asset benefits from views of Cook Inlet, pedestrian access to downtown amenities, and proximity to the Port of Alaska. Diversified income streams help mitigate seasonal variability.",
+    "keyFeatures": [
+      "Waterfront location",
+      "Mixed tenancy",
+      "Tourism exposure",
+      "Proximity to port"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Seasonality of demand", "Weather-related operations"],
+    "opportunities": ["Tourism rebound", "Port-driven commerce"]
+  },
+  {
+    "id": "prop-050",
+    "title": "Fairbanks Industrial Service Hub",
+    "address": "3750 Airport Way, Fairbanks, AK 99709",
+    "type": "Industrial",
+    "class": "B",
+    "price": 14500000,
+    "sqft": 140000,
+    "status": "for-sale",
+    "lat": 64.8378,
+    "lng": -147.7164,
+    "yearBuilt": 2010,
+    "occupancy": 93,
+    "trustScore": 80,
+    "lastUpdated": "2025-01-18T11:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=800"
+    ],
+    "description": "Service-oriented industrial campus supporting northern Alaska logistics, equipment maintenance, and cold-weather storage. Drive-in bays, heavy power, and reinforced flooring accommodate fleet and energy-services users. Access to the airport corridor enables reliable movement of goods in challenging climates.",
+    "keyFeatures": [
+      "Heavy power",
+      "Drive-in bays",
+      "Reinforced slab",
+      "Airport corridor"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Harsh climate costs"],
+    "opportunities": ["Energy services demand", "Infrastructure investment"]
+  },
+  {
+    "id": "prop-051",
+    "title": "Little Rock River Market Retail",
+    "address": "200 River Market Avenue, Little Rock, AR 72201",
+    "type": "Retail",
+    "class": "B",
+    "price": 17000000,
+    "sqft": 90000,
+    "status": "for-sale",
+    "lat": 34.7465,
+    "lng": -92.2896,
+    "yearBuilt": 2014,
+    "occupancy": 90,
+    "trustScore": 83,
+    "lastUpdated": "2025-01-18T11:10:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
+    ],
+    "description": "Urban retail center in Little Rock’s River Market district anchored by grocery and fitness, supported by restaurant and boutique tenants. Walkable setting, structured parking, and nearby residential density drive daily-needs traffic. Market fundamentals reflect steady population growth and improving downtown amenities.",
+    "keyFeatures": [
+      "River Market location",
+      "Anchor tenancy",
+      "Structured parking",
+      "Restaurant mix"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Competition from e-commerce"],
+    "opportunities": ["Neighborhood growth", "Experiential retail"]
+  },
+  {
+    "id": "prop-052",
+    "title": "Bentonville Corporate Office Campus",
+    "address": "2400 SE J Street, Bentonville, AR 72712",
+    "type": "Office",
+    "class": "A",
+    "price": 36000000,
+    "sqft": 130000,
+    "status": "for-sale",
+    "lat": 36.3729,
+    "lng": -94.2088,
+    "yearBuilt": 2018,
+    "occupancy": 94,
+    "trustScore": 90,
+    "lastUpdated": "2025-01-18T11:15:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "Modern office campus proximate to corporate headquarters and vendor ecosystem in Northwest Arkansas. Flexible floorplates, collaborative spaces, and wellness amenities appeal to blue-chip and tech-forward tenants. The region benefits from strong corporate presence, growing in-migration, and improving transportation infrastructure.",
+    "keyFeatures": [
+      "Collaborative layouts",
+      "Wellness amenities",
+      "High parking ratio",
+      "Corporate adjacency"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Corporate concentration risk"],
+    "opportunities": ["Vendor ecosystem growth", "Talent attraction"]
+  },
+  {
+    "id": "prop-053",
+    "title": "Stamford Metro Center Office Tower",
+    "address": "1 Station Place, Stamford, CT 06902",
+    "type": "Office",
+    "class": "A",
+    "price": 54000000,
+    "sqft": 180000,
+    "status": "for-sale",
+    "lat": 41.0534,
+    "lng": -73.5387,
+    "yearBuilt": 2019,
+    "occupancy": 89,
+    "trustScore": 92,
+    "lastUpdated": "2025-01-18T11:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Transit-oriented, Class A office at Stamford Transportation Center offering direct rail access to New York City. Amenity-rich environment, efficient cores, and divisible floorplates serve finance, media, and professional tenants. The Stamford market benefits from a diversified economy and access to tri-state talent.",
+    "keyFeatures": [
+      "Transit-oriented",
+      "Efficient cores",
+      "Amenity-rich",
+      "Divisible floors"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Regional office headwinds"],
+    "opportunities": ["NYC adjacency", "Flight-to-quality"]
+  },
+  {
+    "id": "prop-054",
+    "title": "New Haven Biotech Innovation Labs",
+    "address": "100 College Street, New Haven, CT 06510",
+    "type": "Office",
+    "class": "A",
+    "price": 62000000,
+    "sqft": 165000,
+    "status": "for-sale",
+    "lat": 41.3083,
+    "lng": -72.9279,
+    "yearBuilt": 2021,
+    "occupancy": 92,
+    "trustScore": 93,
+    "lastUpdated": "2025-01-18T11:25:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1581091012184-7c54c1a6f39b?w=800"
+    ],
+    "description": "State-of-the-art wet lab and office space anchored by life sciences tenants adjacent to Yale University. Lab-ready floors with enhanced MEP, backup power, and specialized ventilation. Ecosystem strengths include academic partnerships, NIH funding, and a growing biotech workforce.",
+    "keyFeatures": [
+      "Lab-ready floors",
+      "Enhanced MEP",
+      "Backup power",
+      "University adjacency"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Specialized backfill risk"],
+    "opportunities": ["University partnership", "Venture-backed growth"]
+  },
+  {
+    "id": "prop-055",
+    "title": "Wilmington Financial District Office",
+    "address": "1100 North Market Street, Wilmington, DE 19801",
+    "type": "Office",
+    "class": "A",
+    "price": 27000000,
+    "sqft": 110000,
+    "status": "for-sale",
+    "lat": 39.7447,
+    "lng": -75.5484,
+    "yearBuilt": 2015,
+    "occupancy": 90,
+    "trustScore": 87,
+    "lastUpdated": "2025-01-18T11:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Core office in Wilmington’s financial and legal district with bank-grade finishes and on-site conferencing. Beneficiary of the corporate-friendly legal environment and concentration of trust, insurance, and legal services. Strong commuter access from Philadelphia suburbs bolsters the tenant base.",
+    "keyFeatures": [
+      "Financial district",
+      "Conference facilities",
+      "Bank-grade finishes",
+      "Commuter access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Regional office dynamics"],
+    "opportunities": ["Corporate domicile strength", "Professional clustering"]
+  },
+  {
+    "id": "prop-056",
+    "title": "Newark Christiana Logistics Center",
+    "address": "1000 Center Boulevard, Newark, DE 19702",
+    "type": "Industrial",
+    "class": "A",
+    "price": 25500000,
+    "sqft": 190000,
+    "status": "for-sale",
+    "lat": 39.6837,
+    "lng": -75.7497,
+    "yearBuilt": 2019,
+    "occupancy": 100,
+    "trustScore": 90,
+    "lastUpdated": "2025-01-18T11:35:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1581093458791-9d1b1d6ae2bc?w=800"
+    ],
+    "description": "Institutional-grade distribution facility serving the I-95 corridor between Philadelphia and Baltimore. 40' clear height, ample dock doors, and ESFR sprinklers enable e-commerce and regional distribution. Strong labor access and immediate interstate proximity drive performance.",
+    "keyFeatures": [
+      "40' clear height",
+      "ESFR sprinkler",
+      "I-95 proximity",
+      "Dock high loading"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Tight yard configuration"],
+    "opportunities": ["E-commerce growth", "Northeast distribution"]
+  },
+  {
+    "id": "prop-057",
+    "title": "Honolulu Ala Moana Mixed-Use",
+    "address": "1450 Ala Moana Boulevard, Honolulu, HI 96814",
+    "type": "Mixed-Use",
+    "class": "A",
+    "price": 78000000,
+    "sqft": 160000,
+    "status": "for-sale",
+    "lat": 21.2910,
+    "lng": -157.8447,
+    "yearBuilt": 2018,
+    "occupancy": 92,
+    "trustScore": 89,
+    "lastUpdated": "2025-01-18T11:40:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1542259009477-d625272157b7?w=800"
+    ],
+    "description": "Prime Honolulu mixed-use asset adjacent to Ala Moana with luxury retail, boutique office, and short-stay hospitality units. High tourist footfall, strong luxury spend, and ocean-adjacent location underpin performance. Resilient tenancy comprised of global luxury brands and local experiential operators.",
+    "keyFeatures": [
+      "Prime Honolulu location",
+      "Luxury retail mix",
+      "Hospitality component",
+      "Ocean adjacency"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Tourism cyclicality"],
+    "opportunities": ["Luxury retail strength", "Experiential offerings"]
+  },
+  {
+    "id": "prop-058",
+    "title": "Maui Coastal Resort & Conference",
+    "address": "3550 Wailea Alanui Drive, Wailea, HI 96753",
+    "type": "Hospitality",
+    "class": "A",
+    "price": 115000000,
+    "sqft": 210000,
+    "status": "for-sale",
+    "lat": 20.6890,
+    "lng": -156.4419,
+    "yearBuilt": 2016,
+    "occupancy": 85,
+    "trustScore": 86,
+    "lastUpdated": "2025-01-18T11:45:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1501117716987-c8e8e3f3f6b0?w=800"
+    ],
+    "description": "Luxury coastal resort on Maui’s Wailea coast with conference facilities, spa, and oceanfront dining. Strong ADR and occupancy driven by destination appeal and premium amenities. Property features multiple pools, beachfront access, and curated wellness experiences.",
+    "keyFeatures": [
+      "Oceanfront access",
+      "Conference spaces",
+      "Spa & wellness",
+      "Resort dining"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Weather events", "Tourism variability"],
+    "opportunities": ["Group bookings", "Premium ADR growth"]
+  },
+  {
+    "id": "prop-059",
+    "title": "Portland Old Port Office & Annex",
+    "address": "200 Commercial Street, Portland, ME 04101",
+    "type": "Office",
+    "class": "A",
+    "price": 29000000,
+    "sqft": 105000,
+    "status": "for-sale",
+    "lat": 43.6591,
+    "lng": -70.2568,
+    "yearBuilt": 2017,
+    "occupancy": 93,
+    "trustScore": 88,
+    "lastUpdated": "2025-01-18T12:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1542317853-0a749d68c1ab?w=800"
+    ],
+    "description": "Class A waterfront office in Portland’s Old Port district, featuring efficient floor plates, harbor views, and an amenity-rich environment with walkable dining and boutique retail. Tenant mix includes professional services and technology firms drawn to Portland’s lifestyle appeal and growing talent pipeline. Strong leasing supported by proximity to the Eastern Promenade, the ferry terminal, and regional transit. Sustainable mechanical systems and energy-efficient glazing enhance operating performance.",
+    "keyFeatures": [
+      "Waterfront location",
+      "Harbor views",
+      "Efficient floor plates",
+      "Energy-efficient systems"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Seasonal tourism variability"],
+    "opportunities": ["Tech sector migration", "Quality-of-life tenant attraction"]
+  },
+  {
+    "id": "prop-060",
+    "title": "Bangor Logistics & Cold Storage",
+    "address": "900 Broadway, Bangor, ME 04401",
+    "type": "Industrial",
+    "class": "B",
+    "price": 16500000,
+    "sqft": 150000,
+    "status": "for-sale",
+    "lat": 44.8012,
+    "lng": -68.7778,
+    "yearBuilt": 2013,
+    "occupancy": 95,
+    "trustScore": 82,
+    "lastUpdated": "2025-01-18T12:05:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1541976076758-347942db1970?w=800"
+    ],
+    "description": "Regional logistics facility with cold storage capacity serving Northern New England grocery, seafood, and pharmaceutical distribution. Multiple temperature zones, backup power, and trailer staging support reliable operations in winter conditions. Location provides access to I-95 and the Bangor International Airport cargo corridor.",
+    "keyFeatures": [
+      "Multi-temp cold storage",
+      "Backup power",
+      "I-95 access",
+      "Trailer staging"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Winter operating costs"],
+    "opportunities": ["Cold chain growth", "Regional consolidation"]
+  },
+  {
+    "id": "prop-061",
+    "title": "Detroit Mobility R&D Center",
+    "address": "601 West Fort Street, Detroit, MI 48226",
+    "type": "Office",
+    "class": "A",
+    "price": 56000000,
+    "sqft": 190000,
+    "status": "for-sale",
+    "lat": 42.3314,
+    "lng": -83.0458,
+    "yearBuilt": 2020,
+    "occupancy": 88,
+    "trustScore": 90,
+    "lastUpdated": "2025-01-18T12:10:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=800"
+    ],
+    "description": "State-of-the-art urban R&D office tailored for mobility and autonomous systems. High-capacity power, maker labs, and collaboration zones support engineering workflows. Positioned near the Detroit Riverwalk and core CBD, the property benefits from resurgent downtown amenities and an expanding mobility ecosystem anchored by OEMs and startups.",
+    "keyFeatures": [
+      "High-capacity power",
+      "Maker labs",
+      "Flexible collaboration",
+      "CBD amenities"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Sector cyclicality"],
+    "opportunities": ["EV adoption tailwinds", "University partnerships"]
+  },
+  {
+    "id": "prop-062",
+    "title": "Grand Rapids Regional Distribution",
+    "address": "2200 28th Street SE, Grand Rapids, MI 49508",
+    "type": "Industrial",
+    "class": "A",
+    "price": 30000000,
+    "sqft": 230000,
+    "status": "for-sale",
+    "lat": 42.9634,
+    "lng": -85.6681,
+    "yearBuilt": 2018,
+    "occupancy": 100,
+    "trustScore": 92,
+    "lastUpdated": "2025-01-18T12:15:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800"
+    ],
+    "description": "Modern cross-dock distribution facility serving West Michigan’s consumer and manufacturing base. 36' clear height, ESFR sprinkler, LED lighting, and deep truck courts support efficient throughput. Strong labor pool and interstate connectivity to Chicago and the Midwest enhance performance.",
+    "keyFeatures": [
+      "36' clear height",
+      "Cross-dock",
+      "ESFR sprinkler",
+      "Deep truck courts"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Single-market exposure"],
+    "opportunities": ["Midwest e-commerce", "Manufacturing supply chains"]
+  },
+  {
+    "id": "prop-063",
+    "title": "Jackson Medical Office Pavilion",
+    "address": "210 E Capitol Street, Jackson, MS 39201",
+    "type": "Office",
+    "class": "B",
+    "price": 18000000,
+    "sqft": 98000,
+    "status": "for-sale",
+    "lat": 32.2988,
+    "lng": -90.1848,
+    "yearBuilt": 2011,
+    "occupancy": 91,
+    "trustScore": 82,
+    "lastUpdated": "2025-01-18T12:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800"
+    ],
+    "description": "Medical office building catering to physician groups and outpatient services in Jackson’s downtown medical corridor. Upgraded mechanicals, flexible clinical layouts, and covered patient drop-off improve patient experience. Tenant base benefits from adjacency to hospitals and insurers.",
+    "keyFeatures": [
+      "Clinical layouts",
+      "Upgraded MEP",
+      "Covered drop-off",
+      "Hospital adjacency"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Healthcare reimbursement changes"],
+    "opportunities": ["Outpatient shift", "Regional consolidation"]
+  },
+  {
+    "id": "prop-064",
+    "title": "Gulfport Portside Distribution",
+    "address": "3500 30th Avenue, Gulfport, MS 39501",
+    "type": "Industrial",
+    "class": "A",
+    "price": 22000000,
+    "sqft": 175000,
+    "status": "for-sale",
+    "lat": 30.3674,
+    "lng": -89.0928,
+    "yearBuilt": 2016,
+    "occupancy": 97,
+    "trustScore": 85,
+    "lastUpdated": "2025-01-18T12:25:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=800"
+    ],
+    "description": "Port-proximate distribution center supporting Gulf Coast imports and regional grocery networks. Rear-load configuration, ESFR protection, and refrigerated docks accommodate diversified tenants. Location adjacent to Port of Gulfport and I-10 enables rapid distribution across the Southeast.",
+    "keyFeatures": [
+      "Port adjacency",
+      "Refrigerated docks",
+      "ESFR",
+      "I-10 access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Storm exposure"],
+    "opportunities": ["Port growth", "Cold chain demand"]
+  },
+  {
+    "id": "prop-065",
+    "title": "Bozeman Downtown Mixed-Use",
+    "address": "25 East Main Street, Bozeman, MT 59715",
+    "type": "Mixed-Use",
+    "class": "A",
+    "price": 26000000,
+    "sqft": 88000,
+    "status": "for-sale",
+    "lat": 45.6770,
+    "lng": -111.0429,
+    "yearBuilt": 2019,
+    "occupancy": 90,
+    "trustScore": 86,
+    "lastUpdated": "2025-01-18T12:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800"
+    ],
+    "description": "High-street mixed-use in the heart of Bozeman featuring ground-floor retail, boutique offices, and residential lofts. Outdoor recreation economy, university presence, and in-migration of remote professionals drive demand. Premium finishes and mountain views appeal to lifestyle tenants.",
+    "keyFeatures": [
+      "High-street retail",
+      "Boutique offices",
+      "Residential lofts",
+      "Mountain views"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Seasonality", "Affordability pressures"],
+    "opportunities": ["Remote worker influx", "Tourism"]
+  },
+  {
+    "id": "prop-066",
+    "title": "Billings Industrial Park",
+    "address": "5000 Southgate Drive, Billings, MT 59101",
+    "type": "Industrial",
+    "class": "B",
+    "price": 18500000,
+    "sqft": 160000,
+    "status": "for-sale",
+    "lat": 45.7833,
+    "lng": -108.5007,
+    "yearBuilt": 2012,
+    "occupancy": 92,
+    "trustScore": 82,
+    "lastUpdated": "2025-01-18T12:35:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1581093458791-9d1b1d6ae2bc?w=800"
+    ],
+    "description": "Multi-tenant industrial park with a mix of distribution and light manufacturing users. Drive-in doors, dock-high loading, and clear heights from 24'–28' support flexible tenancy. Direct access to I-90 facilitates regional distribution across the Northern Rockies.",
+    "keyFeatures": [
+      "Dock & drive-in",
+      "24'-28' clear",
+      "Multi-tenant",
+      "I-90 access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Tenant rollover"],
+    "opportunities": ["Regional distribution growth"]
+  },
+  {
+    "id": "prop-067",
+    "title": "Manchester Tech Office",
+    "address": "1000 Elm Street, Manchester, NH 03101",
+    "type": "Office",
+    "class": "A",
+    "price": 31000000,
+    "sqft": 115000,
+    "status": "for-sale",
+    "lat": 42.9956,
+    "lng": -71.4548,
+    "yearBuilt": 2017,
+    "occupancy": 90,
+    "trustScore": 85,
+    "lastUpdated": "2025-01-18T12:40:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1496302662116-85c24c76ac61?w=800"
+    ],
+    "description": "Class A office in downtown Manchester geared toward technology, healthcare IT, and fintech tenants. Renovated lobby and amenity suite, open floorplates, and fiber connectivity enhance appeal. Location benefits from proximity to Boston and New Hampshire’s business-friendly climate.",
+    "keyFeatures": [
+      "Amenity suite",
+      "Open floorplates",
+      "Fiber connectivity",
+      "Downtown location"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Regional office dynamics"],
+    "opportunities": ["Boston spillover demand", "Lower operating costs"]
+  },
+  {
+    "id": "prop-068",
+    "title": "Portsmouth Waterfront Retail",
+    "address": "10 Pleasant Street, Portsmouth, NH 03801",
+    "type": "Retail",
+    "class": "A",
+    "price": 26000000,
+    "sqft": 78000,
+    "status": "for-sale",
+    "lat": 43.0718,
+    "lng": -70.7626,
+    "yearBuilt": 2016,
+    "occupancy": 94,
+    "trustScore": 87,
+    "lastUpdated": "2025-01-18T12:45:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=800"
+    ],
+    "description": "Destination retail in historic downtown Portsmouth with a mix of chef-driven restaurants and boutique shops. Strong tourist visitation, affluent demographics, and waterfront setting support premium rents and low vacancy. Structured parking nearby improves shopper convenience.",
+    "keyFeatures": [
+      "Historic downtown",
+      "Chef-driven dining",
+      "Boutique retail",
+      "Structured parking nearby"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Seasonal footfall"],
+    "opportunities": ["Experiential retail", "Tourism strength"]
+  },
+  {
+    "id": "prop-069",
+    "title": "Jersey City Waterfront Office Tower",
+    "address": "70 Hudson Street, Jersey City, NJ 07302",
+    "type": "Office",
+    "class": "A",
+    "price": 98000000,
+    "sqft": 240000,
+    "status": "for-sale",
+    "lat": 40.7178,
+    "lng": -74.0431,
+    "yearBuilt": 2019,
+    "occupancy": 87,
+    "trustScore": 91,
+    "lastUpdated": "2025-01-18T12:50:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1529429612779-c8e40ef2f36e?w=800"
+    ],
+    "description": "Hudson River waterfront tower with PATH access to Lower Manhattan. Large, efficient floorplates, river views, and extensive amenity set appeal to finance and technology tenants seeking value relative to NYC. Robust labor access and transit connectivity support long-term demand.",
+    "keyFeatures": [
+      "PATH access",
+      "Large floorplates",
+      "River views",
+      "Amenity rich"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["NYC office headwinds"],
+    "opportunities": ["Cost arbitrage vs NYC", "Talent access"]
+  },
+  {
+    "id": "prop-070",
+    "title": "Princeton Research & Innovation Labs",
+    "address": "1 Research Way, Princeton, NJ 08540",
+    "type": "Office",
+    "class": "A",
+    "price": 72000000,
+    "sqft": 175000,
+    "status": "for-sale",
+    "lat": 40.3573,
+    "lng": -74.6672,
+    "yearBuilt": 2021,
+    "occupancy": 90,
+    "trustScore": 93,
+    "lastUpdated": "2025-01-18T12:55:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1581091870622-2c0b1d062dc1?w=800"
+    ],
+    "description": "Modern life-sciences campus with wet labs and flexible office adjacent to Princeton University. Enhanced utilities, backup power, and vivarium-capable suites support biotech research. Academic partnerships and deep regional pharma cluster provide robust demand drivers.",
+    "keyFeatures": [
+      "Wet labs",
+      "Enhanced utilities",
+      "Backup power",
+      "University adjacency"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Specialized backfill risk"],
+    "opportunities": ["Academic partnership", "Pharma cluster growth"]
+  },
+  {
+    "id": "prop-071",
+    "title": "Fargo Regional Logistics Center",
+    "address": "4201 12th Avenue North, Fargo, ND 58102",
+    "type": "Industrial",
+    "class": "A",
+    "price": 21000000,
+    "sqft": 165000,
+    "status": "for-sale",
+    "lat": 46.8772,
+    "lng": -96.7898,
+    "yearBuilt": 2017,
+    "occupancy": 96,
+    "trustScore": 86,
+    "lastUpdated": "2025-01-18T13:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800"
+    ],
+    "description": "Institutional distribution facility serving the Red River Valley and Upper Midwest. 32' clear height, ESFR, and configurable loading to support multi-tenant demand. Proximity to I-29 and Hector International Airport enhances logistics flexibility.",
+    "keyFeatures": [
+      "32' clear",
+      "ESFR",
+      "Multi-tenant capable",
+      "I-29 access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Small market depth"],
+    "opportunities": ["E-commerce penetration", "Agribusiness logistics"]
+  },
+  {
+    "id": "prop-072",
+    "title": "Bismarck Capitol District Offices",
+    "address": "600 East Boulevard Avenue, Bismarck, ND 58505",
+    "type": "Office",
+    "class": "B",
+    "price": 15000000,
+    "sqft": 82000,
+    "status": "for-sale",
+    "lat": 46.8083,
+    "lng": -100.7837,
+    "yearBuilt": 2010,
+    "occupancy": 92,
+    "trustScore": 81,
+    "lastUpdated": "2025-01-18T13:05:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800"
+    ],
+    "description": "Capitol-area office property serving government agencies, contractors, and professional services. Efficient mid-rise with updated HVAC, on-site parking, and flexible suite sizes. Market stability supported by state government tenancy and healthcare sector.",
+    "keyFeatures": [
+      "Government adjacency",
+      "Updated HVAC",
+      "On-site parking",
+      "Flexible suites"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Limited rent growth"],
+    "opportunities": ["Stable tenancy", "Public sector demand"]
+  },
+  {
+    "id": "prop-073",
+    "title": "Charleston Port Logistics Campus",
+    "address": "1000 Remount Road, North Charleston, SC 29406",
+    "type": "Industrial",
+    "class": "A",
+    "price": 47000000,
+    "sqft": 310000,
+    "status": "for-sale",
+    "lat": 32.7765,
+    "lng": -79.9311,
+    "yearBuilt": 2019,
+    "occupancy": 98,
+    "trustScore": 92,
+    "lastUpdated": "2025-01-18T13:10:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800"
+    ],
+    "description": "Best-in-class logistics campus proximate to the Port of Charleston with 40' clear height, deep truck courts, and high door counts. Supports transloading, furniture, and retail distribution with superior Southeast port connectivity.",
+    "keyFeatures": [
+      "40' clear height",
+      "Deep truck courts",
+      "High door count",
+      "Port connectivity"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Port congestion risk"],
+    "opportunities": ["Southeast population growth", "Near-port distribution"]
+  },
+  {
+    "id": "prop-074",
+    "title": "Greenville Innovation Center",
+    "address": "101 North Main Street, Greenville, SC 29601",
+    "type": "Office",
+    "class": "A",
+    "price": 33000000,
+    "sqft": 125000,
+    "status": "for-sale",
+    "lat": 34.8526,
+    "lng": -82.3940,
+    "yearBuilt": 2018,
+    "occupancy": 91,
+    "trustScore": 88,
+    "lastUpdated": "2025-01-18T13:15:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1526403225792-8fcb9812c2d2?w=800"
+    ],
+    "description": "Downtown Greenville office geared to advanced manufacturing, engineering, and software tenants. Amenity-rich environment, open plan floors, and collaboration spaces support talent attraction. Beneficiary of Upstate SC’s pro-business climate and university pipeline.",
+    "keyFeatures": [
+      "Amenity rich",
+      "Open plan floors",
+      "Collaboration spaces",
+      "Downtown location"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Regional office trends"],
+    "opportunities": ["Manufacturing tech cluster", "Talent migration"]
+  },
+  {
+    "id": "prop-075",
+    "title": "Sioux Falls Cross-Dock Distribution",
+    "address": "4701 North Westport Avenue, Sioux Falls, SD 57107",
+    "type": "Industrial",
+    "class": "A",
+    "price": 23000000,
+    "sqft": 185000,
+    "status": "for-sale",
+    "lat": 43.5446,
+    "lng": -96.7311,
+    "yearBuilt": 2017,
+    "occupancy": 99,
+    "trustScore": 88,
+    "lastUpdated": "2025-01-18T13:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800"
+    ],
+    "description": "Highly functional cross-dock warehouse with 36' clear, ESFR, and LED lighting supporting multi-state distribution across the Upper Midwest. Immediate access to I-29/I-90 interchange provides route flexibility and reduced dray times.",
+    "keyFeatures": [
+      "Cross-dock",
+      "36' clear",
+      "ESFR",
+      "I-29/I-90 access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Limited local tenant depth"],
+    "opportunities": ["Regional consolidation", "E-commerce growth"]
+  },
+  {
+    "id": "prop-076",
+    "title": "Rapid City Canyon Gateway Retail",
+    "address": "1600 Mount Rushmore Road, Rapid City, SD 57701",
+    "type": "Retail",
+    "class": "B",
+    "price": 14000000,
+    "sqft": 88000,
+    "status": "for-sale",
+    "lat": 44.0805,
+    "lng": -103.2310,
+    "yearBuilt": 2012,
+    "occupancy": 92,
+    "trustScore": 80,
+    "lastUpdated": "2025-01-18T13:25:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
+    ],
+    "description": "Community retail center serving Rapid City residents and Black Hills tourism. Anchored by grocer and value retailers with quick-serve dining. Visibility to Mount Rushmore Road and ample parking support steady traffic.",
+    "keyFeatures": [
+      "Grocery anchor",
+      "Tourism draw",
+      "High visibility",
+      "Ample parking"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Tourism seasonality"],
+    "opportunities": ["Experiential tenancy", "Local population growth"]
+  },
+  {
+    "id": "prop-077",
+    "title": "Burlington Lakefront Mixed-Use",
+    "address": "1 Lake Street, Burlington, VT 05401",
+    "type": "Mixed-Use",
+    "class": "A",
+    "price": 31000000,
+    "sqft": 92000,
+    "status": "for-sale",
+    "lat": 44.4759,
+    "lng": -73.2121,
+    "yearBuilt": 2018,
+    "occupancy": 92,
+    "trustScore": 86,
+    "lastUpdated": "2025-01-18T13:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800"
+    ],
+    "description": "Premium lakefront mixed-use property with ground-floor retail, creative offices, and residential lofts near Church Street Marketplace. Outdoor amenities, bike access, and sustainability features align with Burlington’s lifestyle preferences.",
+    "keyFeatures": [
+      "Lakefront location",
+      "Retail + office + lofts",
+      "Sustainability features",
+      "Bike-friendly access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Small market depth"],
+    "opportunities": ["Quality-of-life migration", "Tourism"]
+  },
+  {
+    "id": "prop-078",
+    "title": "Montpelier Civic Offices",
+    "address": "149 State Street, Montpelier, VT 05602",
+    "type": "Office",
+    "class": "B",
+    "price": 12000000,
+    "sqft": 72000,
+    "status": "for-sale",
+    "lat": 44.2601,
+    "lng": -72.5754,
+    "yearBuilt": 2010,
+    "occupancy": 95,
+    "trustScore": 81,
+    "lastUpdated": "2025-01-18T13:35:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1471039497385-b6d6ba609f9a?w=800"
+    ],
+    "description": "Capitol-adjacent office serving state agencies and regional professional tenants. Recent HVAC upgrades, efficient floorplates, and on-site parking. Long-term stability supported by governmental tenancy and university presence in the region.",
+    "keyFeatures": [
+      "Capitol adjacency",
+      "On-site parking",
+      "Efficient plates",
+      "Recent HVAC upgrades"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Limited rent growth"],
+    "opportunities": ["Government stability", "Regional institutions"]
+  },
+  {
+    "id": "prop-079",
+    "title": "Charleston Energy Services Office",
+    "address": "707 Virginia Street East, Charleston, WV 25301",
+    "type": "Office",
+    "class": "B",
+    "price": 13500000,
+    "sqft": 78000,
+    "status": "for-sale",
+    "lat": 38.3498,
+    "lng": -81.6326,
+    "yearBuilt": 2011,
+    "occupancy": 90,
+    "trustScore": 80,
+    "lastUpdated": "2025-01-18T13:40:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800"
+    ],
+    "description": "Downtown office serving energy services, legal, and public sector tenants. Functional plates with shared conference rooms, upgraded life safety, and covered parking. Proximity to the State Capitol and the Kanawha Riverwalk enhances accessibility.",
+    "keyFeatures": [
+      "Shared conference",
+      "Upgraded life safety",
+      "Covered parking",
+      "Downtown location"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Market depth"],
+    "opportunities": ["Public sector stability", "Professional clustering"]
+  },
+  {
+    "id": "prop-080",
+    "title": "Morgantown Medical Office Center",
+    "address": "123 Suncrest Towne Centre Drive, Morgantown, WV 26505",
+    "type": "Office",
+    "class": "A",
+    "price": 22500000,
+    "sqft": 95000,
+    "status": "for-sale",
+    "lat": 39.6295,
+    "lng": -79.9559,
+    "yearBuilt": 2015,
+    "occupancy": 96,
+    "trustScore": 85,
+    "lastUpdated": "2025-01-18T13:45:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800"
+    ],
+    "description": "Medical office property anchored by multi-specialty clinics adjacent to West Virginia University Medicine. Patient-friendly access, flexible clinic buildouts, and strong physician affiliation support long-term tenancy.",
+    "keyFeatures": [
+      "Clinic buildouts",
+      "Campus adjacency",
+      "Patient access",
+      "Stable tenancy"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Reimbursement changes"],
+    "opportunities": ["Academic health growth", "Regional draw"]
+  },
+  {
+    "id": "prop-081",
+    "title": "Cheyenne Distribution Cross-Dock",
+    "address": "4000 West College Drive, Cheyenne, WY 82007",
+    "type": "Industrial",
+    "class": "A",
+    "price": 20500000,
+    "sqft": 170000,
+    "status": "for-sale",
+    "lat": 41.1400,
+    "lng": -104.8202,
+    "yearBuilt": 2016,
+    "occupancy": 98,
+    "trustScore": 86,
+    "lastUpdated": "2025-01-18T13:50:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1576765608610-bfe3b88a39e0?w=800"
+    ],
+    "description": "High-throughput cross-dock facility at the crossroads of I-25 and I-80, supporting Rocky Mountain and Midwest distribution. 32' clear, ESFR, and abundant dock doors enable flexible tenant operations. Strong labor access and business-friendly climate.",
+    "keyFeatures": [
+      "Cross-dock",
+      "32' clear",
+      "ESFR",
+      "I-25/I-80 access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": false, "date": "2025-01-17" }
+    ],
+    "risks": ["Limited local backfill"],
+    "opportunities": ["Regional distribution growth"]
+  },
+  {
+    "id": "prop-082",
+    "title": "Jackson Hole Mountain Resort Lodge",
+    "address": "3395 Cody Lane, Teton Village, WY 83025",
+    "type": "Hospitality",
+    "class": "A",
+    "price": 125000000,
+    "sqft": 220000,
+    "status": "for-sale",
+    "lat": 43.4799,
+    "lng": -110.7624,
+    "yearBuilt": 2018,
+    "occupancy": 82,
+    "trustScore": 87,
+    "lastUpdated": "2025-01-18T13:55:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800"
+    ],
+    "description": "Luxury ski-in/ski-out lodge at Jackson Hole Mountain Resort offering suites, spa, and fine dining. Strong seasonal demand with premium ADRs supported by destination reputation and limited supply. Extensive outdoor programming and concierge services enhance guest experience.",
+    "keyFeatures": [
+      "Ski-in/ski-out",
+      "Luxury suites",
+      "Spa & dining",
+      "Concierge services"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Seasonality", "Weather events"],
+    "opportunities": ["Group events", "Luxury travel demand"]
   }
 ]

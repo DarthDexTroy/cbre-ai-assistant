@@ -9,7 +9,7 @@ import PropertyCard from "@/components/PropertyCard";
 import AIChat from "@/components/AIChat";
 import OnboardingWizard from "@/components/OnboardingWizard";
 import TrustScoreMeter from "@/components/TrustScoreMeter";
-import { buildRichPropertyDescription } from "@/lib/utils";
+import { buildRichPropertyDescription, redistributeStatuses } from "@/lib/utils";
 import type { ChatMessage } from "@/lib/gemini";
 import { cn } from "@/lib/utils";
 import {
@@ -71,9 +71,16 @@ const Index = () => {
     trustMax: "",
   });
 
-  const typeOptions = Array.from(new Set(propertiesData.map((p) => p.type))).sort();
-  const classOptions = Array.from(new Set(propertiesData.map((p) => p.class))).sort();
-  const statusOptions = Array.from(new Set(propertiesData.map((p) => p.status))).sort();
+  const redistributed = redistributeStatuses(propertiesData as any, {
+    ['off-market']: 0.4,
+    ['for-sale']: 0.3,
+    trending: 0.2,
+    flagged: 0.1,
+  }) as any[];
+
+  const typeOptions = Array.from(new Set(redistributed.map((p) => p.type))).sort();
+  const classOptions = Array.from(new Set(redistributed.map((p) => p.class))).sort();
+  const statusOptions = Array.from(new Set(redistributed.map((p) => p.status))).sort();
 
   const activeFiltersCount = (() => {
     let count = 0;
@@ -114,7 +121,7 @@ const Index = () => {
     toast.success("Logged out successfully");
   };
 
-  const filteredProperties = propertiesData.filter((property) => {
+  const filteredProperties = redistributed.filter((property) => {
     const query = searchQuery.toLowerCase();
     return (
       property.title.toLowerCase().includes(query) ||

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, memo } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Layers, ZoomIn, ZoomOut, Locate, Maximize2, Minimize2 } from "lucide-react";
+import { MapPin, ZoomIn, ZoomOut, Locate, Maximize2, Minimize2 } from "lucide-react";
 import { toast } from "sonner";
 
 // Google Maps type declarations
@@ -15,11 +15,17 @@ declare global {
 interface Property {
   id: string;
   title: string;
+  address: string;
   lat: number;
   lng: number;
   status: string;
   trustScore: number;
   price: number;
+  sqft: number;
+  occupancy?: number;
+  images?: string[];
+  keyFeatures?: string[];
+  description?: string;
 }
 
 interface MapViewProps {
@@ -34,10 +40,13 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [mapInstance, setMapInstance] = useState<any>(null);
-  const [showHeatmap, setShowHeatmap] = useState(false);
   const [mapType, setMapType] = useState<'roadmap' | 'satellite'>('roadmap');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const markersRef = useRef<any[]>([]);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const markersMapRef = useRef<Map<string, any>>(new Map());
+  const [showDetails, setShowDetails] = useState(false);
+  const [hideMini, setHideMini] = useState(false);
 
   // Initialize map once
   useEffect(() => {
@@ -95,29 +104,47 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
   // Update markers when properties change, without re-creating the map
   useEffect(() => {
     if (!mapInstance) return;
-    // Clear previous markers
-    markersRef.current.forEach(m => m.setMap(null));
-    markersRef.current = [];
-    // Add new markers
-    properties.forEach(property => {
-      const marker = new window.google.maps.Marker({
-        position: { lat: property.lat, lng: property.lng },
-        map: mapInstance,
-        title: property.title,
-        icon: {
-          path: window.google.maps.SymbolPath.CIRCLE,
-          scale: 8,
-          fillColor: getStatusColor(property.status),
-          fillOpacity: 0.9,
-          strokeColor: '#ffffff',
-          strokeWeight: 2,
-        },
-      });
-      marker.addListener('click', () => {
-        setSelectedProperty(property);
-        onPropertySelect?.(property);
-      });
-      markersRef.current.push(marker);
+    const nextIds = new Set<string>();
+    // Upsert markers
+    properties.forEach((property) => {
+      nextIds.add(property.id);
+      const existing = markersMapRef.current.get(property.id);
+      const icon = {
+        path: window.google.maps.SymbolPath.CIRCLE,
+        scale: 8,
+        fillColor: getStatusColor(property.status),
+        fillOpacity: 0.9,
+        strokeColor: '#ffffff',
+        strokeWeight: 2,
+      };
+      if (existing) {
+        existing.setPosition({ lat: property.lat, lng: property.lng });
+        existing.setTitle(property.title);
+        existing.setIcon(icon);
+      } else {
+        const marker = new window.google.maps.Marker({
+          position: { lat: property.lat, lng: property.lng },
+          map: mapInstance,
+          title: property.title,
+          icon,
+        });
+        marker.addListener('click', () => {
+          setSelectedProperty(property);
+          // Reset panels on new selection
+          if (isFullscreen) setShowDetails(false);
+          setHideMini(false);
+          onPropertySelect?.(property);
+        });
+        markersMapRef.current.set(property.id, marker);
+      }
+    });
+    // Remove outdated markers
+    Array.from(markersMapRef.current.keys()).forEach((id) => {
+      if (!nextIds.has(id)) {
+        const m = markersMapRef.current.get(id);
+        if (m) m.setMap(null);
+        markersMapRef.current.delete(id);
+      }
     });
   }, [mapInstance, properties, onPropertySelect]);
 
@@ -160,11 +187,6 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
     }
   };
 
-  const toggleHeatmap = () => {
-    setShowHeatmap(!showHeatmap);
-    toast.info(`Heatmap ${!showHeatmap ? 'enabled' : 'disabled'}`);
-  };
-
   const setMapTypeRoadmap = () => {
     setMapType('roadmap');
     if (mapInstance) mapInstance.setMapTypeId('roadmap');
@@ -175,18 +197,54 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
     if (mapInstance) mapInstance.setMapTypeId('satellite');
   };
 
-  const toggleFullscreen = () => {
-    setIsFullscreen(v => !v);
-    // Trigger a resize event so Google Maps recalculates layout
-    setTimeout(() => {
-      if (mapInstance) {
-        window.google.maps.event.trigger(mapInstance, "resize");
+  // Keep isFullscreen in sync with the browser Fullscreen API
+  useEffect(() => {
+    const handler = () => {
+      const active = !!document.fullscreenElement;
+      setIsFullscreen(active);
+      setTimeout(() => {
+        if (mapInstance && window.google?.maps?.event) {
+          window.google.maps.event.trigger(mapInstance, "resize");
+        }
+      }, 200);
+    };
+    document.addEventListener("fullscreenchange", handler);
+    return () => document.removeEventListener("fullscreenchange", handler);
+  }, [mapInstance]);
+
+  const requestFs = async (el: HTMLElement) => {
+    const anyEl = el as any;
+    if (el.requestFullscreen) return el.requestFullscreen();
+    if (anyEl.webkitRequestFullscreen) return anyEl.webkitRequestFullscreen();
+    if (anyEl.msRequestFullscreen) return anyEl.msRequestFullscreen();
+  };
+  const exitFs = async () => {
+    const anyDoc = document as any;
+    if (document.exitFullscreen) return document.exitFullscreen();
+    if (anyDoc.webkitExitFullscreen) return anyDoc.webkitExitFullscreen();
+    if (anyDoc.msExitFullscreen) return anyDoc.msExitFullscreen();
+  };
+
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement && wrapperRef.current) {
+        await requestFs(wrapperRef.current);
+      } else {
+        await exitFs();
       }
-    }, 200);
+    } catch (e) {
+      // Fallback to CSS full-window if FS API fails
+      setIsFullscreen(v => !v);
+      setTimeout(() => {
+        if (mapInstance && window.google?.maps?.event) {
+          window.google.maps.event.trigger(mapInstance, "resize");
+        }
+      }, 200);
+    }
   };
 
   return (
-    <div className={`relative w-full h-full ${isFullscreen ? 'fixed inset-0 z-50 bg-background' : ''}`}>
+    <div ref={wrapperRef} className={`relative w-full h-full ${isFullscreen ? 'fixed inset-0 z-50 bg-background' : ''}`}>
       <style>{`
         /* Hide Google bottom-right overlays and default map type controls */
         .gm-style-cc, .gm-style-mtc, .gmnoprint { display: none !important; }
@@ -222,14 +280,6 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
           onClick={handleLocate}
         >
           <Locate className="h-4 w-4" />
-        </Button>
-        <Button
-          variant="secondary"
-          size="icon"
-          className={`glass ${showHeatmap ? 'bg-primary text-primary-foreground' : ''}`}
-          onClick={toggleHeatmap}
-        >
-          <Layers className="h-4 w-4" />
         </Button>
       </div>
 
@@ -285,9 +335,9 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
         </div>
       </Card>
 
-      {/* Selected property mini card */}
-      {selectedProperty && (
-        <Card className="glass absolute bottom-4 right-4 p-4 max-w-sm animate-slide-up">
+      {/* Selected property mini card (fullscreen only) */}
+      {isFullscreen && selectedProperty && !showDetails && !hideMini && (
+        <Card className="glass absolute bottom-4 right-4 p-4 w-[360px] animate-slide-up">
           <div className="flex items-start justify-between mb-2">
             <div className="flex-1">
               <h4 className="font-semibold text-sm mb-1 line-clamp-2">
@@ -305,17 +355,92 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
               ×
             </Button>
           </div>
+          {selectedProperty.images?.[0] && (
+            <img
+              src={selectedProperty.images[0]}
+              alt={selectedProperty.title}
+              className="w-full h-28 object-cover rounded-md mb-2"
+            />
+          )}
           <div className="text-sm font-semibold text-primary">
             ${(selectedProperty.price / 1000000).toFixed(1)}M
           </div>
-          <Button 
-            size="sm" 
+          <div className="text-xs text-muted-foreground mt-1">Status: {selectedProperty.status}</div>
+          <Button
+            size="sm"
             className="w-full mt-3"
-            onClick={() => onPropertySelect?.(selectedProperty)}
+            onClick={() => {
+              setShowDetails(true);
+              setHideMini(true);
+            }}
           >
             View Details
           </Button>
         </Card>
+      )}
+
+      {/* Fullscreen detail overlay (not full-screen) */}
+      {isFullscreen && selectedProperty && showDetails && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center">
+          <Card className="glass w-full max-w-3xl max-h-[85vh] overflow-y-auto p-4 relative">
+            <div className="flex items-start justify-between mb-3">
+              <div>
+                <h3 className="font-semibold text-lg">{selectedProperty.title}</h3>
+                <div className="text-sm text-muted-foreground">{selectedProperty.address}</div>
+              </div>
+              <Button variant="ghost" onClick={() => setShowDetails(false)}>×</Button>
+            </div>
+            {selectedProperty.images?.[0] && (
+              <img
+                src={selectedProperty.images[0]}
+                alt={selectedProperty.title}
+                className="w-full h-60 object-cover rounded-lg mb-4"
+              />
+            )}
+            <div className="grid md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <div className="text-xs text-muted-foreground">Price</div>
+                <div className="text-xl font-semibold text-primary">
+                  ${(selectedProperty.price / 1000000).toFixed(1)}M
+                </div>
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground">Size</div>
+                <div className="text-xl font-semibold">
+                  {selectedProperty.sqft.toLocaleString()} SF
+                </div>
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground">Occupancy</div>
+                <div className="text-xl font-semibold">{selectedProperty.occupancy}%</div>
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground">Trust Score</div>
+                <div className="text-xl font-semibold">{selectedProperty.trustScore}</div>
+              </div>
+            </div>
+            {selectedProperty.description && (
+              <div className="mb-4">
+                <div className="font-semibold mb-1">Description</div>
+                <div className="text-sm text-muted-foreground">{selectedProperty.description}</div>
+              </div>
+            )}
+            {selectedProperty.keyFeatures && (
+              <div className="mb-4">
+                <div className="font-semibold mb-1">Key Features</div>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProperty.keyFeatures.map((f: string, idx: number) => (
+                    <Badge key={idx} variant="outline">{f}</Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setShowDetails(false)}>Close</Button>
+              <Button onClick={() => { setShowDetails(false); /* keep fullscreen view */ }}>OK</Button>
+            </div>
+          </Card>
+        </div>
       )}
     </div>
   );

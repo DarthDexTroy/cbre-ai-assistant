@@ -5,7 +5,6 @@ import TrustScoreMeter from "./TrustScoreMeter";
 import { 
   Building2, 
   MapPin, 
-  DollarSign, 
   Calendar,
   TrendingUp,
   Bookmark,
@@ -153,10 +152,7 @@ const PropertyCard = ({ property, onSelect }: PropertyCardProps) => {
         <div className="grid grid-cols-2 gap-3 pt-2 border-t border-border/50">
           <div>
             <div className="text-xs text-muted-foreground mb-1">Price</div>
-            <div className="font-semibold text-primary flex items-center gap-1">
-              <DollarSign className="h-4 w-4" />
-              {formatPrice(property.price)}
-            </div>
+            <div className="font-semibold text-primary">{formatPrice(property.price)}</div>
           </div>
           <div>
             <div className="text-xs text-muted-foreground mb-1">Size</div>
