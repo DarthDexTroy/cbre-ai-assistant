@@ -24,12 +24,16 @@ export interface PropertyAlert {
   read: boolean;
 }
 
+// Chat
+import type { ChatMessage } from "./gemini";
+
 const STORAGE_KEYS = {
   USER: 'realestate_ai_user',
   SAVED_PROPERTIES: 'realestate_ai_saved_properties',
   ALERTS: 'realestate_ai_alerts',
   COLLECTIONS: 'realestate_ai_collections',
   ONBOARDING_COMPLETED: 'realestate_ai_onboarding',
+  CHAT_HISTORY: 'realestate_ai_chat_history',
 };
 
 // User Management
@@ -141,4 +145,22 @@ export const completeOnboarding = (): void => {
 
 export const resetOnboarding = (): void => {
   localStorage.removeItem(STORAGE_KEYS.ONBOARDING_COMPLETED);
+};
+
+// Chat history
+export const getChatHistory = (): ChatMessage[] => {
+  const raw = localStorage.getItem(STORAGE_KEYS.CHAT_HISTORY);
+  try {
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+};
+
+export const saveChatHistory = (messages: ChatMessage[]): void => {
+  localStorage.setItem(STORAGE_KEYS.CHAT_HISTORY, JSON.stringify(messages));
+};
+
+export const clearChatHistory = (): void => {
+  localStorage.removeItem(STORAGE_KEYS.CHAT_HISTORY);
 };

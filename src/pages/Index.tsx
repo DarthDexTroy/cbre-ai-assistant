@@ -9,6 +9,9 @@ import PropertyCard from "@/components/PropertyCard";
 import AIChat from "@/components/AIChat";
 import OnboardingWizard from "@/components/OnboardingWizard";
 import TrustScoreMeter from "@/components/TrustScoreMeter";
+import { buildRichPropertyDescription } from "@/lib/utils";
+import type { ChatMessage } from "@/lib/gemini";
+import { cn } from "@/lib/utils";
 import {
   Search,
   Menu,
@@ -49,6 +52,43 @@ const Index = () => {
   const [unreadCount, setUnreadCount] = useState(getUnreadAlertCount());
   const [showChat, setShowChat] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [chatHistory, setChatHistory] = useState<ChatMessage[] | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({
+    location: "",
+    types: new Set<string>(),
+    classes: new Set<string>(),
+    statuses: new Set<string>(),
+    priceMin: "",
+    priceMax: "",
+    sqftMin: "",
+    sqftMax: "",
+    yearMin: "",
+    yearMax: "",
+    occMin: "",
+    occMax: "",
+    trustMin: "",
+    trustMax: "",
+  });
+
+  const typeOptions = Array.from(new Set(propertiesData.map((p) => p.type))).sort();
+  const classOptions = Array.from(new Set(propertiesData.map((p) => p.class))).sort();
+  const statusOptions = Array.from(new Set(propertiesData.map((p) => p.status))).sort();
+
+  const activeFiltersCount = (() => {
+    let count = 0;
+    if (filters.location.trim()) count++;
+    count += filters.types.size;
+    count += filters.classes.size;
+    count += filters.statuses.size;
+    const numeric = [
+      filters.priceMin, filters.priceMax, filters.sqftMin, filters.sqftMax,
+      filters.yearMin, filters.yearMax, filters.occMin, filters.occMax,
+      filters.trustMin, filters.trustMax,
+    ].filter(v => String(v).trim() !== "");
+    count += numeric.length;
+    return count;
+  })();
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -81,7 +121,69 @@ const Index = () => {
       property.address.toLowerCase().includes(query) ||
       property.type.toLowerCase().includes(query)
     );
+  }).filter((p) => {
+    // Location (substring of address or title)
+    if (filters.location.trim()) {
+      const q = filters.location.toLowerCase();
+      if (!(p.address.toLowerCase().includes(q) || p.title.toLowerCase().includes(q))) return false;
+    }
+    // Type/Class/Status
+    if (filters.types.size && !filters.types.has(p.type)) return false;
+    if (filters.classes.size && !filters.classes.has(p.class)) return false;
+    if (filters.statuses.size && !filters.statuses.has(p.status)) return false;
+    // Price
+    if (String(filters.priceMin).trim() !== "") {
+      const min = Number(filters.priceMin) || 0;
+      if (p.price < min) return false;
+    }
+    if (String(filters.priceMax).trim() !== "") {
+      const max = Number(filters.priceMax) || 0;
+      if (p.price > max) return false;
+    }
+    // Sqft
+    if (String(filters.sqftMin).trim() !== "") {
+      const min = Number(filters.sqftMin) || 0;
+      if (p.sqft < min) return false;
+    }
+    if (String(filters.sqftMax).trim() !== "") {
+      const max = Number(filters.sqftMax) || 0;
+      if (p.sqft > max) return false;
+    }
+    // Year built
+    if (String(filters.yearMin).trim() !== "") {
+      const min = Number(filters.yearMin) || 0;
+      if ((p.yearBuilt || 0) < min) return false;
+    }
+    if (String(filters.yearMax).trim() !== "") {
+      const max = Number(filters.yearMax) || 0;
+      if ((p.yearBuilt || 0) > max) return false;
+    }
+    // Occupancy
+    if (String(filters.occMin).trim() !== "") {
+      const min = Number(filters.occMin) || 0;
+      if ((p.occupancy || 0) < min) return false;
+    }
+    if (String(filters.occMax).trim() !== "") {
+      const max = Number(filters.occMax) || 0;
+      if ((p.occupancy || 0) > max) return false;
+    }
+    // Trust score
+    if (String(filters.trustMin).trim() !== "") {
+      const min = Number(filters.trustMin) || 0;
+      if ((p.trustScore || 0) < min) return false;
+    }
+    if (String(filters.trustMax).trim() !== "") {
+      const max = Number(filters.trustMax) || 0;
+      if ((p.trustScore || 0) > max) return false;
+    }
+    return true;
   });
+
+  const toggleSetValue = (setObj: Set<string>, val: string) => {
+    const next = new Set(Array.from(setObj));
+    if (next.has(val)) next.delete(val); else next.add(val);
+    return next;
+  };
 
   return (
     <div className="h-screen flex flex-col bg-background">
@@ -169,6 +271,7 @@ const Index = () => {
               variant="ghost"
               size="icon"
               className="absolute right-1 top-1/2 -translate-y-1/2"
+              onClick={() => setShowFilters(true)}
             >
               <Filter className="h-4 w-4" />
             </Button>
@@ -208,11 +311,22 @@ const Index = () => {
 
         {/* Sidebar - Property list */}
         <div className="w-96 border-l border-border/50 glass flex flex-col">
-          <div className="p-4 border-b border-border/50">
-            <h2 className="font-semibold mb-1">Properties</h2>
-            <p className="text-sm text-muted-foreground">
-              {filteredProperties.length} results
-            </p>
+          <div className="p-4 border-b border-border/50 flex items-center justify-between gap-2">
+            <div>
+              <h2 className="font-semibold mb-1">Properties</h2>
+              <p className="text-sm text-muted-foreground">
+                {filteredProperties.length} results
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              {activeFiltersCount > 0 && (
+                <Badge variant="outline" className="text-xs">{activeFiltersCount} filters</Badge>
+              )}
+              <Button variant="outline" size="sm" onClick={() => setShowFilters(true)}>
+                <Filter className="h-4 w-4 mr-2" />
+                Filters
+              </Button>
+            </div>
           </div>
           <ScrollArea className="flex-1">
             <div className="p-4 space-y-4">
@@ -230,7 +344,13 @@ const Index = () => {
         {/* AI Chat - Floating */}
         {showChat && (
           <div className="absolute bottom-4 right-4 w-96 h-[600px] z-20 animate-slide-up">
-            <AIChat />
+            <AIChat 
+              initialMessages={chatHistory || undefined}
+              onClose={(messages) => {
+                setChatHistory(messages); // keep in-memory only; reset on page refresh
+                setShowChat(false);
+              }} 
+            />
           </div>
         )}
       </div>
@@ -282,7 +402,11 @@ const Index = () => {
               {/* Description */}
               <div>
                 <h3 className="font-semibold mb-2">Description</h3>
-                <p className="text-sm text-muted-foreground">{selectedProperty.description}</p>
+                <p className="text-sm text-muted-foreground">
+                  {selectedProperty.description && selectedProperty.description.length > 200
+                    ? selectedProperty.description
+                    : buildRichPropertyDescription(selectedProperty)}
+                </p>
               </div>
 
               {/* Features */}
@@ -348,6 +472,147 @@ const Index = () => {
             <p className="text-xs text-center text-muted-foreground">
               Demo mode - Data stored locally in browser
             </p>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Filters Dialog */}
+      <Dialog open={showFilters} onOpenChange={setShowFilters}>
+        <DialogContent className="glass max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>Filters</DialogTitle>
+            <DialogDescription>Refine properties by attributes and ranges</DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6">
+            {/* Quick toggles */}
+            <div className="grid md:grid-cols-3 gap-4">
+              <div>
+                <div className="text-xs text-muted-foreground mb-2">Location</div>
+                <Input
+                  placeholder="City, state or address..."
+                  value={filters.location}
+                  onChange={(e) => setFilters({ ...filters, location: e.target.value })}
+                />
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground mb-2">Type</div>
+                <div className="flex flex-wrap gap-2">
+                  {typeOptions.map(t => (
+                    <Button
+                      key={t}
+                      variant="outline"
+                      size="sm"
+                      className={cn("text-xs", filters.types.has(t) ? "bg-primary text-primary-foreground border-primary" : "")}
+                      onClick={() => setFilters({ ...filters, types: toggleSetValue(filters.types, t) })}
+                    >
+                      {t}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground mb-2">Class</div>
+                <div className="flex flex-wrap gap-2">
+                  {classOptions.map(c => (
+                    <Button
+                      key={c}
+                      variant="outline"
+                      size="sm"
+                      className={cn("text-xs", filters.classes.has(c) ? "bg-primary text-primary-foreground border-primary" : "")}
+                      onClick={() => setFilters({ ...filters, classes: toggleSetValue(filters.classes, c) })}
+                    >
+                      {c}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Status */}
+            <div>
+              <div className="text-xs text-muted-foreground mb-2">Status</div>
+              <div className="flex flex-wrap gap-2">
+                {statusOptions.map(s => (
+                  <Button
+                    key={s}
+                    variant="outline"
+                    size="sm"
+                    className={cn("text-xs", filters.statuses.has(s) ? "bg-primary text-primary-foreground border-primary" : "")}
+                    onClick={() => setFilters({ ...filters, statuses: toggleSetValue(filters.statuses, s) })}
+                  >
+                    {s}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Ranges */}
+            <div className="grid md:grid-cols-3 gap-4">
+              <div>
+                <div className="text-xs text-muted-foreground mb-2">Price (USD)</div>
+                <div className="flex gap-2">
+                  <Input placeholder="Min" value={filters.priceMin} onChange={(e) => setFilters({ ...filters, priceMin: e.target.value })} />
+                  <Input placeholder="Max" value={filters.priceMax} onChange={(e) => setFilters({ ...filters, priceMax: e.target.value })} />
+                </div>
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground mb-2">Size (SF)</div>
+                <div className="flex gap-2">
+                  <Input placeholder="Min" value={filters.sqftMin} onChange={(e) => setFilters({ ...filters, sqftMin: e.target.value })} />
+                  <Input placeholder="Max" value={filters.sqftMax} onChange={(e) => setFilters({ ...filters, sqftMax: e.target.value })} />
+                </div>
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground mb-2">Year Built</div>
+                <div className="flex gap-2">
+                  <Input placeholder="Min" value={filters.yearMin} onChange={(e) => setFilters({ ...filters, yearMin: e.target.value })} />
+                  <Input placeholder="Max" value={filters.yearMax} onChange={(e) => setFilters({ ...filters, yearMax: e.target.value })} />
+                </div>
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground mb-2">Occupancy (%)</div>
+                <div className="flex gap-2">
+                  <Input placeholder="Min" value={filters.occMin} onChange={(e) => setFilters({ ...filters, occMin: e.target.value })} />
+                  <Input placeholder="Max" value={filters.occMax} onChange={(e) => setFilters({ ...filters, occMax: e.target.value })} />
+                </div>
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground mb-2">Trust Score</div>
+                <div className="flex gap-2">
+                  <Input placeholder="Min" value={filters.trustMin} onChange={(e) => setFilters({ ...filters, trustMin: e.target.value })} />
+                  <Input placeholder="Max" value={filters.trustMax} onChange={(e) => setFilters({ ...filters, trustMax: e.target.value })} />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <Button
+                variant="ghost"
+                onClick={() => setFilters({
+                  location: "",
+                  types: new Set(),
+                  classes: new Set(),
+                  statuses: new Set(),
+                  priceMin: "",
+                  priceMax: "",
+                  sqftMin: "",
+                  sqftMax: "",
+                  yearMin: "",
+                  yearMax: "",
+                  occMin: "",
+                  occMax: "",
+                  trustMin: "",
+                  trustMax: "",
+                })}
+              >
+                Clear Filters
+              </Button>
+              <div className="flex gap-2">
+                <Button variant="outline" onClick={() => setShowFilters(false)}>Cancel</Button>
+                <Button onClick={() => setShowFilters(false)}>Apply</Button>
+              </div>
+            </div>
           </div>
         </DialogContent>
       </Dialog>

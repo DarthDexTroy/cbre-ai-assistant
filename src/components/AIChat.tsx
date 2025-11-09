@@ -11,16 +11,20 @@ import properties from "@/data/properties.json";
 
 interface AIChatProps {
   className?: string;
+  onClose?: (messages: ChatMessage[]) => void;
+  initialMessages?: ChatMessage[];
 }
 
-const AIChat = ({ className }: AIChatProps) => {
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: 'assistant',
-      content: "Hi! I'm your AI real estate assistant powered by Gemini. Ask me anything about properties, market trends, or risks. I'll verify information from multiple sources and provide trust-scored answers.",
-      timestamp: new Date().toISOString(),
-    }
-  ]);
+const AIChat = ({ className, onClose, initialMessages }: AIChatProps) => {
+  const [messages, setMessages] = useState<ChatMessage[]>(
+    initialMessages && initialMessages.length > 0
+      ? initialMessages
+      : [{
+          role: 'assistant',
+          content: "Hi! I'm your AI real estate assistant powered by Gemini. Ask me anything about properties, market trends, or risks. I'll verify information from multiple sources and provide trust-scored answers.",
+          timestamp: new Date().toISOString(),
+        }]
+  );
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [lastResponse, setLastResponse] = useState<AIResponse | null>(null);
@@ -31,6 +35,10 @@ const AIChat = ({ className }: AIChatProps) => {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
+
+  const handleClose = () => {
+    onClose?.(messages);
+  };
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
@@ -46,7 +54,47 @@ const AIChat = ({ className }: AIChatProps) => {
     setIsLoading(true);
 
     try {
-      const response = await queryAI(input, { properties });
+      // Simple heuristic filtering to reduce context and improve relevance
+      const q = userMessage.content.toLowerCase();
+      const stateTokens = [
+        ['texas', 'tx'], ['california', 'ca'], ['new york', 'ny'], ['florida', 'fl'], ['illinois', 'il'],
+        ['washington', 'wa'], ['massachusetts', 'ma'], ['arizona', 'az'], ['colorado', 'co'], ['utah', 'ut'],
+        ['georgia', 'ga'], ['north carolina', 'nc'], ['ohio', 'oh'], ['pennsylvania', 'pa'], ['nevada', 'nv'],
+        ['oregon', 'or'], ['missouri', 'mo'], ['tennessee', 'tn'], ['maryland', 'md'], ['minnesota', 'mn'],
+      ];
+      const matchedStates = stateTokens
+        .filter(([name, abbr]) => q.includes(name) || q.split(/\b/).includes(abbr))
+        .flat();
+
+      const priceMatch = q.match(/\$?\s*([\d,.]+)\s*(m|million|b|billion)?/i);
+      let priceThreshold: number | null = null;
+      if (priceMatch) {
+        const base = parseFloat(priceMatch[1].replace(/,/g, ''));
+        const unit = (priceMatch[2] || '').toLowerCase();
+        priceThreshold = unit === 'b' || unit === 'billion' ? base * 1_000_000_000
+          : unit === 'm' || unit === 'million' ? base * 1_000_000
+          : base;
+      }
+      const isMore = /(more than|over|above|greater than|at least|>=)/i.test(userMessage.content);
+      const isLess = /(less than|under|below|at most|<=)/i.test(userMessage.content);
+
+      let filtered = properties as unknown as Array<any>;
+      if (matchedStates.length) {
+        filtered = filtered.filter((p) => matchedStates.some((t) => (p.address || '').toLowerCase().includes(t)));
+      }
+      if (priceThreshold) {
+        filtered = filtered.filter((p) => {
+          if (typeof p.price !== 'number') return false;
+          if (isMore) return p.price >= priceThreshold!;
+          if (isLess) return p.price <= priceThreshold!;
+          // default: near threshold (+/- 10%)
+          return Math.abs(p.price - priceThreshold!) <= priceThreshold! * 0.1;
+        });
+      }
+      // Limit context size
+      const contextSubset = filtered.slice(0, 50);
+
+      const response = await queryAI(input, { properties: contextSubset });
       
       const assistantMessage: ChatMessage = {
         role: 'assistant',
@@ -59,6 +107,12 @@ const AIChat = ({ className }: AIChatProps) => {
     } catch (error) {
       toast.error("Failed to get AI response. Please check your API configuration.");
       console.error(error);
+      const assistantMessage: ChatMessage = {
+        role: 'assistant',
+        content: "I'm sorry, I couldn't fetch an answer just now. Please verify your API key is set (VITE_GEMINI_API_KEY) and try again.",
+        timestamp: new Date().toISOString(),
+      };
+      setMessages(prev => [...prev, assistantMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -102,9 +156,16 @@ const AIChat = ({ className }: AIChatProps) => {
           <h3 className="font-semibold">AI Assistant</h3>
           <p className="text-xs text-muted-foreground">Powered by Gemini</p>
         </div>
-        <Badge variant="outline" className="text-xs">
-          Real-time
-        </Badge>
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="text-xs">
+            Real-time
+          </Badge>
+          {onClose && (
+            <Button variant="ghost" size="icon" onClick={handleClose} aria-label="Close assistant">
+              ×
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Messages */}
