@@ -766,15 +766,29 @@ const Index = () => {
                   />
                 </div>
                 <div className="max-h-[400px] overflow-y-auto">
-                  {redistributed
-                    .filter(p => {
-                      const matchesSearch = comparisonSearch.toLowerCase() === "" || 
-                        p.title.toLowerCase().includes(comparisonSearch.toLowerCase()) ||
-                        p.address.toLowerCase().includes(comparisonSearch.toLowerCase());
-                      const notSelected = !comparisonProperties.find(cp => cp.id === p.id);
-                      return matchesSearch && notSelected;
-                    })
-                    .map((property) => (
+                  {(() => {
+                    const savedPropertyIds = getSavedProperties().map(sp => sp.propertyId);
+                    const propertiesToShow = comparisonSearch.trim() === ""
+                      ? redistributed.filter(p => savedPropertyIds.includes(p.id) && !comparisonProperties.find(cp => cp.id === p.id))
+                      : redistributed.filter(p => {
+                          const matchesSearch = p.title.toLowerCase().includes(comparisonSearch.toLowerCase()) ||
+                            p.address.toLowerCase().includes(comparisonSearch.toLowerCase());
+                          const notSelected = !comparisonProperties.find(cp => cp.id === p.id);
+                          return matchesSearch && notSelected;
+                        });
+                    
+                    if (propertiesToShow.length === 0) {
+                      return (
+                        <div className="p-8 text-center text-muted-foreground">
+                          {comparisonSearch.trim() === ""
+                            ? "No saved properties. Search to find properties."
+                            : "No properties found"
+                          }
+                        </div>
+                      );
+                    }
+
+                    return propertiesToShow.map((property) => (
                       <Button
                         key={property.id}
                         variant="ghost"
@@ -795,24 +809,19 @@ const Index = () => {
                           <div className="flex-1 min-w-0">
                             <div className="font-semibold text-sm line-clamp-1">{property.title}</div>
                             <div className="text-xs text-muted-foreground line-clamp-1">{property.address}</div>
-                            <div className="text-xs font-semibold text-primary mt-1">
-                              ${(property.price / 1000000).toFixed(1)}M • {property.type} • Class {property.class}
+                            <div className="flex items-center gap-2 mt-1">
+                              <div className="text-xs font-semibold text-primary">
+                                ${(property.price / 1000000).toFixed(1)}M • {property.type} • Class {property.class}
+                              </div>
+                              {savedPropertyIds.includes(property.id) && (
+                                <Badge variant="secondary" className="text-xs">Saved</Badge>
+                              )}
                             </div>
                           </div>
                         </div>
                       </Button>
-                    ))}
-                  {redistributed.filter(p => {
-                    const matchesSearch = comparisonSearch.toLowerCase() === "" || 
-                      p.title.toLowerCase().includes(comparisonSearch.toLowerCase()) ||
-                      p.address.toLowerCase().includes(comparisonSearch.toLowerCase());
-                    const notSelected = !comparisonProperties.find(cp => cp.id === p.id);
-                    return matchesSearch && notSelected;
-                  }).length === 0 && (
-                    <div className="p-8 text-center text-muted-foreground">
-                      No properties found
-                    </div>
-                  )}
+                    ));
+                  })()}
                 </div>
               </PopoverContent>
             </Popover>
@@ -945,7 +954,7 @@ const Index = () => {
                 </div>
                 <div className="max-h-[400px] overflow-y-auto">
                   {(() => {
-                    const savedPropertyIds = getSavedProperties();
+                    const savedPropertyIds = getSavedProperties().map(sp => sp.propertyId);
                     const propertiesToShow = analyticsSearch.trim() === "" 
                       ? redistributed.filter(p => savedPropertyIds.includes(p.id))
                       : redistributed.filter(p => 
