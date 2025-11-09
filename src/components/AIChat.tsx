@@ -200,56 +200,74 @@ const AIChat = ({ className, onClose, initialMessages }: AIChatProps) => {
             </div>
           )}
 
-          {/* Sources card */}
+          {/* Trust & Sources card */}
           {lastResponse && messages[messages.length - 1]?.role === 'assistant' && (
             <Card className="bg-muted/50 p-3 animate-slide-up">
-              <div className="flex items-center gap-2 mb-2">
-                <Badge variant="outline" className="text-xs">
+              <div className="flex items-center gap-2 mb-3">
+                <Badge 
+                  variant="outline" 
+                  className={`text-xs ${
+                    lastResponse.confidence >= 80 ? 'border-green-500 text-green-600' :
+                    lastResponse.confidence >= 60 ? 'border-yellow-500 text-yellow-600' :
+                    'border-red-500 text-red-600'
+                  }`}
+                >
                   Confidence: {lastResponse.confidence}%
                 </Badge>
               </div>
               
-              {lastResponse.trustBreakdown && (
+              {lastResponse.trust_breakdown && (
                 <div className="mb-3 pb-3 border-b border-border/30">
-                  <div className="text-xs font-semibold mb-2">Trust Analysis:</div>
-                  <div className="space-y-1 text-xs">
-                    {lastResponse.trustBreakdown.internal_used && (
-                      <div className="flex items-center gap-1">
-                        <span className="text-primary">✓</span>
-                        <span>CBRE internal data used</span>
+                  <div className="text-xs font-semibold mb-2 flex items-center gap-1">
+                    <span>🔍</span> Trust Analysis
+                  </div>
+                  <div className="space-y-1.5 text-xs">
+                    {lastResponse.trust_breakdown.internal_used && (
+                      <div className="flex items-center gap-1.5 text-primary">
+                        <span>✓</span>
+                        <span>CBRE internal database verified</span>
                       </div>
                     )}
                     <div className="text-muted-foreground">
-                      {lastResponse.trustBreakdown.external_count} external sources verified • 
-                      Data freshness: {lastResponse.trustBreakdown.freshness_days} days
+                      📊 {lastResponse.trust_breakdown.external_count} external sources • 
+                      🕒 {lastResponse.trust_breakdown.freshness_days} days fresh
                     </div>
-                    {lastResponse.trustBreakdown.agreements && (
-                      <div>
-                        <span className="font-medium">Agreements:</span> {lastResponse.trustBreakdown.agreements}
+                    {lastResponse.trust_breakdown.agreements && (
+                      <div className="bg-green-500/10 p-2 rounded">
+                        <span className="font-medium">✓ Agreements:</span> {lastResponse.trust_breakdown.agreements}
                       </div>
                     )}
-                    {lastResponse.trustBreakdown.conflicts && (
-                      <div className="text-warning">
-                        <span className="font-medium">Conflicts:</span> {lastResponse.trustBreakdown.conflicts}
+                    {lastResponse.trust_breakdown.conflicts && (
+                      <div className="bg-yellow-500/10 p-2 rounded">
+                        <span className="font-medium">⚠ Conflicts:</span> {lastResponse.trust_breakdown.conflicts}
                       </div>
                     )}
-                    {lastResponse.trustBreakdown.missing && (
-                      <div className="text-muted-foreground">
-                        <span className="font-medium">Missing:</span> {lastResponse.trustBreakdown.missing}
+                    {lastResponse.trust_breakdown.missing && (
+                      <div className="bg-red-500/10 p-2 rounded">
+                        <span className="font-medium">⚠ Missing:</span> {lastResponse.trust_breakdown.missing}
                       </div>
                     )}
                   </div>
                 </div>
               )}
               
-              <div className="text-xs font-semibold mb-2">Verified Sources:</div>
+              <div className="text-xs font-semibold mb-2 flex items-center gap-1">
+                <span>📚</span> Verified Sources
+              </div>
               <div className="space-y-2">
                 {lastResponse.sources.map((source, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-xs">
+                  <div key={idx} className="flex items-start gap-2 text-xs bg-background/50 p-2 rounded">
                     <ExternalLink className="h-3 w-3 mt-0.5 flex-shrink-0 text-primary" />
                     <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <div className="font-medium">{source.name}</div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <a 
+                          href={source.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="font-medium hover:text-primary transition-colors"
+                        >
+                          {source.name}
+                        </a>
                         {source.type && (
                           <Badge variant="secondary" className="text-[10px] px-1 py-0">
                             {source.type}
@@ -257,11 +275,11 @@ const AIChat = ({ className, onClose, initialMessages }: AIChatProps) => {
                         )}
                       </div>
                       {source.snippet && (
-                        <div className="text-muted-foreground">{source.snippet}</div>
+                        <div className="text-muted-foreground mt-1">{source.snippet}</div>
                       )}
                       {source.published_at && (
-                        <div className="text-muted-foreground/70 text-[10px]">
-                          Published: {new Date(source.published_at).toLocaleDateString()}
+                        <div className="text-muted-foreground/70 text-[10px] mt-1">
+                          📅 {new Date(source.published_at).toLocaleDateString()}
                         </div>
                       )}
                     </div>

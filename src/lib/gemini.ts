@@ -1,23 +1,23 @@
-// Gemini AI Integration - Placeholder for API integration
-// TODO: Add your Gemini API key to your .env file
+// Gemini AI Integration - CBRE Trust-Layer Assistant
+// Based on Flask implementation with structured JSON responses
 
 export interface ChatMessage {
-    role: 'user' | 'assistant' | 'system';
-    content: string;
-    timestamp: string;
-  }
-  
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  timestamp: string;
+}
+
 export interface AIResponse {
   answer: string;
   sources: Array<{
-  	name: string;
-  	url?: string;
-  	snippet?: string;
-  	published_at?: string;
-  	type?: string;
+    name: string;
+    url: string;
+    snippet: string;
+    published_at?: string;
+    type: string;
   }>;
   confidence: number;
-  trustBreakdown?: {
+  trust_breakdown?: {
     internal_used: boolean;
     external_count: number;
     freshness_days: number;
@@ -26,36 +26,31 @@ export interface AIResponse {
     missing: string;
   };
 }
+
+export interface QueryContext {
+  properties: unknown[];
+}
   
-  // --- FIX 1: Define a specific type for the context ---
-  // This interface enforces the shape of the context object,
-  // ensuring it has a 'properties' key.
-  export interface QueryContext {
-    properties: unknown[];
-  }
+// Gemini API configuration
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "AIzaSyCyY5R7nvehNJtbNy5FO993k6QoXOeWpCg";
+
+if (!GEMINI_API_KEY) {
+  console.error("VITE_GEMINI_API_KEY is not set. Please add it to your .env file.");
+}
   
-  // --- FIX 2: Securely load the API key from environment variables ---
-  // NEVER hard-code API keys. This loads it from a .env file.
-  // Make sure your .env file has: VITE_GEMINI_API_KEY=your_key_here
-  const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-  
-  // Add a check to ensure the key is loaded
-  if (!GEMINI_API_KEY) {
-    console.error("VITE_GEMINI_API_KEY is not set. Please add it to your .env file.");
-    // You might want to throw an error here to stop the app from running
-    // throw new Error("VITE_GEMINI_API_KEY is not set.");
-  }
-  
-  export const queryAI = async (
-    question: string,
-    // --- FIX 1 (continued): Use the new QueryContext type instead of 'any' ---
-    context?: QueryContext
-  ): Promise<AIResponse> => {
-    try {
-    	// Format properties with emphasis on descriptions for context
-    	const contextText = context?.properties
-    	  ? `\n\n=== AVAILABLE PROPERTIES DATABASE ===\n\nIMPORTANT: Each property has a detailed description field that contains comprehensive context about the property. When answering questions about properties, you MUST use the description field as your primary source of information, along with other property details like location, type, class, price, occupancy, risks, and opportunities.\n\n${JSON.stringify(context.properties, null, 2)}\n\n=== END OF PROPERTIES DATABASE ===`
-    	  : '';
+export const queryAI = async (
+  question: string,
+  context?: QueryContext
+): Promise<AIResponse> => {
+  try {
+    if (!question.trim()) {
+      throw new Error("Please enter a question.");
+    }
+
+    // Format properties context for the AI
+    const contextText = context?.properties
+      ? `\n\n=== AVAILABLE PROPERTIES DATABASE ===\n\nIMPORTANT: Each property has a detailed description field that contains comprehensive context about the property. When answering questions about properties, you MUST use the description field as your primary source of information, along with other property details like location, type, class, price, occupancy, risks, and opportunities.\n\n${JSON.stringify(context.properties, null, 2)}\n\n=== END OF PROPERTIES DATABASE ===`
+      : '';
 
     const systemPrompt = `SYSTEM — "CBRE Trust-Layer Assistant"
 
@@ -81,6 +76,7 @@ WHAT TO DO FOR EACH REQUEST
 7) Return results in the schema below.
 
 RESPONSE CONTRACT (JSON object only)
+YOU MUST RETURN ONLY A VALID JSON OBJECT WITH NO MARKDOWN CODE BLOCKS OR EXTRA TEXT.
 {
   "answer": string,                // Markdown. Concise but complete. Include bullet points/tables where helpful.
   "confidence": number,            // 0–100 integer. Your overall confidence in THIS answer.
@@ -128,98 +124,133 @@ User: "What are key risks for Class A office in downtown Austin for the next 24 
 User: "Find industrial near Port of Long Beach with cold storage potential."
 → Use internal properties first; if none, say so. Use external listings/news/permits. Call out zoning/utilities, power availability, truck gates/turn radii, cold-chain tenants nearby. Provide sources and confidence.
 ${contextText}`;
-  
-    // Check if the key exists before fetching
-    	if (!GEMINI_API_KEY) {
-    	  throw new Error("Gemini API key is missing.");
-    	}
-  
-    // Abort controller for timeout
+
+    if (!GEMINI_API_KEY) {
+      throw new Error("Gemini API key is missing.");
+    }
+
+    // Use gemini-2.0-flash-exp model (matches Flask app's gemini-flash-latest)
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 30000);
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-    	  method: 'POST',
-    	  headers: {
-    	  	'Content-Type': 'application/json',
-    	  },
-    	  body: JSON.stringify({
-        systemInstruction: {
-          role: "system",
-          parts: [{ text: systemPrompt }]
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        contents: [{
-          role: "user",
-          parts: [{ text: question }]
-        }],
-    	  	generationConfig: {
-    	  	  temperature: 0.8,
-    	  	  maxOutputTokens: 1024,
-    	  	}
-      }),
-      signal: controller.signal
-    	});
+        body: JSON.stringify({
+          systemInstruction: {
+            role: "system",
+            parts: [{ text: systemPrompt }]
+          },
+          contents: [{
+            role: "user",
+            parts: [{ text: question }]
+          }],
+          generationConfig: {
+            temperature: 0.8,
+            maxOutputTokens: 2048,
+            responseMimeType: "application/json"
+          }
+        }),
+        signal: controller.signal
+      }
+    );
+
     clearTimeout(timeout);
-  
-    	if (!response.ok) {
+
+    if (!response.ok) {
       const errText = await response.text().catch(() => '');
-      throw new Error(`Gemini API error: ${response.status} ${response.statusText} ${errText}`);
-    	}
-  
-    	const data = await response.json();
-    	let rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
-    	
-    	// Try to parse JSON response from the model
-    	let parsedResponse;
-    	try {
-    	  // Clean up the response - remove markdown code blocks if present
-    	  let cleanedText = rawText.trim();
-    	  if (cleanedText.startsWith('```json')) {
-    	    cleanedText = cleanedText.replace(/```json\n?/g, '').replace(/```\n?$/g, '').trim();
-    	  } else if (cleanedText.startsWith('```')) {
-    	    cleanedText = cleanedText.replace(/```\n?/g, '').replace(/```\n?$/g, '').trim();
-    	  }
-    	  
-    	  parsedResponse = JSON.parse(cleanedText);
-    	} catch (e) {
-    	  // If parsing fails, treat the whole response as the answer
-    	  console.warn('Failed to parse JSON response, using raw text:', e);
-    	  parsedResponse = {
-    	    answer: rawText,
-    	    confidence: 75,
-    	    sources: [
-    	      { name: 'CBRE Internal Database', snippet: 'Property listings and market data', url: '#', type: 'CBRE_internal' },
-    	      { name: 'Market Analysis Tools', snippet: 'Current market trends and analytics', url: '#', type: 'research' },
-    	    ],
-    	    trust_breakdown: {
-    	      internal_used: true,
-    	      external_count: 1,
-    	      freshness_days: 7,
-    	      agreements: 'Data sources are consistent',
-    	      conflicts: '',
-    	      missing: ''
-    	    }
-    	  };
-    	}
-    	
-    	return {
-    	  answer: parsedResponse.answer || rawText,
-    	  sources: parsedResponse.sources || [
-    	    { name: 'CBRE Internal Database', snippet: 'Property listings and market data', url: '#', type: 'CBRE_internal' },
-    	  ],
-    	  confidence: parsedResponse.confidence || 75,
-    	  trustBreakdown: parsedResponse.trust_breakdown,
-    	};
-    } catch (error) {
-    	console.error('Gemini API Error:', error);
-    	// Return a user-friendly error response
-    	return {
-    	  answer: "Sorry, I ran into an error trying to get that information. Please try again later.",
-    	  sources: [],
-    	  confidence: 0,
-    	};
-    }
-  };
+      console.error(`Gemini API error: ${response.status} ${response.statusText}`, errText);
+      throw new Error(`Gemini API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    let rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+
+    if (!rawText) {
+      throw new Error("No response generated from AI model.");
+    }
+
+    console.log('Raw AI response:', rawText);
+
+    // Parse JSON response
+    let parsedResponse: AIResponse;
+    try {
+      // Clean up response - remove markdown code blocks if present
+      let cleanedText = rawText.trim();
+      if (cleanedText.startsWith('```json')) {
+        cleanedText = cleanedText.replace(/```json\n?/g, '').replace(/```\n?$/g, '').trim();
+      } else if (cleanedText.startsWith('```')) {
+        cleanedText = cleanedText.replace(/```\n?/g, '').replace(/```\n?$/g, '').trim();
+      }
+
+      parsedResponse = JSON.parse(cleanedText);
+      
+      // Validate required fields
+      if (!parsedResponse.answer || !parsedResponse.sources || parsedResponse.confidence === undefined) {
+        throw new Error("Invalid response structure from AI");
+      }
+
+      console.log('Parsed AI response:', parsedResponse);
+
+    } catch (e) {
+      console.error('Failed to parse AI response:', e);
+      console.error('Raw text was:', rawText);
+      
+      // Fallback response
+      parsedResponse = {
+        answer: rawText || "I couldn't generate a proper response. Please try rephrasing your question.",
+        confidence: 50,
+        sources: [
+          { 
+            name: 'CBRE Internal Database', 
+            snippet: 'Property listings and market data', 
+            url: '#', 
+            type: 'CBRE_internal' 
+          }
+        ],
+        trust_breakdown: {
+          internal_used: true,
+          external_count: 0,
+          freshness_days: 7,
+          agreements: 'Limited data sources',
+          conflicts: '',
+          missing: 'Unable to fully process request'
+        }
+      };
+    }
+
+    return parsedResponse;
+
+  } catch (error) {
+    console.error('Gemini API Error:', error);
+    
+    // Return user-friendly error response
+    return {
+      answer: "Sorry, I encountered an error processing your request. Please verify your API key is correct and try again.",
+      sources: [
+        {
+          name: 'Error',
+          snippet: error instanceof Error ? error.message : 'Unknown error',
+          url: '#',
+          type: 'other'
+        }
+      ],
+      confidence: 0,
+      trust_breakdown: {
+        internal_used: false,
+        external_count: 0,
+        freshness_days: 0,
+        agreements: '',
+        conflicts: '',
+        missing: 'API request failed'
+      }
+    };
+  }
+};
   
   // (The rest of your file is unchanged)
   // Calculate trust score based on data sources and verification

@@ -1,6 +1,6 @@
-# TrustEstate AI - Setup Complete! ✅
+# TrustEstate AI - CBRE Trust-Layer Assistant ✅
 
-Your AI-powered real estate platform is now fully configured and ready to use!
+Your AI-powered real estate platform with enterprise-grade trust verification is now fully configured!
 
 ## ✅ Completed Setup
 
@@ -14,20 +14,33 @@ Your AI-powered real estate platform is now fully configured and ready to use!
   - Property selection and detail popups
   - Dark mode map styling matching the app theme
 
-### Google Gemini AI - ACTIVE
-- **Status:** ✅ Integrated
+### CBRE Trust-Layer Assistant (Gemini AI) - ACTIVE
+- **Status:** ✅ Fully Integrated
+- **Model:** gemini-2.0-flash-exp
+- **Response Format:** Structured JSON with validation
 - **Features Enabled:**
-  - Natural language chat interface
-  - Real-time AI responses powered by Gemini Pro
-  - Property search and analysis
-  - Market insights and risk assessment
-  - Confidence scoring on responses
-  - Source citation and verification
-  - Fallback to mock data if API fails
+  - 🎯 **Trust-First Answers:** Every response includes confidence score (0-100)
+  - 🔍 **Source Verification:** 2-8 cited sources per answer with URLs and snippets
+  - 📊 **Trust Breakdown:** Internal vs external data usage, agreements, conflicts, missing data
+  - 🕒 **Data Freshness:** Median age tracking in days
+  - 📝 **CBRE Internal Database:** Prioritizes properties.json as source of truth
+  - 🧠 **Intelligent Analysis:** Cap rates, DSCR, IRR, absorption, rent comps with formulas
+  - ⚠️ **Risk Assessment:** Explicit conflict detection and gap identification
+  - 🎨 **Enhanced UI:** Color-coded confidence badges, emoji indicators, source type labels
 
 ---
 
 ## 🎯 What's Working Now
+
+### CBRE Trust-Layer Assistant
+- ✅ Structured JSON responses with confidence scoring
+- ✅ Multi-source verification (internal CBRE + external knowledge)
+- ✅ Trust breakdown analysis (agreements, conflicts, missing data)
+- ✅ Data freshness tracking (days since update)
+- ✅ Source type classification (government, news, research, CBRE_internal, etc.)
+- ✅ Markdown-formatted answers with bullet points and tables
+- ✅ Robust error handling with fallback responses
+- ✅ Response validation and JSON parsing
 
 ### Interactive Map Experience
 - ✅ Real Google Maps with custom dark theme
@@ -36,13 +49,6 @@ Your AI-powered real estate platform is now fully configured and ready to use!
 - ✅ Zoom in/out controls
 - ✅ Geolocation to find your current position
 - ✅ Status legend (For Sale, Off Market, Trending, Flagged)
-
-### AI Assistant
-- ✅ Chat with Gemini AI for real estate insights
-- ✅ Ask about properties, markets, and risks
-- ✅ Get confidence scores on answers
-- ✅ View cited sources
-- ✅ Natural language understanding
 
 ### User Features
 - ✅ Save and track properties (localStorage)
