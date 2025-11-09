@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Send, Mic, Sparkles, ExternalLink, Loader2 } from "lucide-react";
 import { queryAI, type ChatMessage, type AIResponse } from "@/lib/gemini";
 import { toast } from "sonner";
+import properties from "@/data/properties.json";
 
 interface AIChatProps {
   className?: string;
@@ -45,8 +46,7 @@ const AIChat = ({ className }: AIChatProps) => {
     setIsLoading(true);
 
     try {
-      // TODO: Replace with actual Gemini API call
-      const response = await queryAI(input);
+      const response = await queryAI(input, { properties });
       
       const assistantMessage: ChatMessage = {
         role: 'assistant',
@@ -92,13 +92,13 @@ const AIChat = ({ className }: AIChatProps) => {
   ];
 
   return (
-    <Card className={`glass flex flex-col ${className}`}>
+    <Card className={`glass flex flex-col h-full ${className}`}>
       {/* Header */}
-      <div className="p-4 border-b border-border/50 flex items-center gap-2">
+      <div className="p-4 border-b border-border/50 flex items-center gap-2 flex-shrink-0">
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center animate-pulse-glow">
           <Sparkles className="h-5 w-5 text-white" />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <h3 className="font-semibold">AI Assistant</h3>
           <p className="text-xs text-muted-foreground">Powered by Gemini</p>
         </div>
@@ -108,7 +108,7 @@ const AIChat = ({ className }: AIChatProps) => {
       </div>
 
       {/* Messages */}
-      <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+      <ScrollArea className="flex-1 min-h-0 p-4" ref={scrollRef}>
         <div className="space-y-4">
           {messages.map((message, index) => (
             <div
@@ -168,7 +168,7 @@ const AIChat = ({ className }: AIChatProps) => {
 
       {/* Suggested questions */}
       {messages.length === 1 && (
-        <div className="px-4 pb-3">
+        <div className="px-4 pb-3 flex-shrink-0">
           <div className="text-xs text-muted-foreground mb-2">Try asking:</div>
           <div className="flex flex-wrap gap-2">
             {suggestedQuestions.slice(0, 2).map((question, idx) => (
@@ -187,7 +187,7 @@ const AIChat = ({ className }: AIChatProps) => {
       )}
 
       {/* Input */}
-      <div className="p-4 border-t border-border/50">
+      <div className="p-4 border-t border-border/50 flex-shrink-0">
         <div className="flex gap-2">
           <Button
             variant="outline"

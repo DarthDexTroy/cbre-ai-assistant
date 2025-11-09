@@ -193,5 +193,1261 @@
     ],
     "risks": ["Zoning dispute pending", "Higher vacancy than expected", "Potential legal issues"],
     "opportunities": ["Hudson Yards development"]
+  },
+  {
+    "id": "prop-007",
+    "title": "Chicago River North Office Building",
+    "address": "750 North Orleans Street, Chicago, IL 60654",
+    "type": "Office",
+    "class": "A",
+    "price": 52000000,
+    "sqft": 145000,
+    "status": "for-sale",
+    "lat": 41.8947,
+    "lng": -87.6369,
+    "yearBuilt": 2016,
+    "occupancy": 95,
+    "trustScore": 92,
+    "lastUpdated": "2025-01-18T08:15:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Modern Class A office in Chicago's vibrant River North neighborhood with river views and premium finishes.",
+    "keyFeatures": [
+      "Chicago River views",
+      "Modern HVAC system",
+      "Conference facilities",
+      "Walking distance to transit"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" },
+      { "name": "Cook County Records", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": [],
+    "opportunities": ["Strong downtown demand", "Transit accessibility"]
+  },
+  {
+    "id": "prop-008",
+    "title": "Seattle Waterfront Retail Complex",
+    "address": "1200 Alaskan Way, Seattle, WA 98101",
+    "type": "Retail",
+    "class": "A",
+    "price": 48000000,
+    "sqft": 72000,
+    "status": "for-sale",
+    "lat": 47.6062,
+    "lng": -122.3421,
+    "yearBuilt": 2019,
+    "occupancy": 89,
+    "trustScore": 87,
+    "lastUpdated": "2025-01-17T14:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
+    ],
+    "description": "Prime waterfront retail with tourist and local foot traffic. Mix of dining and high-end retail.",
+    "keyFeatures": [
+      "Waterfront location",
+      "Tourist destination",
+      "Parking structure",
+      "Outdoor dining spaces"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" }
+    ],
+    "risks": ["Weather-dependent foot traffic"],
+    "opportunities": ["Tourism growth", "Tech sector spending"]
+  },
+  {
+    "id": "prop-009",
+    "title": "Atlanta Midtown Medical Office",
+    "address": "980 Peachtree Street NE, Atlanta, GA 30309",
+    "type": "Office",
+    "class": "B",
+    "price": 22000000,
+    "sqft": 68000,
+    "status": "for-sale",
+    "lat": 33.7826,
+    "lng": -84.3852,
+    "yearBuilt": 2012,
+    "occupancy": 97,
+    "trustScore": 85,
+    "lastUpdated": "2025-01-16T11:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "Established medical office building in Midtown Atlanta. Strong tenant base with long-term leases.",
+    "keyFeatures": [
+      "Medical tenant focus",
+      "Ample parking",
+      "Near hospitals",
+      "Updated systems"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" },
+      { "name": "Fulton County Records", "verified": true, "date": "2025-01-14" }
+    ],
+    "risks": [],
+    "opportunities": ["Healthcare sector growth", "Stable tenancy"]
+  },
+  {
+    "id": "prop-010",
+    "title": "Boston Seaport Innovation Center",
+    "address": "25 Seaport Boulevard, Boston, MA 02210",
+    "type": "Office",
+    "class": "A",
+    "price": 78000000,
+    "sqft": 165000,
+    "status": "trending",
+    "lat": 42.3541,
+    "lng": -71.0449,
+    "yearBuilt": 2020,
+    "occupancy": 91,
+    "trustScore": 93,
+    "lastUpdated": "2025-01-18T09:45:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Cutting-edge office space in Boston's Innovation District with harbor views and tech-forward design.",
+    "keyFeatures": [
+      "Harbor views",
+      "Innovation District location",
+      "Smart building technology",
+      "Green roof terrace"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Premium pricing"],
+    "opportunities": ["Biotech hub", "Strong demand"]
+  },
+  {
+    "id": "prop-011",
+    "title": "Dallas Logistics Park",
+    "address": "4500 Logistics Way, Dallas, TX 75237",
+    "type": "Industrial",
+    "class": "A",
+    "price": 31000000,
+    "sqft": 285000,
+    "status": "for-sale",
+    "lat": 32.6722,
+    "lng": -96.8167,
+    "yearBuilt": 2021,
+    "occupancy": 100,
+    "trustScore": 95,
+    "lastUpdated": "2025-01-17T16:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800"
+    ],
+    "description": "Modern logistics facility with excellent I-35 access. Fully leased to Fortune 500 company.",
+    "keyFeatures": [
+      "Interstate access",
+      "Rail spur available",
+      "40' clear height",
+      "Energy-efficient design"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" },
+      { "name": "Dallas County Records", "verified": true, "date": "2025-01-15" }
+    ],
+    "risks": [],
+    "opportunities": ["Central US location", "Strong industrial market"]
+  },
+  {
+    "id": "prop-012",
+    "title": "Portland Pearl District Lofts",
+    "address": "1150 NW 11th Avenue, Portland, OR 97209",
+    "type": "Residential",
+    "class": "A",
+    "price": 34000000,
+    "sqft": 98000,
+    "status": "for-sale",
+    "lat": 45.5322,
+    "lng": -122.6812,
+    "yearBuilt": 2018,
+    "occupancy": 94,
+    "trustScore": 88,
+    "lastUpdated": "2025-01-16T13:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800"
+    ],
+    "description": "Luxury residential lofts in Portland's trendy Pearl District. Modern amenities and walkable location.",
+    "keyFeatures": [
+      "Rooftop deck",
+      "Bike storage",
+      "Pet-friendly",
+      "Retail ground floor"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": ["Market volatility"],
+    "opportunities": ["Urban living demand", "Walkable neighborhood"]
+  },
+  {
+    "id": "prop-013",
+    "title": "Nashville Music Row Office",
+    "address": "1615 Music Valley Drive, Nashville, TN 37214",
+    "type": "Office",
+    "class": "B",
+    "price": 18500000,
+    "sqft": 58000,
+    "status": "for-sale",
+    "lat": 36.2060,
+    "lng": -86.6933,
+    "yearBuilt": 2014,
+    "occupancy": 93,
+    "trustScore": 84,
+    "lastUpdated": "2025-01-15T10:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "Creative office space in Nashville's Music Row area. Ideal for entertainment and media companies.",
+    "keyFeatures": [
+      "Music Row location",
+      "Creative spaces",
+      "Recording studio compatible",
+      "Parking included"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-15" },
+      { "name": "Davidson County Records", "verified": true, "date": "2025-01-12" }
+    ],
+    "risks": [],
+    "opportunities": ["Entertainment industry growth", "Nashville expansion"]
+  },
+  {
+    "id": "prop-014",
+    "title": "San Diego Mission Valley Retail Plaza",
+    "address": "1640 Camino del Rio North, San Diego, CA 92108",
+    "type": "Retail",
+    "class": "B",
+    "price": 26000000,
+    "sqft": 94000,
+    "status": "for-sale",
+    "lat": 32.7745,
+    "lng": -117.1562,
+    "yearBuilt": 2010,
+    "occupancy": 88,
+    "trustScore": 82,
+    "lastUpdated": "2025-01-14T14:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
+    ],
+    "description": "Well-established retail center in Mission Valley with strong anchor tenants and steady traffic.",
+    "keyFeatures": [
+      "Anchor tenants",
+      "High visibility",
+      "Ample parking",
+      "Transit accessible"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-14" }
+    ],
+    "risks": ["E-commerce competition"],
+    "opportunities": ["Strong local market", "Redevelopment potential"]
+  },
+  {
+    "id": "prop-015",
+    "title": "Houston Energy Corridor Office Park",
+    "address": "15500 Park Row Boulevard, Houston, TX 77084",
+    "type": "Office",
+    "class": "A",
+    "price": 44000000,
+    "sqft": 132000,
+    "status": "for-sale",
+    "lat": 29.8174,
+    "lng": -95.6248,
+    "yearBuilt": 2017,
+    "occupancy": 90,
+    "trustScore": 89,
+    "lastUpdated": "2025-01-17T12:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Class A office park in Houston's Energy Corridor with major energy company tenants.",
+    "keyFeatures": [
+      "Energy Corridor location",
+      "Corporate campus setting",
+      "Conference center",
+      "Fitness facilities"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" },
+      { "name": "Harris County Records", "verified": true, "date": "2025-01-15" }
+    ],
+    "risks": ["Energy market cycles"],
+    "opportunities": ["Energy sector recovery", "Corporate relocations"]
+  },
+  {
+    "id": "prop-016",
+    "title": "Philadelphia Old City Historic Building",
+    "address": "125 South 3rd Street, Philadelphia, PA 19106",
+    "type": "Mixed-Use",
+    "class": "B",
+    "price": 21000000,
+    "sqft": 76000,
+    "status": "for-sale",
+    "lat": 39.9490,
+    "lng": -75.1456,
+    "yearBuilt": 1920,
+    "occupancy": 92,
+    "trustScore": 81,
+    "lastUpdated": "2025-01-16T09:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1529769707791-3d585f6b4def?w=800"
+    ],
+    "description": "Historic building in Old City Philadelphia with retail and office. Renovated with modern systems.",
+    "keyFeatures": [
+      "Historic character",
+      "Modern systems",
+      "Old City location",
+      "Mixed-use flexibility"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": ["Historic preservation requirements"],
+    "opportunities": ["Tourism area", "Urban revitalization"]
+  },
+  {
+    "id": "prop-017",
+    "title": "Las Vegas Strip Adjacent Hotel",
+    "address": "3850 Las Vegas Boulevard South, Las Vegas, NV 89109",
+    "type": "Hospitality",
+    "class": "A",
+    "price": 89000000,
+    "sqft": 195000,
+    "status": "trending",
+    "lat": 36.1147,
+    "lng": -115.1728,
+    "yearBuilt": 2015,
+    "occupancy": 87,
+    "trustScore": 86,
+    "lastUpdated": "2025-01-18T11:15:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800"
+    ],
+    "description": "Modern hotel adjacent to Las Vegas Strip. Strong occupancy with convention and leisure travelers.",
+    "keyFeatures": [
+      "Strip proximity",
+      "Convention facilities",
+      "Pool and spa",
+      "Gaming floor"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": ["Tourism fluctuations"],
+    "opportunities": ["Convention bookings", "Tourism recovery"]
+  },
+  {
+    "id": "prop-018",
+    "title": "Minneapolis Warehouse District Lofts",
+    "address": "215 North 3rd Street, Minneapolis, MN 55401",
+    "type": "Residential",
+    "class": "A",
+    "price": 27000000,
+    "sqft": 82000,
+    "status": "for-sale",
+    "lat": 44.9862,
+    "lng": -93.2741,
+    "yearBuilt": 2019,
+    "occupancy": 96,
+    "trustScore": 90,
+    "lastUpdated": "2025-01-17T08:45:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800"
+    ],
+    "description": "Luxury loft apartments in Minneapolis Warehouse District. High-end finishes with urban lifestyle.",
+    "keyFeatures": [
+      "Warehouse District",
+      "High-end finishes",
+      "Rooftop deck",
+      "Parking garage"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" },
+      { "name": "Hennepin County Records", "verified": true, "date": "2025-01-14" }
+    ],
+    "risks": [],
+    "opportunities": ["Downtown living demand", "Strong rental market"]
+  },
+  {
+    "id": "prop-019",
+    "title": "Salt Lake City Research Park",
+    "address": "421 Wakara Way, Salt Lake City, UT 84108",
+    "type": "Office",
+    "class": "A",
+    "price": 36000000,
+    "sqft": 110000,
+    "status": "for-sale",
+    "lat": 40.7649,
+    "lng": -111.8421,
+    "yearBuilt": 2018,
+    "occupancy": 94,
+    "trustScore": 91,
+    "lastUpdated": "2025-01-16T15:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "Modern research and office space near University of Utah. Tech and biotech tenants.",
+    "keyFeatures": [
+      "Research Park location",
+      "Lab-ready spaces",
+      "University proximity",
+      "Mountain views"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": [],
+    "opportunities": ["Tech sector growth", "University partnerships"]
+  },
+  {
+    "id": "prop-020",
+    "title": "Charlotte SouthPark Office Tower",
+    "address": "6000 Fairview Road, Charlotte, NC 28210",
+    "type": "Office",
+    "class": "A",
+    "price": 49000000,
+    "sqft": 138000,
+    "status": "for-sale",
+    "lat": 35.1584,
+    "lng": -80.8298,
+    "yearBuilt": 2016,
+    "occupancy": 93,
+    "trustScore": 92,
+    "lastUpdated": "2025-01-18T10:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Premier office tower in Charlotte's SouthPark district. Banking and corporate tenants.",
+    "keyFeatures": [
+      "SouthPark location",
+      "Bank-grade finishes",
+      "Executive conference center",
+      "Covered parking"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" },
+      { "name": "Mecklenburg County Records", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": [],
+    "opportunities": ["Financial sector growth", "Corporate relocations"]
+  },
+  {
+    "id": "prop-021",
+    "title": "San Francisco SoMa Tech Office",
+    "address": "888 Brannan Street, San Francisco, CA 94103",
+    "type": "Office",
+    "class": "A",
+    "price": 95000000,
+    "sqft": 175000,
+    "status": "trending",
+    "lat": 37.7699,
+    "lng": -122.4025,
+    "yearBuilt": 2019,
+    "occupancy": 88,
+    "trustScore": 83,
+    "lastUpdated": "2025-01-17T14:45:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Modern tech office in SoMa with collaborative spaces. Designed for innovation and creativity.",
+    "keyFeatures": [
+      "Tech-focused design",
+      "Open collaboration spaces",
+      "Rooftop amenities",
+      "Transit accessible"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" }
+    ],
+    "risks": ["Market uncertainty", "High operating costs"],
+    "opportunities": ["Tech sector presence", "Innovation district"]
+  },
+  {
+    "id": "prop-022",
+    "title": "Columbus Easton Gateway Retail",
+    "address": "3990 Easton Station, Columbus, OH 43219",
+    "type": "Retail",
+    "class": "A",
+    "price": 32000000,
+    "sqft": 115000,
+    "status": "for-sale",
+    "lat": 40.0503,
+    "lng": -82.9182,
+    "yearBuilt": 2017,
+    "occupancy": 97,
+    "trustScore": 94,
+    "lastUpdated": "2025-01-18T09:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
+    ],
+    "description": "Premier retail center at Easton Gateway with strong anchor tenants and consistent foot traffic.",
+    "keyFeatures": [
+      "Easton location",
+      "Strong anchors",
+      "Modern design",
+      "Excellent parking"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" },
+      { "name": "Franklin County Records", "verified": true, "date": "2025-01-17" }
+    ],
+    "risks": [],
+    "opportunities": ["Affluent market", "Strong retail demand"]
+  },
+  {
+    "id": "prop-023",
+    "title": "Raleigh Research Triangle Office",
+    "address": "4721 Emperor Boulevard, Durham, NC 27703",
+    "type": "Office",
+    "class": "A",
+    "price": 41000000,
+    "sqft": 125000,
+    "status": "for-sale",
+    "lat": 35.9132,
+    "lng": -78.8740,
+    "yearBuilt": 2020,
+    "occupancy": 95,
+    "trustScore": 93,
+    "lastUpdated": "2025-01-17T11:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "State-of-the-art office in Research Triangle Park. Tech and research tenants with long-term leases.",
+    "keyFeatures": [
+      "Research Triangle location",
+      "Lab spaces available",
+      "LEED Gold certified",
+      "Fitness center"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" },
+      { "name": "Durham County Records", "verified": true, "date": "2025-01-15" }
+    ],
+    "risks": [],
+    "opportunities": ["Tech hub growth", "University partnerships"]
+  },
+  {
+    "id": "prop-024",
+    "title": "Kansas City Crossroads Arts District",
+    "address": "1815 Grand Boulevard, Kansas City, MO 64108",
+    "type": "Mixed-Use",
+    "class": "B",
+    "price": 19000000,
+    "sqft": 68000,
+    "status": "for-sale",
+    "lat": 39.0844,
+    "lng": -94.5826,
+    "yearBuilt": 2015,
+    "occupancy": 91,
+    "trustScore": 85,
+    "lastUpdated": "2025-01-16T13:45:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1529769707791-3d585f6b4def?w=800"
+    ],
+    "description": "Creative mixed-use space in Crossroads Arts District. Retail, office, and event spaces.",
+    "keyFeatures": [
+      "Arts District location",
+      "Creative spaces",
+      "Event venues",
+      "Gallery spaces"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": ["Niche market"],
+    "opportunities": ["Arts scene growth", "Urban revitalization"]
+  },
+  {
+    "id": "prop-025",
+    "title": "Indianapolis Downtown Convention Hotel",
+    "address": "120 West Market Street, Indianapolis, IN 46204",
+    "type": "Hospitality",
+    "class": "A",
+    "price": 67000000,
+    "sqft": 185000,
+    "status": "for-sale",
+    "lat": 39.7684,
+    "lng": -86.1581,
+    "yearBuilt": 2014,
+    "occupancy": 84,
+    "trustScore": 87,
+    "lastUpdated": "2025-01-17T10:15:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800"
+    ],
+    "description": "Full-service convention hotel in downtown Indianapolis with direct convention center access.",
+    "keyFeatures": [
+      "Convention center attached",
+      "Meeting spaces",
+      "Restaurant and bar",
+      "Indoor pool"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" }
+    ],
+    "risks": ["Convention cycles"],
+    "opportunities": ["Sports events", "Convention bookings"]
+  },
+  {
+    "id": "prop-026",
+    "title": "Tampa Westshore Office Park",
+    "address": "4890 West Kennedy Boulevard, Tampa, FL 33609",
+    "type": "Office",
+    "class": "A",
+    "price": 38000000,
+    "sqft": 118000,
+    "status": "for-sale",
+    "lat": 27.9378,
+    "lng": -82.5152,
+    "yearBuilt": 2018,
+    "occupancy": 92,
+    "trustScore": 89,
+    "lastUpdated": "2025-01-18T08:50:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Modern office park in Tampa's Westshore district. Financial services and tech tenants.",
+    "keyFeatures": [
+      "Westshore location",
+      "Airport proximity",
+      "Modern amenities",
+      "Parking garage"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" },
+      { "name": "Hillsborough County Records", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": [],
+    "opportunities": ["Growing market", "Financial sector"]
+  },
+  {
+    "id": "prop-027",
+    "title": "Milwaukee Third Ward Warehouse Conversion",
+    "address": "333 North Water Street, Milwaukee, WI 53202",
+    "type": "Mixed-Use",
+    "class": "B",
+    "price": 23000000,
+    "sqft": 89000,
+    "status": "for-sale",
+    "lat": 43.0389,
+    "lng": -87.9065,
+    "yearBuilt": 1925,
+    "occupancy": 89,
+    "trustScore": 83,
+    "lastUpdated": "2025-01-16T12:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1529769707791-3d585f6b4def?w=800"
+    ],
+    "description": "Historic warehouse conversion in Milwaukee's Third Ward. Retail, office, and residential mix.",
+    "keyFeatures": [
+      "Historic character",
+      "Third Ward location",
+      "Exposed brick",
+      "Lake proximity"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": ["Historic maintenance"],
+    "opportunities": ["Trendy neighborhood", "Mixed-use demand"]
+  },
+  {
+    "id": "prop-028",
+    "title": "Sacramento Capitol District Office",
+    "address": "1325 J Street, Sacramento, CA 95814",
+    "type": "Office",
+    "class": "A",
+    "price": 33000000,
+    "sqft": 98000,
+    "status": "for-sale",
+    "lat": 38.5766,
+    "lng": -121.4934,
+    "yearBuilt": 2017,
+    "occupancy": 96,
+    "trustScore": 91,
+    "lastUpdated": "2025-01-17T09:40:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Class A office near California State Capitol. Government and professional services tenants.",
+    "keyFeatures": [
+      "Capitol proximity",
+      "Professional tenant base",
+      "Structured parking",
+      "Conference facilities"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" },
+      { "name": "Sacramento County Records", "verified": true, "date": "2025-01-15" }
+    ],
+    "risks": [],
+    "opportunities": ["Government tenant base", "Stable market"]
+  },
+  {
+    "id": "prop-029",
+    "title": "Pittsburgh Strip District Industrial",
+    "address": "2850 Liberty Avenue, Pittsburgh, PA 15201",
+    "type": "Industrial",
+    "class": "B",
+    "price": 15500000,
+    "sqft": 142000,
+    "status": "for-sale",
+    "lat": 40.4562,
+    "lng": -79.9714,
+    "yearBuilt": 2013,
+    "occupancy": 100,
+    "trustScore": 86,
+    "lastUpdated": "2025-01-16T11:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=800"
+    ],
+    "description": "Multi-tenant industrial facility in Strip District. Manufacturing and distribution uses.",
+    "keyFeatures": [
+      "Heavy power available",
+      "Rail access",
+      "Loading docks",
+      "River access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": ["Older building"],
+    "opportunities": ["Urban industrial demand", "Mixed-use potential"]
+  },
+  {
+    "id": "prop-030",
+    "title": "San Jose Silicon Valley Tech Campus",
+    "address": "3000 North First Street, San Jose, CA 95134",
+    "type": "Office",
+    "class": "A",
+    "price": 112000000,
+    "sqft": 220000,
+    "status": "trending",
+    "lat": 37.4025,
+    "lng": -121.9661,
+    "yearBuilt": 2021,
+    "occupancy": 97,
+    "trustScore": 95,
+    "lastUpdated": "2025-01-18T13:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "State-of-the-art tech campus in heart of Silicon Valley. Major tech company tenant.",
+    "keyFeatures": [
+      "Silicon Valley location",
+      "Campus environment",
+      "Cafeteria and amenities",
+      "Electric vehicle charging"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" },
+      { "name": "Santa Clara County Records", "verified": true, "date": "2025-01-17" }
+    ],
+    "risks": ["Premium pricing"],
+    "opportunities": ["Tech sector strength", "Limited availability"]
+  },
+  {
+    "id": "prop-031",
+    "title": "Baltimore Inner Harbor Hotel",
+    "address": "301 Light Street, Baltimore, MD 21202",
+    "type": "Hospitality",
+    "class": "A",
+    "price": 54000000,
+    "sqft": 142000,
+    "status": "for-sale",
+    "lat": 39.2854,
+    "lng": -76.6122,
+    "yearBuilt": 2016,
+    "occupancy": 83,
+    "trustScore": 84,
+    "lastUpdated": "2025-01-17T15:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800"
+    ],
+    "description": "Waterfront hotel at Baltimore's Inner Harbor. Conference and leisure travelers.",
+    "keyFeatures": [
+      "Harbor views",
+      "Meeting spaces",
+      "Restaurant with patio",
+      "Convention center access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" }
+    ],
+    "risks": ["Market competition"],
+    "opportunities": ["Tourism growth", "Convention business"]
+  },
+  {
+    "id": "prop-032",
+    "title": "Tucson Tech Park Office",
+    "address": "7650 East Broadway Boulevard, Tucson, AZ 85710",
+    "type": "Office",
+    "class": "B",
+    "price": 17000000,
+    "sqft": 72000,
+    "status": "for-sale",
+    "lat": 32.2228,
+    "lng": -110.8421,
+    "yearBuilt": 2015,
+    "occupancy": 94,
+    "trustScore": 87,
+    "lastUpdated": "2025-01-16T10:45:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "Tech-focused office building in Tucson with aerospace and defense tenants.",
+    "keyFeatures": [
+      "Tech park location",
+      "Secure facilities",
+      "Modern systems",
+      "Abundant parking"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" },
+      { "name": "Pima County Records", "verified": true, "date": "2025-01-14" }
+    ],
+    "risks": [],
+    "opportunities": ["Defense sector", "Growing tech presence"]
+  },
+  {
+    "id": "prop-033",
+    "title": "Omaha Old Market District Mixed-Use",
+    "address": "1022 Howard Street, Omaha, NE 68102",
+    "type": "Mixed-Use",
+    "class": "B",
+    "price": 16000000,
+    "sqft": 58000,
+    "status": "for-sale",
+    "lat": 41.2575,
+    "lng": -95.9308,
+    "yearBuilt": 1910,
+    "occupancy": 90,
+    "trustScore": 80,
+    "lastUpdated": "2025-01-15T14:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1529769707791-3d585f6b4def?w=800"
+    ],
+    "description": "Historic building in Old Market entertainment district. Retail and office with character.",
+    "keyFeatures": [
+      "Old Market location",
+      "Historic charm",
+      "Entertainment district",
+      "Updated systems"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-15" }
+    ],
+    "risks": ["Historic maintenance"],
+    "opportunities": ["Entertainment district", "Tourist traffic"]
+  },
+  {
+    "id": "prop-034",
+    "title": "Albuquerque Uptown Retail Center",
+    "address": "2200 Louisiana Boulevard NE, Albuquerque, NM 87110",
+    "type": "Retail",
+    "class": "B",
+    "price": 20000000,
+    "sqft": 88000,
+    "status": "for-sale",
+    "lat": 35.1095,
+    "lng": -106.6055,
+    "yearBuilt": 2012,
+    "occupancy": 91,
+    "trustScore": 84,
+    "lastUpdated": "2025-01-16T09:15:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
+    ],
+    "description": "Established retail center in Albuquerque's Uptown area with strong local traffic.",
+    "keyFeatures": [
+      "Uptown location",
+      "High visibility",
+      "Anchor tenant",
+      "Modern facade"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": ["Market size"],
+    "opportunities": ["Local market strength", "Limited competition"]
+  },
+  {
+    "id": "prop-035",
+    "title": "Louisville NuLu District Lofts",
+    "address": "650 East Market Street, Louisville, KY 40202",
+    "type": "Residential",
+    "class": "B",
+    "price": 14500000,
+    "sqft": 54000,
+    "status": "for-sale",
+    "lat": 38.2527,
+    "lng": -85.7422,
+    "yearBuilt": 2017,
+    "occupancy": 95,
+    "trustScore": 86,
+    "lastUpdated": "2025-01-17T12:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800"
+    ],
+    "description": "Modern loft apartments in Louisville's trendy NuLu district. Urban living with local amenities.",
+    "keyFeatures": [
+      "NuLu location",
+      "Modern finishes",
+      "Restaurant scene nearby",
+      "Urban lifestyle"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" }
+    ],
+    "risks": [],
+    "opportunities": ["Neighborhood growth", "Young professional demand"]
+  },
+  {
+    "id": "prop-036",
+    "title": "Memphis Medical District Office",
+    "address": "877 Madison Avenue, Memphis, TN 38103",
+    "type": "Office",
+    "class": "B",
+    "price": 18000000,
+    "sqft": 65000,
+    "status": "for-sale",
+    "lat": 35.1431,
+    "lng": -90.0369,
+    "yearBuilt": 2014,
+    "occupancy": 98,
+    "trustScore": 88,
+    "lastUpdated": "2025-01-16T13:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "Medical office building in Memphis medical district. Healthcare tenants with stable leases.",
+    "keyFeatures": [
+      "Medical district",
+      "Healthcare focused",
+      "Hospital proximity",
+      "Parking included"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" },
+      { "name": "Shelby County Records", "verified": true, "date": "2025-01-13" }
+    ],
+    "risks": [],
+    "opportunities": ["Healthcare sector", "Stable tenancy"]
+  },
+  {
+    "id": "prop-037",
+    "title": "Boise Downtown Mixed-Use Tower",
+    "address": "855 Broad Street, Boise, ID 83702",
+    "type": "Mixed-Use",
+    "class": "A",
+    "price": 29000000,
+    "sqft": 92000,
+    "status": "for-sale",
+    "lat": 43.6166,
+    "lng": -116.2024,
+    "yearBuilt": 2019,
+    "occupancy": 93,
+    "trustScore": 89,
+    "lastUpdated": "2025-01-18T11:45:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1529769707791-3d585f6b4def?w=800"
+    ],
+    "description": "Modern mixed-use tower in downtown Boise. Office and retail with mountain views.",
+    "keyFeatures": [
+      "Downtown location",
+      "Mountain views",
+      "Modern design",
+      "Walkable area"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": [],
+    "opportunities": ["City growth", "Tech migration"]
+  },
+  {
+    "id": "prop-038",
+    "title": "Oklahoma City Energy Corridor Office",
+    "address": "6301 Waterford Boulevard, Oklahoma City, OK 73118",
+    "type": "Office",
+    "class": "A",
+    "price": 24000000,
+    "sqft": 86000,
+    "status": "for-sale",
+    "lat": 35.5514,
+    "lng": -97.6218,
+    "yearBuilt": 2016,
+    "occupancy": 91,
+    "trustScore": 87,
+    "lastUpdated": "2025-01-17T10:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Class A office in Oklahoma City's energy corridor. Energy and professional services tenants.",
+    "keyFeatures": [
+      "Energy corridor",
+      "Modern systems",
+      "Executive suites",
+      "Parking garage"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" },
+      { "name": "Oklahoma County Records", "verified": true, "date": "2025-01-15" }
+    ],
+    "risks": ["Energy market exposure"],
+    "opportunities": ["Energy sector recovery", "Diverse economy"]
+  },
+  {
+    "id": "prop-039",
+    "title": "Richmond Downtown Office Building",
+    "address": "919 East Main Street, Richmond, VA 23219",
+    "type": "Office",
+    "class": "B",
+    "price": 21000000,
+    "sqft": 78000,
+    "status": "for-sale",
+    "lat": 37.5407,
+    "lng": -77.4360,
+    "yearBuilt": 2013,
+    "occupancy": 94,
+    "trustScore": 86,
+    "lastUpdated": "2025-01-16T14:15:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "Downtown Richmond office building with professional services tenants. Renovated with modern amenities.",
+    "keyFeatures": [
+      "Downtown location",
+      "Recent renovation",
+      "Professional tenants",
+      "Transit access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": [],
+    "opportunities": ["City revitalization", "Professional market"]
+  },
+  {
+    "id": "prop-040",
+    "title": "Des Moines East Village Creative Space",
+    "address": "400 East Locust Street, Des Moines, IA 50309",
+    "type": "Mixed-Use",
+    "class": "B",
+    "price": 13500000,
+    "sqft": 48000,
+    "status": "for-sale",
+    "lat": 41.5868,
+    "lng": -93.6172,
+    "yearBuilt": 2018,
+    "occupancy": 92,
+    "trustScore": 85,
+    "lastUpdated": "2025-01-17T09:20:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1529769707791-3d585f6b4def?w=800"
+    ],
+    "description": "Creative mixed-use space in Des Moines East Village. Office, retail, and event space.",
+    "keyFeatures": [
+      "East Village location",
+      "Creative tenant focus",
+      "Event spaces",
+      "Modern finishes"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" }
+    ],
+    "risks": [],
+    "opportunities": ["Neighborhood growth", "Creative economy"]
+  },
+  {
+    "id": "prop-041",
+    "title": "Cleveland University Circle Research Lab",
+    "address": "2000 Adelbert Road, Cleveland, OH 44106",
+    "type": "Office",
+    "class": "A",
+    "price": 31000000,
+    "sqft": 96000,
+    "status": "for-sale",
+    "lat": 41.5051,
+    "lng": -81.6087,
+    "yearBuilt": 2019,
+    "occupancy": 97,
+    "trustScore": 92,
+    "lastUpdated": "2025-01-18T12:15:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "Research and lab facility in Cleveland's University Circle. Biotech and healthcare tenants.",
+    "keyFeatures": [
+      "University Circle",
+      "Lab-ready spaces",
+      "Research focus",
+      "Hospital proximity"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" },
+      { "name": "Cuyahoga County Records", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": [],
+    "opportunities": ["Biotech cluster", "University partnerships"]
+  },
+  {
+    "id": "prop-042",
+    "title": "New Orleans Warehouse District Hotel",
+    "address": "650 Tchoupitoulas Street, New Orleans, LA 70130",
+    "type": "Hospitality",
+    "class": "A",
+    "price": 45000000,
+    "sqft": 118000,
+    "status": "trending",
+    "lat": 29.9441,
+    "lng": -90.0679,
+    "yearBuilt": 2017,
+    "occupancy": 81,
+    "trustScore": 82,
+    "lastUpdated": "2025-01-17T13:40:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800"
+    ],
+    "description": "Boutique hotel in New Orleans Warehouse District. Convention and leisure market.",
+    "keyFeatures": [
+      "Warehouse District",
+      "Boutique style",
+      "Rooftop bar",
+      "Convention proximity"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" }
+    ],
+    "risks": ["Tourism volatility"],
+    "opportunities": ["Convention business", "Tourism recovery"]
+  },
+  {
+    "id": "prop-043",
+    "title": "Buffalo Medical Campus Office",
+    "address": "100 High Street, Buffalo, NY 14203",
+    "type": "Office",
+    "class": "B",
+    "price": 16500000,
+    "sqft": 62000,
+    "status": "for-sale",
+    "lat": 42.8864,
+    "lng": -78.8784,
+    "yearBuilt": 2015,
+    "occupancy": 96,
+    "trustScore": 88,
+    "lastUpdated": "2025-01-16T11:50:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+    ],
+    "description": "Medical office building on Buffalo's medical campus. Healthcare and research tenants.",
+    "keyFeatures": [
+      "Medical campus",
+      "Healthcare tenants",
+      "Parking garage",
+      "Modern systems"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-16" }
+    ],
+    "risks": [],
+    "opportunities": ["Healthcare sector", "Medical campus growth"]
+  },
+  {
+    "id": "prop-044",
+    "title": "Spokane Downtown Retail Plaza",
+    "address": "808 West Main Avenue, Spokane, WA 99201",
+    "type": "Retail",
+    "class": "B",
+    "price": 18500000,
+    "sqft": 76000,
+    "status": "for-sale",
+    "lat": 47.6588,
+    "lng": -117.4260,
+    "yearBuilt": 2011,
+    "occupancy": 87,
+    "trustScore": 81,
+    "lastUpdated": "2025-01-15T15:30:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
+    ],
+    "description": "Downtown Spokane retail center with mix of local and national tenants.",
+    "keyFeatures": [
+      "Downtown location",
+      "Mixed tenancy",
+      "Parking structure",
+      "Transit access"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-15" }
+    ],
+    "risks": ["E-commerce impact"],
+    "opportunities": ["Downtown revitalization", "Local market"]
+  },
+  {
+    "id": "prop-045",
+    "title": "Providence Jewelry District Office",
+    "address": "235 Promenade Street, Providence, RI 02908",
+    "type": "Office",
+    "class": "A",
+    "price": 26000000,
+    "sqft": 84000,
+    "status": "for-sale",
+    "lat": 41.8171,
+    "lng": -71.4128,
+    "yearBuilt": 2018,
+    "occupancy": 93,
+    "trustScore": 89,
+    "lastUpdated": "2025-01-18T10:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800"
+    ],
+    "description": "Modern office building in Providence's emerging Jewelry District. Tech and creative tenants.",
+    "keyFeatures": [
+      "Jewelry District",
+      "Modern design",
+      "Tech-friendly spaces",
+      "Train station proximity"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-18" }
+    ],
+    "risks": [],
+    "opportunities": ["District development", "Innovation economy"]
+  },
+  {
+    "id": "prop-046",
+    "title": "Reno Downtown Casino Hotel",
+    "address": "219 North Center Street, Reno, NV 89501",
+    "type": "Hospitality",
+    "class": "B",
+    "price": 38000000,
+    "sqft": 125000,
+    "status": "for-sale",
+    "lat": 39.5296,
+    "lng": -119.8138,
+    "yearBuilt": 2010,
+    "occupancy": 79,
+    "trustScore": 78,
+    "lastUpdated": "2025-01-17T14:00:00Z",
+    "images": [
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800"
+    ],
+    "description": "Downtown Reno casino hotel with gaming, entertainment, and convention space.",
+    "keyFeatures": [
+      "Casino floor",
+      "Meeting spaces",
+      "Entertainment venue",
+      "Downtown location"
+    ],
+    "sources": [
+      { "name": "CBRE Internal Database", "verified": true, "date": "2025-01-17" }
+    ],
+    "risks": ["Gaming competition", "Market saturation"],
+    "opportunities": ["Convention business", "Tourism"]
   }
 ]
