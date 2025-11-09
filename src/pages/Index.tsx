@@ -24,6 +24,7 @@ import {
 } from "@/lib/localStorage";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { getFallbackImageUrl, getOptimizedImageUrl } from "@/lib/imageUtils";
 
 const Index = () => {
   const [user, setUser] = useState(getCurrentUser());
@@ -352,13 +353,20 @@ const Index = () => {
 
             <div className="space-y-6">
               {/* Image */}
-              {selectedProperty.images?.[0] && (
-                <img
-                  src={selectedProperty.images[0]}
-                  alt={selectedProperty.title}
-                  className="w-full h-64 object-cover rounded-lg"
-                />
-              )}
+              <img
+                src={
+                  selectedProperty.images?.[0]
+                    ? getOptimizedImageUrl(selectedProperty.images[0], 'detail')
+                    : getFallbackImageUrl(selectedProperty.type)
+                }
+                alt={selectedProperty.title}
+                className="w-full h-64 object-cover rounded-lg bg-muted"
+                loading="lazy"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = getOptimizedImageUrl(getFallbackImageUrl(selectedProperty.type), 'detail');
+                }}
+              />
 
               {/* Trust & Stats */}
               <div className="grid grid-cols-2 gap-4">

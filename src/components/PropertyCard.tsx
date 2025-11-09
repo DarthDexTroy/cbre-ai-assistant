@@ -12,8 +12,9 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { isPropertySaved, saveProperty, unsaveProperty } from "@/lib/localStorage";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import { getFallbackImageUrl, getOptimizedImageUrl } from "@/lib/imageUtils";
 
 interface Property {
   id: string;
@@ -38,6 +39,22 @@ interface PropertyCardProps {
 
 const PropertyCard = ({ property, onSelect }: PropertyCardProps) => {
   const [saved, setSaved] = useState(isPropertySaved(property.id));
+  const [imageError, setImageError] = useState(false);
+  const [currentImageUrl, setCurrentImageUrl] = useState(
+    property.images?.[0] 
+      ? getOptimizedImageUrl(property.images[0], 'card')
+      : getFallbackImageUrl(property.type)
+  );
+
+  // Update image URL when property changes
+  useEffect(() => {
+    if (property.images?.[0]) {
+      setImageError(false);
+      setCurrentImageUrl(getOptimizedImageUrl(property.images[0], 'card'));
+    } else {
+      setCurrentImageUrl(getOptimizedImageUrl(getFallbackImageUrl(property.type), 'card'));
+    }
+  }, [property.images, property.type]);
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -85,13 +102,19 @@ const PropertyCard = ({ property, onSelect }: PropertyCardProps) => {
       onClick={() => onSelect?.(property)}
     >
       {/* Image */}
-      {property.images && property.images[0] && (
-        <div className="relative h-48 overflow-hidden">
-          <img
-            src={property.images[0]}
-            alt={property.title}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-          />
+      <div className="relative h-48 overflow-hidden bg-muted">
+        <img
+          src={currentImageUrl}
+          alt={property.title}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+          loading="lazy"
+          onError={() => {
+            if (!imageError) {
+              setImageError(true);
+              setCurrentImageUrl(getOptimizedImageUrl(getFallbackImageUrl(property.type), 'card'));
+            }
+          }}
+        />
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
           
           {/* Status badge */}
@@ -120,7 +143,6 @@ const PropertyCard = ({ property, onSelect }: PropertyCardProps) => {
             )}
           </Button>
         </div>
-      )}
 
       {/* Content */}
       <div className="p-4 space-y-3">

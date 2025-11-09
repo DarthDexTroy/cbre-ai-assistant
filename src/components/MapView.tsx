@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, ZoomIn, ZoomOut, Locate, Maximize2, Minimize2 } from "lucide-react";
 import { toast } from "sonner";
+import { getFallbackImageUrl, getOptimizedImageUrl } from "@/lib/imageUtils";
 
 // Google Maps type declarations
 declare global {
@@ -22,6 +23,7 @@ interface Property {
   trustScore: number;
   price: number;
   sqft: number;
+  type?: string;
   occupancy?: number;
   images?: string[];
   keyFeatures?: string[];
@@ -390,13 +392,23 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
               </div>
               <Button variant="ghost" onClick={() => setShowDetails(false)}>×</Button>
             </div>
-            {selectedProperty.images?.[0] && (
-              <img
-                src={selectedProperty.images[0]}
-                alt={selectedProperty.title}
-                className="w-full h-60 object-cover rounded-lg mb-4"
-              />
-            )}
+            <img
+              src={
+                selectedProperty.images?.[0]
+                  ? getOptimizedImageUrl(selectedProperty.images[0], isFullscreen ? 'fullscreen' : 'detail')
+                  : getFallbackImageUrl(selectedProperty.type)
+              }
+              alt={selectedProperty.title}
+              className="w-full h-60 object-cover rounded-lg mb-4 bg-muted"
+              loading="lazy"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = getOptimizedImageUrl(
+                  getFallbackImageUrl(selectedProperty.type),
+                  isFullscreen ? 'fullscreen' : 'detail'
+                );
+              }}
+            />
             <div className="grid md:grid-cols-2 gap-4 mb-4">
               <div>
                 <div className="text-xs text-muted-foreground">Price</div>
