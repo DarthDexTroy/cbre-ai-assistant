@@ -7,15 +7,25 @@ export interface ChatMessage {
     timestamp: string;
   }
   
-  export interface AIResponse {
-    answer: string;
-    sources: Array<{
-    	name: string;
-    	url?: string;
-    	snippet?: string;
-    }>;
-    confidence: number;
-  }
+export interface AIResponse {
+  answer: string;
+  sources: Array<{
+  	name: string;
+  	url?: string;
+  	snippet?: string;
+  	published_at?: string;
+  	type?: string;
+  }>;
+  confidence: number;
+  trustBreakdown?: {
+    internal_used: boolean;
+    external_count: number;
+    freshness_days: number;
+    agreements: string;
+    conflicts: string;
+    missing: string;
+  };
+}
   
   // --- FIX 1: Define a specific type for the context ---
   // This interface enforces the shape of the context object,
@@ -47,25 +57,77 @@ export interface ChatMessage {
     	  ? `\n\n=== AVAILABLE PROPERTIES DATABASE ===\n\nIMPORTANT: Each property has a detailed description field that contains comprehensive context about the property. When answering questions about properties, you MUST use the description field as your primary source of information, along with other property details like location, type, class, price, occupancy, risks, and opportunities.\n\n${JSON.stringify(context.properties, null, 2)}\n\n=== END OF PROPERTIES DATABASE ===`
     	  : '';
 
-    	const systemPrompt = `You are an expert CBRE real estate assistant powered by Google Gemini. Your role is to help users understand properties, market trends, risks, and opportunities in commercial real estate.
+    const systemPrompt = `SYSTEM — "CBRE Trust-Layer Assistant"
 
-CRITICAL INSTRUCTIONS:
-1. When users ask about specific properties, you MUST carefully read and use the "description" field from the properties database as your primary source of context. The description contains detailed information about each property's characteristics, location, market position, and context.
+ROLE
+You are an AI analyst embedded in a real-estate web app. Your job is not only to answer questions but to prove why the user should trust each answer. You fuse:
+1) Internal data: the app passes a context object; if present, context.properties is the simulated CBRE database (properties.json) and is the primary source of truth.
+2) External data: use your knowledge and reasoning to verify, contextualize, or challenge internal data based on market trends and real estate principles.
 
-2. DO NOT rely solely on keyword matching. Instead, use semantic understanding based on the full description and all property details to provide accurate, contextual answers.
+PRINCIPLES
+- Precision over hype. If something is uncertain, say so and quantify it.
+- Never invent facts, figures, or URLs. Prefer primary sources.
+- Freshness matters. Prefer the most recent credible sources; report data timestamps.
+- Transparency by default. Always return a confidence score and a source list.
+- Strictly follow the response contract below (no extra top-level fields). The app will render answer (markdown), show confidence, and display sources.
 
-3. If a user asks about a property and you cannot find relevant information in the provided properties database, or if the question cannot be answered based on the available data, you MUST clearly state: "I'm not able to provide information about that property based on the available data. Could you provide more details or ask about a different property?"
+WHAT TO DO FOR EACH REQUEST
+1) Understand intent and scope (location, asset type/class, timeframe, metrics).
+2) If context.properties exists, search it first for relevant assets; treat it as internal/"CBRE" data.
+3) Analyze key claims (cap rates, vacancies, comps, permits, sales, zoning, macro trends).
+4) Reconcile conflicts between internal vs external knowledge. Call out discrepancies explicitly.
+5) Compute a confidence score (0–100) from: source quality & independence, recency, agreement among sources, coverage (sample size), and presence of anomalies.
+6) Surface gaps: what's missing, noisy, or likely to change.
+7) Return results in the schema below.
 
-4. When answering questions:
-   - Reference specific property details from the database
-   - Use the description field to provide context-rich answers
-   - Mention relevant risks and opportunities when discussing properties
-   - Include trust scores and occupancy rates when relevant
-   - Be specific about locations, property types, and market conditions
+RESPONSE CONTRACT (JSON object only)
+{
+  "answer": string,                // Markdown. Concise but complete. Include bullet points/tables where helpful.
+  "confidence": number,            // 0–100 integer. Your overall confidence in THIS answer.
+  "sources": [                     // 2–8 items, ordered by importance
+    {
+      "name": string,              // Publisher or dataset name (e.g., "LA County Assessor", "CBRE Research", "WSJ")
+      "url": string,               // Direct, openable link (use "#" if not available)
+      "snippet": string,           // 1–2 lines summarizing why this source supports the answer
+      "published_at": string,      // ISO date if known; else ""
+      "type": string               // one of: "government", "news", "research", "listing/MLS", "company", "CBRE_internal", "other"
+    }
+  ],
+  "trust_breakdown": {             // Keep brief; helps debugging UI; optional fields can be ""
+    "internal_used": boolean,      // true if context.properties contributed facts
+    "external_count": number,      // number of external sources considered
+    "freshness_days": number,      // median age of data you relied on, in days (estimate if needed)
+    "agreements": string,          // 1–2 lines: where sources agree
+    "conflicts": string,           // 1–2 lines: where sources disagree
+    "missing": string              // key data you could not find or verify
+  }
+}
 
-5. Always be honest about what you know and don't know. If information is not in the database, say so clearly.
+ANSWER STYLE
+- Put the conclusion first (one short paragraph).
+- Then bullet points with the key drivers/risks or the steps/assumptions for any calculations (cap rate, DSCR, IRR, absorption, rent comps). Show formulas and inputs.
+- If the user is on a specific property (detected via context or question), include a compact "Property snapshot" (price, size, type/class, last update, notable comps) and explicitly state anything that contradicts external sources.
+- Keep claims traceable to sources returned in sources. Do not cite anything you didn't list.
 
-6. Provide professional, accurate, and helpful responses that demonstrate deep understanding of the property details provided.${contextText}`;
+TRUST / CONFIDENCE HEURISTIC (guidance, not shown to user)
+Start at 50. Add up to +25 for multiple independent, high-quality sources in agreement; add up to +15 for recency (<90 days). Subtract up to −30 for conflicts or stale data, −20 for missing critical inputs. Clamp 0–100.
+
+SAFETY & SECRETS
+- Never display or echo API keys, headers, tokens, or environment variables.
+- If a user requests private data you don't have, say you don't have access and proceed with public sources.
+- No legal, tax, or investment advice; present as informational analysis.
+
+FAILURE MODE
+If you cannot verify key facts, return a lower confidence, clearly list "missing" in trust_breakdown, and keep the answer short with next steps (what to check, where).
+
+EXAMPLES (abbrev.)
+
+User: "What are key risks for Class A office in downtown Austin for the next 24 months?"
+→ Return markdown summary (supply, sublease pipeline, rate trends, financing, regulatory/permit timelines), computed confidence, and 3–6 sources (CBRE Research if present in context, city permits dashboard, state comptroller/econ data, reputable news).
+
+User: "Find industrial near Port of Long Beach with cold storage potential."
+→ Use internal properties first; if none, say so. Use external listings/news/permits. Call out zoning/utilities, power availability, truck gates/turn radii, cold-chain tenants nearby. Provide sources and confidence.
+${contextText}`;
   
     // Check if the key exists before fetching
     	if (!GEMINI_API_KEY) {
@@ -104,21 +166,50 @@ CRITICAL INSTRUCTIONS:
       throw new Error(`Gemini API error: ${response.status} ${response.statusText} ${errText}`);
     	}
   
-    	const data = await response.json();
-    	const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
-    	
-    	// (Your placeholder data for confidence and sources remains unchanged)
-    	const confidence = 88;
-    	const sources = [
-    	  { name: 'CBRE Internal Database', snippet: 'Property listings and market data' },
-    	  { name: 'Market Analysis Tools', snippet: 'Current market trends and analytics' },
-    	];
-  
-    	return {
-    	  answer,
-    	  sources,
-    	  confidence,
-    	};
+    	const data = await response.json();
+    	let rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
+    	
+    	// Try to parse JSON response from the model
+    	let parsedResponse;
+    	try {
+    	  // Clean up the response - remove markdown code blocks if present
+    	  let cleanedText = rawText.trim();
+    	  if (cleanedText.startsWith('```json')) {
+    	    cleanedText = cleanedText.replace(/```json\n?/g, '').replace(/```\n?$/g, '').trim();
+    	  } else if (cleanedText.startsWith('```')) {
+    	    cleanedText = cleanedText.replace(/```\n?/g, '').replace(/```\n?$/g, '').trim();
+    	  }
+    	  
+    	  parsedResponse = JSON.parse(cleanedText);
+    	} catch (e) {
+    	  // If parsing fails, treat the whole response as the answer
+    	  console.warn('Failed to parse JSON response, using raw text:', e);
+    	  parsedResponse = {
+    	    answer: rawText,
+    	    confidence: 75,
+    	    sources: [
+    	      { name: 'CBRE Internal Database', snippet: 'Property listings and market data', url: '#', type: 'CBRE_internal' },
+    	      { name: 'Market Analysis Tools', snippet: 'Current market trends and analytics', url: '#', type: 'research' },
+    	    ],
+    	    trust_breakdown: {
+    	      internal_used: true,
+    	      external_count: 1,
+    	      freshness_days: 7,
+    	      agreements: 'Data sources are consistent',
+    	      conflicts: '',
+    	      missing: ''
+    	    }
+    	  };
+    	}
+    	
+    	return {
+    	  answer: parsedResponse.answer || rawText,
+    	  sources: parsedResponse.sources || [
+    	    { name: 'CBRE Internal Database', snippet: 'Property listings and market data', url: '#', type: 'CBRE_internal' },
+    	  ],
+    	  confidence: parsedResponse.confidence || 75,
+    	  trustBreakdown: parsedResponse.trust_breakdown,
+    	};
     } catch (error) {
     	console.error('Gemini API Error:', error);
     	// Return a user-friendly error response

@@ -208,15 +208,61 @@ const AIChat = ({ className, onClose, initialMessages }: AIChatProps) => {
                   Confidence: {lastResponse.confidence}%
                 </Badge>
               </div>
+              
+              {lastResponse.trustBreakdown && (
+                <div className="mb-3 pb-3 border-b border-border/30">
+                  <div className="text-xs font-semibold mb-2">Trust Analysis:</div>
+                  <div className="space-y-1 text-xs">
+                    {lastResponse.trustBreakdown.internal_used && (
+                      <div className="flex items-center gap-1">
+                        <span className="text-primary">✓</span>
+                        <span>CBRE internal data used</span>
+                      </div>
+                    )}
+                    <div className="text-muted-foreground">
+                      {lastResponse.trustBreakdown.external_count} external sources verified • 
+                      Data freshness: {lastResponse.trustBreakdown.freshness_days} days
+                    </div>
+                    {lastResponse.trustBreakdown.agreements && (
+                      <div>
+                        <span className="font-medium">Agreements:</span> {lastResponse.trustBreakdown.agreements}
+                      </div>
+                    )}
+                    {lastResponse.trustBreakdown.conflicts && (
+                      <div className="text-warning">
+                        <span className="font-medium">Conflicts:</span> {lastResponse.trustBreakdown.conflicts}
+                      </div>
+                    )}
+                    {lastResponse.trustBreakdown.missing && (
+                      <div className="text-muted-foreground">
+                        <span className="font-medium">Missing:</span> {lastResponse.trustBreakdown.missing}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+              
               <div className="text-xs font-semibold mb-2">Verified Sources:</div>
               <div className="space-y-2">
                 {lastResponse.sources.map((source, idx) => (
                   <div key={idx} className="flex items-start gap-2 text-xs">
                     <ExternalLink className="h-3 w-3 mt-0.5 flex-shrink-0 text-primary" />
                     <div className="flex-1">
-                      <div className="font-medium">{source.name}</div>
+                      <div className="flex items-center gap-2">
+                        <div className="font-medium">{source.name}</div>
+                        {source.type && (
+                          <Badge variant="secondary" className="text-[10px] px-1 py-0">
+                            {source.type}
+                          </Badge>
+                        )}
+                      </div>
                       {source.snippet && (
                         <div className="text-muted-foreground">{source.snippet}</div>
+                      )}
+                      {source.published_at && (
+                        <div className="text-muted-foreground/70 text-[10px]">
+                          Published: {new Date(source.published_at).toLocaleDateString()}
+                        </div>
                       )}
                     </div>
                   </div>
