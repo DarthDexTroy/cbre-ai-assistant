@@ -14,7 +14,7 @@ import TrustScoreMeter from "@/components/TrustScoreMeter";
 import { buildRichPropertyDescription, redistributeStatuses } from "@/lib/utils";
 import type { ChatMessage } from "@/lib/gemini";
 import { cn } from "@/lib/utils";
-import { Search, Menu, User, Bookmark, Settings, LogOut, Sparkles, Filter, TrendingUp, X } from "lucide-react";
+import { Search, Menu, User, Bookmark, LogOut, Sparkles, Filter, TrendingUp, X } from "lucide-react";
 import propertiesData from "@/data/properties.json";
 import {
   getCurrentUser,
@@ -44,6 +44,8 @@ const Index = () => {
   const [showComparison, setShowComparison] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
   const [comparisonProperties, setComparisonProperties] = useState<any[]>([]);
+  const [selectedAnalyticsProperty, setSelectedAnalyticsProperty] = useState<any | null>(null);
+  const [comparisonSearch, setComparisonSearch] = useState("");
   const [filters, setFilters] = useState({
     location: "",
     types: new Set<string>(),
@@ -252,10 +254,6 @@ const Index = () => {
                 >
                   <TrendingUp className="mr-2 h-4 w-4" />
                   Analytics
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  <Settings className="mr-2 h-4 w-4" />
-                  Settings
                 </Button>
               </nav>
 
@@ -727,8 +725,8 @@ const Index = () => {
             <div className="flex gap-2 items-center">
               <Input 
                 placeholder="Search properties to compare..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={comparisonSearch}
+                onChange={(e) => setComparisonSearch(e.target.value)}
               />
               <Badge variant="outline">{comparisonProperties.length}/3 selected</Badge>
             </div>
@@ -745,7 +743,10 @@ const Index = () => {
                           variant="ghost"
                           size="icon"
                           className="absolute top-2 right-2 z-10 bg-background/80"
-                          onClick={() => setComparisonProperties(comparisonProperties.filter(p => p.id !== property.id))}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setComparisonProperties(comparisonProperties.filter(p => p.id !== property.id));
+                          }}
                         >
                           <X className="h-4 w-4" />
                         </Button>
@@ -803,8 +804,14 @@ const Index = () => {
                 <h3 className="font-semibold mb-3">Available Properties</h3>
                 <ScrollArea className="max-h-[40vh]">
                   <div className="grid grid-cols-2 gap-3">
-                    {filteredProperties
-                      .filter(p => !comparisonProperties.find(cp => cp.id === p.id))
+                    {redistributed
+                      .filter(p => {
+                        const matchesSearch = comparisonSearch.toLowerCase() === "" || 
+                          p.title.toLowerCase().includes(comparisonSearch.toLowerCase()) ||
+                          p.address.toLowerCase().includes(comparisonSearch.toLowerCase());
+                        const notSelected = !comparisonProperties.find(cp => cp.id === p.id);
+                        return matchesSearch && notSelected;
+                      })
                       .slice(0, 10)
                       .map((property) => (
                         <Button
@@ -846,109 +853,215 @@ const Index = () => {
         <DialogContent className="glass max-w-6xl max-h-[90vh]">
           <DialogHeader>
             <DialogTitle>Property Value Analytics</DialogTitle>
-            <DialogDescription>Historical property value trends and market analysis</DialogDescription>
+            <DialogDescription>Track individual property value trends over time</DialogDescription>
           </DialogHeader>
           <ScrollArea className="max-h-[75vh]">
             <div className="space-y-6 p-4">
-              {/* Market Overview Chart */}
+              {/* Property Selector */}
               <div>
-                <h3 className="font-semibold mb-4">Market Value Trends (Last 12 Months)</h3>
-                <div className="glass p-4 rounded-lg">
-                  <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={[
-                      { month: 'Jan', avgValue: 2.8, class_a: 3.2, class_b: 2.6, class_c: 2.2 },
-                      { month: 'Feb', avgValue: 2.9, class_a: 3.3, class_b: 2.7, class_c: 2.3 },
-                      { month: 'Mar', avgValue: 3.0, class_a: 3.5, class_b: 2.8, class_c: 2.4 },
-                      { month: 'Apr', avgValue: 3.1, class_a: 3.6, class_b: 2.9, class_c: 2.5 },
-                      { month: 'May', avgValue: 3.2, class_a: 3.7, class_b: 3.0, class_c: 2.6 },
-                      { month: 'Jun', avgValue: 3.3, class_a: 3.9, class_b: 3.1, class_c: 2.7 },
-                      { month: 'Jul', avgValue: 3.4, class_a: 4.0, class_b: 3.2, class_c: 2.8 },
-                      { month: 'Aug', avgValue: 3.5, class_a: 4.1, class_b: 3.3, class_c: 2.9 },
-                      { month: 'Sep', avgValue: 3.6, class_a: 4.2, class_b: 3.4, class_c: 3.0 },
-                      { month: 'Oct', avgValue: 3.7, class_a: 4.3, class_b: 3.5, class_c: 3.1 },
-                      { month: 'Nov', avgValue: 3.8, class_a: 4.5, class_b: 3.6, class_c: 3.2 },
-                      { month: 'Dec', avgValue: 3.9, class_a: 4.6, class_b: 3.7, class_c: 3.3 },
-                    ]}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="month" className="text-xs" />
-                      <YAxis label={{ value: 'Value ($M)', angle: -90, position: 'insideLeft' }} />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: 'hsl(var(--background))',
-                          border: '1px solid hsl(var(--border))',
-                          borderRadius: '8px'
-                        }}
-                      />
-                      <Legend />
-                      <Line type="monotone" dataKey="avgValue" stroke="hsl(var(--primary))" name="Average" strokeWidth={2} />
-                      <Line type="monotone" dataKey="class_a" stroke="hsl(var(--trust-high))" name="Class A" strokeWidth={2} />
-                      <Line type="monotone" dataKey="class_b" stroke="hsl(var(--trust-medium))" name="Class B" strokeWidth={2} />
-                      <Line type="monotone" dataKey="class_c" stroke="hsl(var(--trust-low))" name="Class C" strokeWidth={2} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
+                <h3 className="font-semibold mb-3">Select Property to Analyze</h3>
+                <ScrollArea className="h-[200px]">
+                  <div className="grid grid-cols-2 gap-3">
+                    {redistributed.slice(0, 20).map((property) => (
+                      <Button
+                        key={property.id}
+                        variant={selectedAnalyticsProperty?.id === property.id ? "default" : "outline"}
+                        className="h-auto p-3 justify-start text-left"
+                        onClick={() => setSelectedAnalyticsProperty(property)}
+                      >
+                        <div className="flex gap-3 items-start w-full">
+                          <img
+                            src={property.images?.[0] ? getOptimizedImageUrl(property.images[0], 'card') : getFallbackImageUrl(property.type)}
+                            alt={property.title}
+                            className="w-12 h-12 object-cover rounded"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-xs line-clamp-1">{property.title}</div>
+                            <div className="text-xs text-muted-foreground line-clamp-1">{property.address}</div>
+                            <div className="text-xs font-semibold text-primary mt-1">
+                              ${(property.price / 1000000).toFixed(1)}M
+                            </div>
+                          </div>
+                        </div>
+                      </Button>
+                    ))}
+                  </div>
+                </ScrollArea>
               </div>
 
-              {/* Key Metrics */}
-              <div>
-                <h3 className="font-semibold mb-4">Key Market Metrics</h3>
-                <div className="grid grid-cols-4 gap-4">
+              {selectedAnalyticsProperty ? (
+                <>
+                  {/* Property Overview */}
                   <div className="glass p-4 rounded-lg">
-                    <div className="text-sm text-muted-foreground mb-1">Avg Growth</div>
-                    <div className="text-2xl font-bold text-trust-high">+12.5%</div>
-                    <div className="text-xs text-muted-foreground mt-1">Year over Year</div>
-                  </div>
-                  <div className="glass p-4 rounded-lg">
-                    <div className="text-sm text-muted-foreground mb-1">Total Volume</div>
-                    <div className="text-2xl font-bold text-primary">$156M</div>
-                    <div className="text-xs text-muted-foreground mt-1">Last Quarter</div>
-                  </div>
-                  <div className="glass p-4 rounded-lg">
-                    <div className="text-sm text-muted-foreground mb-1">Avg Occupancy</div>
-                    <div className="text-2xl font-bold">87%</div>
-                    <div className="text-xs text-muted-foreground mt-1">All Properties</div>
-                  </div>
-                  <div className="glass p-4 rounded-lg">
-                    <div className="text-sm text-muted-foreground mb-1">Price per SF</div>
-                    <div className="text-2xl font-bold">$425</div>
-                    <div className="text-xs text-muted-foreground mt-1">Market Average</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Property Type Distribution */}
-              <div>
-                <h3 className="font-semibold mb-4">Value by Property Type</h3>
-                <div className="glass p-4 rounded-lg">
-                  <ResponsiveContainer width="100%" height={250}>
-                    <LineChart data={[
-                      { month: 'Jan', Office: 2.5, Retail: 1.8, Industrial: 2.2, Multifamily: 3.1 },
-                      { month: 'Mar', Office: 2.6, Retail: 1.9, Industrial: 2.4, Multifamily: 3.3 },
-                      { month: 'May', Office: 2.7, Retail: 2.0, Industrial: 2.6, Multifamily: 3.5 },
-                      { month: 'Jul', Office: 2.8, Retail: 2.1, Industrial: 2.8, Multifamily: 3.7 },
-                      { month: 'Sep', Office: 2.9, Retail: 2.2, Industrial: 3.0, Multifamily: 3.9 },
-                      { month: 'Nov', Office: 3.0, Retail: 2.3, Industrial: 3.2, Multifamily: 4.1 },
-                      { month: 'Dec', Office: 3.1, Retail: 2.4, Industrial: 3.4, Multifamily: 4.3 },
-                    ]}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="month" />
-                      <YAxis label={{ value: 'Value ($M)', angle: -90, position: 'insideLeft' }} />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: 'hsl(var(--background))',
-                          border: '1px solid hsl(var(--border))',
-                          borderRadius: '8px'
-                        }}
+                    <div className="flex items-start gap-4">
+                      <img
+                        src={selectedAnalyticsProperty.images?.[0] ? getOptimizedImageUrl(selectedAnalyticsProperty.images[0], 'card') : getFallbackImageUrl(selectedAnalyticsProperty.type)}
+                        alt={selectedAnalyticsProperty.title}
+                        className="w-32 h-32 object-cover rounded"
                       />
-                      <Legend />
-                      <Line type="monotone" dataKey="Office" stroke="#8884d8" strokeWidth={2} />
-                      <Line type="monotone" dataKey="Retail" stroke="#82ca9d" strokeWidth={2} />
-                      <Line type="monotone" dataKey="Industrial" stroke="#ffc658" strokeWidth={2} />
-                      <Line type="monotone" dataKey="Multifamily" stroke="#ff7c7c" strokeWidth={2} />
-                    </LineChart>
-                  </ResponsiveContainer>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg mb-1">{selectedAnalyticsProperty.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-3">{selectedAnalyticsProperty.address}</p>
+                        <div className="grid grid-cols-4 gap-4">
+                          <div>
+                            <div className="text-xs text-muted-foreground">Current Value</div>
+                            <div className="text-xl font-bold text-primary">
+                              ${(selectedAnalyticsProperty.price / 1000000).toFixed(1)}M
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-muted-foreground">Type</div>
+                            <div className="font-semibold">{selectedAnalyticsProperty.type}</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-muted-foreground">Class</div>
+                            <div className="font-semibold">{selectedAnalyticsProperty.class}</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-muted-foreground">Trust Score</div>
+                            <div className="font-semibold">{selectedAnalyticsProperty.trustScore}/100</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Value Over Time Chart */}
+                  <div>
+                    <h3 className="font-semibold mb-4">Value History (Last 12 Months)</h3>
+                    <div className="glass p-4 rounded-lg">
+                      <ResponsiveContainer width="100%" height={350}>
+                        <LineChart data={(() => {
+                          const baseValue = selectedAnalyticsProperty.price / 1000000;
+                          const variation = baseValue * 0.15;
+                          return [
+                            { month: 'Jan', value: baseValue - variation },
+                            { month: 'Feb', value: baseValue - variation * 0.9 },
+                            { month: 'Mar', value: baseValue - variation * 0.75 },
+                            { month: 'Apr', value: baseValue - variation * 0.6 },
+                            { month: 'May', value: baseValue - variation * 0.5 },
+                            { month: 'Jun', value: baseValue - variation * 0.3 },
+                            { month: 'Jul', value: baseValue - variation * 0.2 },
+                            { month: 'Aug', value: baseValue - variation * 0.1 },
+                            { month: 'Sep', value: baseValue - variation * 0.05 },
+                            { month: 'Oct', value: baseValue },
+                            { month: 'Nov', value: baseValue + variation * 0.05 },
+                            { month: 'Dec', value: baseValue },
+                          ];
+                        })()}>
+                          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                          <XAxis dataKey="month" />
+                          <YAxis 
+                            label={{ value: 'Value ($M)', angle: -90, position: 'insideLeft' }}
+                            domain={['dataMin - 0.5', 'dataMax + 0.5']}
+                          />
+                          <Tooltip 
+                            contentStyle={{ 
+                              backgroundColor: 'hsl(var(--background))',
+                              border: '1px solid hsl(var(--border))',
+                              borderRadius: '8px'
+                            }}
+                            formatter={(value: any) => [`$${value.toFixed(2)}M`, 'Value']}
+                          />
+                          <Legend />
+                          <Line 
+                            type="monotone" 
+                            dataKey="value" 
+                            stroke="hsl(var(--primary))" 
+                            strokeWidth={3}
+                            name="Property Value"
+                            dot={{ fill: 'hsl(var(--primary))', r: 4 }}
+                            activeDot={{ r: 6 }}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+
+                  {/* Key Metrics */}
+                  <div>
+                    <h3 className="font-semibold mb-4">Performance Metrics</h3>
+                    <div className="grid grid-cols-4 gap-4">
+                      <div className="glass p-4 rounded-lg">
+                        <div className="text-sm text-muted-foreground mb-1">12-Month Growth</div>
+                        <div className="text-2xl font-bold text-trust-high">+15.8%</div>
+                        <div className="text-xs text-muted-foreground mt-1">Year over Year</div>
+                      </div>
+                      <div className="glass p-4 rounded-lg">
+                        <div className="text-sm text-muted-foreground mb-1">Occupancy</div>
+                        <div className="text-2xl font-bold">{selectedAnalyticsProperty.occupancy}%</div>
+                        <div className="text-xs text-muted-foreground mt-1">Current Rate</div>
+                      </div>
+                      <div className="glass p-4 rounded-lg">
+                        <div className="text-sm text-muted-foreground mb-1">Price per SF</div>
+                        <div className="text-2xl font-bold">
+                          ${Math.round(selectedAnalyticsProperty.price / selectedAnalyticsProperty.sqft)}
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">Current Value</div>
+                      </div>
+                      <div className="glass p-4 rounded-lg">
+                        <div className="text-sm text-muted-foreground mb-1">Market Position</div>
+                        <div className="text-2xl font-bold text-primary">Top 25%</div>
+                        <div className="text-xs text-muted-foreground mt-1">In Category</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Occupancy Trend */}
+                  <div>
+                    <h3 className="font-semibold mb-4">Occupancy Trend</h3>
+                    <div className="glass p-4 rounded-lg">
+                      <ResponsiveContainer width="100%" height={250}>
+                        <LineChart data={(() => {
+                          const baseOccupancy = selectedAnalyticsProperty.occupancy || 85;
+                          return [
+                            { month: 'Jan', occupancy: baseOccupancy - 8 },
+                            { month: 'Feb', occupancy: baseOccupancy - 6 },
+                            { month: 'Mar', occupancy: baseOccupancy - 5 },
+                            { month: 'Apr', occupancy: baseOccupancy - 4 },
+                            { month: 'May', occupancy: baseOccupancy - 3 },
+                            { month: 'Jun', occupancy: baseOccupancy - 2 },
+                            { month: 'Jul', occupancy: baseOccupancy - 1 },
+                            { month: 'Aug', occupancy: baseOccupancy },
+                            { month: 'Sep', occupancy: baseOccupancy + 1 },
+                            { month: 'Oct', occupancy: baseOccupancy + 2 },
+                            { month: 'Nov', occupancy: baseOccupancy + 1 },
+                            { month: 'Dec', occupancy: baseOccupancy },
+                          ];
+                        })()}>
+                          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                          <XAxis dataKey="month" />
+                          <YAxis 
+                            label={{ value: 'Occupancy (%)', angle: -90, position: 'insideLeft' }}
+                            domain={[60, 100]}
+                          />
+                          <Tooltip 
+                            contentStyle={{ 
+                              backgroundColor: 'hsl(var(--background))',
+                              border: '1px solid hsl(var(--border))',
+                              borderRadius: '8px'
+                            }}
+                            formatter={(value: any) => [`${value}%`, 'Occupancy']}
+                          />
+                          <Legend />
+                          <Line 
+                            type="monotone" 
+                            dataKey="occupancy" 
+                            stroke="hsl(var(--trust-high))" 
+                            strokeWidth={2}
+                            name="Occupancy Rate"
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="text-center py-12">
+                  <TrendingUp className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                  <p className="text-muted-foreground">Select a property above to view its analytics</p>
                 </div>
-              </div>
+              )}
             </div>
           </ScrollArea>
         </DialogContent>
