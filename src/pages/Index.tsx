@@ -715,34 +715,36 @@ const Index = () => {
 
       {/* Compare Properties Dialog */}
       <Dialog open={showComparison} onOpenChange={setShowComparison}>
-        <DialogContent className="glass max-w-6xl max-h-[90vh]">
+        <DialogContent className="glass max-w-6xl max-h-[90vh] flex flex-col">
           <DialogHeader>
             <DialogTitle>Compare Properties</DialogTitle>
             <DialogDescription>Select up to 3 properties to compare side by side</DialogDescription>
           </DialogHeader>
-          <div className="space-y-4">
-            {/* Property Selection */}
-            <div className="flex gap-2 items-center">
-              <Input 
-                placeholder="Search properties to compare..." 
-                value={comparisonSearch}
-                onChange={(e) => setComparisonSearch(e.target.value)}
-              />
-              <Badge variant="outline">{comparisonProperties.length}/3 selected</Badge>
-            </div>
-            
-            {/* Selected Properties for Comparison */}
-            {comparisonProperties.length > 0 && (
-              <div>
-                <h3 className="font-semibold mb-3">Selected Properties</h3>
-                <ScrollArea className="max-h-[60vh]">
+          
+          {/* Property Selection */}
+          <div className="flex gap-2 items-center">
+            <Input 
+              placeholder="Search properties to compare..." 
+              value={comparisonSearch}
+              onChange={(e) => setComparisonSearch(e.target.value)}
+            />
+            <Badge variant="outline">{comparisonProperties.length}/3 selected</Badge>
+          </div>
+
+          {/* Scrollable Content */}
+          <ScrollArea className="flex-1 -mx-6 px-6">
+            <div className="space-y-6 pr-4">
+              {/* Selected Properties for Comparison */}
+              {comparisonProperties.length > 0 && (
+                <div>
+                  <h3 className="font-semibold mb-3">Selected Properties</h3>
                   <div className="grid grid-cols-3 gap-4">
                     {comparisonProperties.map((property) => (
                       <div key={property.id} className="relative">
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="absolute top-2 right-2 z-10 bg-background/80"
+                          className="absolute top-2 right-2 z-10 bg-background/80 hover:bg-background"
                           onClick={(e) => {
                             e.stopPropagation();
                             setComparisonProperties(comparisonProperties.filter(p => p.id !== property.id));
@@ -794,15 +796,13 @@ const Index = () => {
                       </div>
                     ))}
                   </div>
-                </ScrollArea>
-              </div>
-            )}
+                </div>
+              )}
 
-            {/* Available Properties */}
-            {comparisonProperties.length < 3 && (
-              <div>
-                <h3 className="font-semibold mb-3">Available Properties</h3>
-                <ScrollArea className="max-h-[40vh]">
+              {/* Available Properties */}
+              {comparisonProperties.length < 3 && (
+                <div>
+                  <h3 className="font-semibold mb-3">Available Properties</h3>
                   <div className="grid grid-cols-2 gap-3">
                     {redistributed
                       .filter(p => {
@@ -812,12 +812,12 @@ const Index = () => {
                         const notSelected = !comparisonProperties.find(cp => cp.id === p.id);
                         return matchesSearch && notSelected;
                       })
-                      .slice(0, 10)
+                      .slice(0, 20)
                       .map((property) => (
                         <Button
                           key={property.id}
                           variant="outline"
-                          className="h-auto p-3 justify-start text-left"
+                          className="h-auto p-3 justify-start text-left hover:bg-muted"
                           onClick={() => {
                             if (comparisonProperties.length < 3) {
                               setComparisonProperties([...comparisonProperties, property]);
@@ -841,10 +841,10 @@ const Index = () => {
                         </Button>
                       ))}
                   </div>
-                </ScrollArea>
-              </div>
-            )}
-          </div>
+                </div>
+              )}
+            </div>
+          </ScrollArea>
         </DialogContent>
       </Dialog>
 
