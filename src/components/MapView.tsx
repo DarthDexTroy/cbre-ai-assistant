@@ -5,6 +5,13 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, Layers, ZoomIn, ZoomOut, Locate } from "lucide-react";
 import { toast } from "sonner";
 
+// Google Maps type declarations
+declare global {
+  interface Window {
+    google: any;
+  }
+}
+
 interface Property {
   id: string;
   title: string;
@@ -21,11 +28,7 @@ interface MapViewProps {
   center?: { lat: number; lng: number };
 }
 
-// TODO: Add Google Maps API Key
-// 1. Get API key from: https://console.cloud.google.com/google/maps-apis
-// 2. Enable Maps JavaScript API and Places API
-// 3. Add to environment variables or directly in code
-const GOOGLE_MAPS_API_KEY = "YOUR_GOOGLE_MAPS_API_KEY_HERE";
+const GOOGLE_MAPS_API_KEY = "AIzaSyBElBNiFjwNPe7crCoJ_5e6ZL8YU-26oC4";
 
 const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
@@ -34,47 +37,29 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
   const [showHeatmap, setShowHeatmap] = useState(false);
 
   useEffect(() => {
-    // TODO: Replace with actual Google Maps initialization
-    // This is a placeholder that shows what the map area would look like
-    
-    /*
-    Example Google Maps initialization:
-    
-    if (!window.google) {
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places,visualization`;
-      script.async = true;
-      script.onload = initMap;
-      document.head.appendChild(script);
-    } else {
-      initMap();
-    }
+    if (!mapRef.current) return;
 
-    function initMap() {
-      const map = new google.maps.Map(mapRef.current!, {
-        center: center || { lat: 39.8283, lng: -98.5795 }, // Center of US
+    const initMap = () => {
+      const map = new window.google.maps.Map(mapRef.current!, {
+        center: center || { lat: 39.8283, lng: -98.5795 },
         zoom: 5,
-        styles: [ // Dark mode styling
-          {
-            "elementType": "geometry",
-            "stylers": [{ "color": "#212121" }]
-          },
-          {
-            "elementType": "labels.text.fill",
-            "stylers": [{ "color": "#757575" }]
-          },
-          // ... more styling
+        styles: [
+          { elementType: "geometry", stylers: [{ color: "#0a1929" }] },
+          { elementType: "labels.text.fill", stylers: [{ color: "#8b92a8" }] },
+          { elementType: "labels.text.stroke", stylers: [{ color: "#0a1929" }] },
+          { featureType: "water", elementType: "geometry", stylers: [{ color: "#003d5c" }] },
+          { featureType: "road", elementType: "geometry", stylers: [{ color: "#1e3a5f" }] },
         ],
       });
 
-      // Add markers for each property
+      const markers: any[] = [];
       properties.forEach(property => {
-        const marker = new google.maps.Marker({
+        const marker = new window.google.maps.Marker({
           position: { lat: property.lat, lng: property.lng },
           map: map,
           title: property.title,
           icon: {
-            path: google.maps.SymbolPath.CIRCLE,
+            path: window.google.maps.SymbolPath.CIRCLE,
             scale: 8,
             fillColor: getStatusColor(property.status),
             fillOpacity: 0.9,
@@ -87,20 +72,22 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
           setSelectedProperty(property);
           onPropertySelect?.(property);
         });
+
+        markers.push(marker);
       });
 
       setMapInstance(map);
+    };
+
+    if (!window.google) {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places,visualization`;
+      script.async = true;
+      script.onload = initMap;
+      document.head.appendChild(script);
+    } else {
+      initMap();
     }
-    */
-
-    // Show placeholder message
-    if (!mapRef.current) return;
-    
-    toast.info("Google Maps API key required", {
-      description: "Add your API key to enable the interactive map",
-      duration: 5000,
-    });
-
   }, [properties, center, onPropertySelect]);
 
   const getStatusColor = (status: string): string => {
@@ -114,20 +101,37 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
   };
 
   const handleZoomIn = () => {
-    toast.info("Zoom in - Requires Google Maps API");
+    if (mapInstance) {
+      mapInstance.setZoom(mapInstance.getZoom() + 1);
+    }
   };
 
   const handleZoomOut = () => {
-    toast.info("Zoom out - Requires Google Maps API");
+    if (mapInstance) {
+      mapInstance.setZoom(mapInstance.getZoom() - 1);
+    }
   };
 
   const handleLocate = () => {
-    toast.info("Locate me - Requires Google Maps API");
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        if (mapInstance) {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          mapInstance.setCenter(pos);
+          mapInstance.setZoom(12);
+        }
+      });
+    } else {
+      toast.error("Geolocation not supported");
+    }
   };
 
   const toggleHeatmap = () => {
     setShowHeatmap(!showHeatmap);
-    toast.info(`Heatmap ${!showHeatmap ? 'enabled' : 'disabled'} - Requires Google Maps API`);
+    toast.info(`Heatmap ${!showHeatmap ? 'enabled' : 'disabled'}`);
   };
 
   return (
@@ -136,56 +140,7 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
       <div 
         ref={mapRef} 
         className="w-full h-full bg-muted/20 rounded-lg relative overflow-hidden"
-        style={{
-          backgroundImage: `
-            radial-gradient(circle at 20% 50%, hsl(var(--primary) / 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, hsl(var(--secondary) / 0.1) 0%, transparent 50%)
-          `,
-        }}
-      >
-        {/* Placeholder content */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Card className="glass p-8 max-w-md text-center space-y-4">
-            <MapPin className="h-16 w-16 mx-auto text-primary animate-float" />
-            <div>
-              <h3 className="text-xl font-semibold mb-2">Google Maps Integration</h3>
-              <p className="text-sm text-muted-foreground">
-                Add your Google Maps API key to enable the interactive map with property markers,
-                clustering, and heatmap overlays.
-              </p>
-            </div>
-            <div className="pt-4 border-t border-border/50">
-              <p className="text-xs text-muted-foreground">
-                <strong>API Key Configuration:</strong><br />
-                Update <code className="bg-muted px-2 py-1 rounded">GOOGLE_MAPS_API_KEY</code> in MapView.tsx
-              </p>
-            </div>
-          </Card>
-        </div>
-
-        {/* Simulated property markers */}
-        <div className="absolute inset-0 pointer-events-none">
-          {properties.slice(0, 6).map((property, index) => (
-            <div
-              key={property.id}
-              className="absolute animate-pulse-glow pointer-events-auto cursor-pointer"
-              style={{
-                left: `${20 + (index * 12)}%`,
-                top: `${30 + (index % 3) * 20}%`,
-              }}
-              onClick={() => {
-                setSelectedProperty(property);
-                onPropertySelect?.(property);
-              }}
-            >
-              <div 
-                className="w-4 h-4 rounded-full border-2 border-white shadow-lg"
-                style={{ backgroundColor: getStatusColor(property.status) }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      />
 
       {/* Map controls */}
       <div className="absolute top-4 right-4 flex flex-col gap-2">

@@ -213,9 +213,6 @@ const AIChat = ({ className }: AIChatProps) => {
             <Send className="h-4 w-4" />
           </Button>
         </div>
-        <div className="mt-2 text-xs text-muted-foreground text-center">
-          TODO: Add Gemini API key for AI responses
-        </div>
       </div>
     </Card>
   );
