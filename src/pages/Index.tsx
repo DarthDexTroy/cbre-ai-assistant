@@ -47,6 +47,7 @@ const Index = () => {
   const [comparisonProperties, setComparisonProperties] = useState<any[]>([]);
   const [selectedAnalyticsProperty, setSelectedAnalyticsProperty] = useState<any | null>(null);
   const [comparisonSearch, setComparisonSearch] = useState("");
+  const [analyticsSearch, setAnalyticsSearch] = useState("");
   const [filters, setFilters] = useState({
     location: "",
     types: new Set<string>(),
@@ -898,46 +899,113 @@ const Index = () => {
 
       {/* Analytics Dialog */}
       <Dialog open={showAnalytics} onOpenChange={setShowAnalytics}>
-        <DialogContent className="glass max-w-6xl max-h-[90vh]">
-          <DialogHeader>
+        <DialogContent className="glass max-w-6xl h-[90vh] flex flex-col">
+          <DialogHeader className="flex-shrink-0">
             <DialogTitle>Property Value Analytics</DialogTitle>
             <DialogDescription>Track individual property value trends over time</DialogDescription>
           </DialogHeader>
-          <ScrollArea className="max-h-[75vh]">
-            <div className="space-y-6 p-4">
-              {/* Property Selector */}
-              <div>
-                <h3 className="font-semibold mb-3">Select Property to Analyze</h3>
-                <ScrollArea className="h-[200px]">
-                  <div className="grid grid-cols-2 gap-3">
-                    {redistributed.slice(0, 20).map((property) => (
+          
+          {/* Property Search Dropdown */}
+          <div className="flex-shrink-0 px-6">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="w-full justify-between h-auto py-3"
+                >
+                  {selectedAnalyticsProperty ? (
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={selectedAnalyticsProperty.images?.[0] ? getOptimizedImageUrl(selectedAnalyticsProperty.images[0], 'card') : getFallbackImageUrl(selectedAnalyticsProperty.type)}
+                        alt={selectedAnalyticsProperty.title}
+                        className="w-10 h-10 object-cover rounded"
+                      />
+                      <div className="text-left">
+                        <div className="font-semibold text-sm">{selectedAnalyticsProperty.title}</div>
+                        <div className="text-xs text-muted-foreground">{selectedAnalyticsProperty.address}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <span className="text-muted-foreground">Select a property to analyze</span>
+                  )}
+                  <Search className="h-4 w-4 ml-2 flex-shrink-0" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[600px] p-0" align="start">
+                <div className="sticky top-0 bg-popover z-10 p-3 border-b">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Search properties..."
+                      className="pl-10"
+                      value={analyticsSearch}
+                      onChange={(e) => setAnalyticsSearch(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="max-h-[400px] overflow-y-auto">
+                  {(() => {
+                    const savedPropertyIds = getSavedProperties();
+                    const propertiesToShow = analyticsSearch.trim() === "" 
+                      ? redistributed.filter(p => savedPropertyIds.includes(p.id))
+                      : redistributed.filter(p => 
+                          p.title.toLowerCase().includes(analyticsSearch.toLowerCase()) ||
+                          p.address.toLowerCase().includes(analyticsSearch.toLowerCase())
+                        );
+                    
+                    if (propertiesToShow.length === 0) {
+                      return (
+                        <div className="p-8 text-center text-muted-foreground">
+                          {analyticsSearch.trim() === "" 
+                            ? "No saved properties. Search to find properties."
+                            : "No properties found"
+                          }
+                        </div>
+                      );
+                    }
+
+                    return propertiesToShow.map((property) => (
                       <Button
                         key={property.id}
-                        variant={selectedAnalyticsProperty?.id === property.id ? "default" : "outline"}
-                        className="h-auto p-3 justify-start text-left"
-                        onClick={() => setSelectedAnalyticsProperty(property)}
+                        variant="ghost"
+                        className="w-full h-auto p-3 justify-start hover:bg-accent"
+                        onClick={() => {
+                          setSelectedAnalyticsProperty(property);
+                          setAnalyticsSearch("");
+                        }}
                       >
                         <div className="flex gap-3 items-start w-full">
                           <img
                             src={property.images?.[0] ? getOptimizedImageUrl(property.images[0], 'card') : getFallbackImageUrl(property.type)}
                             alt={property.title}
-                            className="w-12 h-12 object-cover rounded"
+                            className="w-12 h-12 object-cover rounded flex-shrink-0"
                           />
-                          <div className="flex-1 min-w-0">
-                            <div className="font-semibold text-xs line-clamp-1">{property.title}</div>
+                          <div className="flex-1 min-w-0 text-left">
+                            <div className="font-semibold text-sm line-clamp-1">{property.title}</div>
                             <div className="text-xs text-muted-foreground line-clamp-1">{property.address}</div>
-                            <div className="text-xs font-semibold text-primary mt-1">
-                              ${(property.price / 1000000).toFixed(1)}M
+                            <div className="flex items-center gap-2 mt-1">
+                              <div className="text-xs font-semibold text-primary">
+                                ${(property.price / 1000000).toFixed(1)}M
+                              </div>
+                              {savedPropertyIds.includes(property.id) && (
+                                <Badge variant="secondary" className="text-xs">Saved</Badge>
+                              )}
                             </div>
                           </div>
                         </div>
                       </Button>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </div>
+                    ));
+                  })()}
+                </div>
+              </PopoverContent>
+            </Popover>
+          </div>
 
-              {selectedAnalyticsProperty ? (
+          {/* Analytics Content */}
+          <div className="flex-1 overflow-hidden px-6 pb-6">
+            <ScrollArea className="h-full">
+              <div className="space-y-6 pr-4">
+                {selectedAnalyticsProperty ? (
                 <>
                   {/* Property Overview */}
                   <div className="glass p-4 rounded-lg">
@@ -1103,15 +1171,17 @@ const Index = () => {
                       </ResponsiveContainer>
                     </div>
                   </div>
-                </>
-              ) : (
-                <div className="text-center py-12">
-                  <TrendingUp className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground">Select a property above to view its analytics</p>
-                </div>
-              )}
-            </div>
-          </ScrollArea>
+                  </>
+                ) : (
+                  <div className="text-center py-12">
+                    <TrendingUp className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                    <p className="text-muted-foreground">Select a property using the dropdown above to view analytics</p>
+                    <p className="text-sm text-muted-foreground mt-2">Saved properties are shown by default</p>
+                  </div>
+                )}
+              </div>
+            </ScrollArea>
+          </div>
         </DialogContent>
       </Dialog>
 
