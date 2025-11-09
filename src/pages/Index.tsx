@@ -755,8 +755,8 @@ const Index = () => {
                   <Search className="ml-2 h-4 w-4" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[600px] p-0 z-50" align="start">
-                <div className="p-2 border-b">
+              <PopoverContent className="w-[600px] p-0 z-50 bg-background border" align="start">
+                <div className="p-3 border-b bg-background sticky top-0 z-10">
                   <Input
                     placeholder="Search properties..."
                     value={comparisonSearch}
@@ -764,46 +764,55 @@ const Index = () => {
                     className="h-9"
                   />
                 </div>
-                <ScrollArea className="h-[400px]">
-                  <div className="p-2">
-                    {redistributed
-                      .filter(p => {
-                        const matchesSearch = comparisonSearch.toLowerCase() === "" || 
-                          p.title.toLowerCase().includes(comparisonSearch.toLowerCase()) ||
-                          p.address.toLowerCase().includes(comparisonSearch.toLowerCase());
-                        const notSelected = !comparisonProperties.find(cp => cp.id === p.id);
-                        return matchesSearch && notSelected;
-                      })
-                      .map((property) => (
-                        <Button
-                          key={property.id}
-                          variant="ghost"
-                          className="w-full h-auto p-3 justify-start text-left mb-1 hover:bg-muted"
-                          onClick={() => {
-                            if (comparisonProperties.length < 3) {
-                              setComparisonProperties([...comparisonProperties, property]);
-                              setComparisonSearch("");
-                            }
-                          }}
-                        >
-                          <div className="flex gap-3 items-start w-full">
-                            <img
-                              src={property.images?.[0] ? getOptimizedImageUrl(property.images[0], 'card') : getFallbackImageUrl(property.type)}
-                              alt={property.title}
-                              className="w-12 h-12 object-cover rounded flex-shrink-0"
-                            />
-                            <div className="flex-1 min-w-0">
-                              <div className="font-semibold text-sm line-clamp-1">{property.title}</div>
-                              <div className="text-xs text-muted-foreground line-clamp-1">{property.address}</div>
-                              <div className="text-xs font-semibold text-primary mt-1">
-                                ${(property.price / 1000000).toFixed(1)}M • {property.type} • Class {property.class}
-                              </div>
+                <div className="max-h-[400px] overflow-y-auto">
+                  {redistributed
+                    .filter(p => {
+                      const matchesSearch = comparisonSearch.toLowerCase() === "" || 
+                        p.title.toLowerCase().includes(comparisonSearch.toLowerCase()) ||
+                        p.address.toLowerCase().includes(comparisonSearch.toLowerCase());
+                      const notSelected = !comparisonProperties.find(cp => cp.id === p.id);
+                      return matchesSearch && notSelected;
+                    })
+                    .map((property) => (
+                      <Button
+                        key={property.id}
+                        variant="ghost"
+                        className="w-full h-auto p-3 justify-start text-left hover:bg-muted rounded-none border-b"
+                        onClick={() => {
+                          if (comparisonProperties.length < 3) {
+                            setComparisonProperties([...comparisonProperties, property]);
+                            setComparisonSearch("");
+                          }
+                        }}
+                      >
+                        <div className="flex gap-3 items-start w-full">
+                          <img
+                            src={property.images?.[0] ? getOptimizedImageUrl(property.images[0], 'card') : getFallbackImageUrl(property.type)}
+                            alt={property.title}
+                            className="w-12 h-12 object-cover rounded flex-shrink-0"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-sm line-clamp-1">{property.title}</div>
+                            <div className="text-xs text-muted-foreground line-clamp-1">{property.address}</div>
+                            <div className="text-xs font-semibold text-primary mt-1">
+                              ${(property.price / 1000000).toFixed(1)}M • {property.type} • Class {property.class}
                             </div>
                           </div>
-                        </Button>
-                      ))}
-                  </div>
-                </ScrollArea>
+                        </div>
+                      </Button>
+                    ))}
+                  {redistributed.filter(p => {
+                    const matchesSearch = comparisonSearch.toLowerCase() === "" || 
+                      p.title.toLowerCase().includes(comparisonSearch.toLowerCase()) ||
+                      p.address.toLowerCase().includes(comparisonSearch.toLowerCase());
+                    const notSelected = !comparisonProperties.find(cp => cp.id === p.id);
+                    return matchesSearch && notSelected;
+                  }).length === 0 && (
+                    <div className="p-8 text-center text-muted-foreground">
+                      No properties found
+                    </div>
+                  )}
+                </div>
               </PopoverContent>
             </Popover>
           </div>
