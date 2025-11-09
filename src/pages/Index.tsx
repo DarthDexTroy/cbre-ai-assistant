@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import MapView from "@/components/MapView";
 import PropertyCard from "@/components/PropertyCard";
 import AIChat from "@/components/AIChat";
@@ -12,14 +14,13 @@ import TrustScoreMeter from "@/components/TrustScoreMeter";
 import { buildRichPropertyDescription, redistributeStatuses } from "@/lib/utils";
 import type { ChatMessage } from "@/lib/gemini";
 import { cn } from "@/lib/utils";
-import { Search, Menu, Bell, User, Bookmark, Settings, LogOut, Sparkles, Filter } from "lucide-react";
+import { Search, Menu, User, Bookmark, Settings, LogOut, Sparkles, Filter, TrendingUp, X } from "lucide-react";
 import propertiesData from "@/data/properties.json";
 import {
   getCurrentUser,
   isAuthenticated,
   logout,
   login,
-  getUnreadAlertCount,
   hasCompletedOnboarding,
   getSavedProperties,
 } from "@/lib/localStorage";
@@ -35,12 +36,14 @@ const Index = () => {
   const [showAuth, setShowAuth] = useState(false);
   const [authName, setAuthName] = useState("");
   const [authEmail, setAuthEmail] = useState("");
-  const [unreadCount, setUnreadCount] = useState(getUnreadAlertCount());
   const [showChat, setShowChat] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [chatHistory, setChatHistory] = useState<ChatMessage[] | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [showSavedProperties, setShowSavedProperties] = useState(false);
+  const [showComparison, setShowComparison] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [comparisonProperties, setComparisonProperties] = useState<any[]>([]);
   const [filters, setFilters] = useState({
     location: "",
     types: new Set<string>(),
@@ -112,6 +115,7 @@ const Index = () => {
     logout();
     setUser(null);
     setSidebarOpen(false);
+    setShowAuth(true);
     toast.success("Logged out successfully");
   };
 
@@ -227,14 +231,27 @@ const Index = () => {
                   <Bookmark className="mr-2 h-4 w-4" />
                   Saved Properties
                 </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  <Bell className="mr-2 h-4 w-4" />
-                  Alerts
-                  {unreadCount > 0 && (
-                    <Badge className="ml-auto" variant="destructive">
-                      {unreadCount}
-                    </Badge>
-                  )}
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start"
+                  onClick={() => {
+                    setShowComparison(true);
+                    setSidebarOpen(false);
+                  }}
+                >
+                  <Search className="mr-2 h-4 w-4" />
+                  Compare Properties
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start"
+                  onClick={() => {
+                    setShowAnalytics(true);
+                    setSidebarOpen(false);
+                  }}
+                >
+                  <TrendingUp className="mr-2 h-4 w-4" />
+                  Analytics
                 </Button>
                 <Button variant="ghost" className="w-full justify-start">
                   <Settings className="mr-2 h-4 w-4" />
@@ -290,14 +307,6 @@ const Index = () => {
           <Button variant="outline" className="hidden md:flex" onClick={() => setShowChat(!showChat)}>
             <Sparkles className="mr-2 h-4 w-4" />
             AI Assistant
-          </Button>
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="h-5 w-5" />
-            {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-destructive-foreground rounded-full text-xs flex items-center justify-center">
-                {unreadCount}
-              </span>
-            )}
           </Button>
         </div>
       </header>
@@ -701,6 +710,245 @@ const Index = () => {
                   />
                 ));
               })()}
+            </div>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
+
+      {/* Compare Properties Dialog */}
+      <Dialog open={showComparison} onOpenChange={setShowComparison}>
+        <DialogContent className="glass max-w-6xl max-h-[90vh]">
+          <DialogHeader>
+            <DialogTitle>Compare Properties</DialogTitle>
+            <DialogDescription>Select up to 3 properties to compare side by side</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            {/* Property Selection */}
+            <div className="flex gap-2 items-center">
+              <Input 
+                placeholder="Search properties to compare..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <Badge variant="outline">{comparisonProperties.length}/3 selected</Badge>
+            </div>
+            
+            {/* Selected Properties for Comparison */}
+            {comparisonProperties.length > 0 && (
+              <div>
+                <h3 className="font-semibold mb-3">Selected Properties</h3>
+                <ScrollArea className="max-h-[60vh]">
+                  <div className="grid grid-cols-3 gap-4">
+                    {comparisonProperties.map((property) => (
+                      <div key={property.id} className="relative">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="absolute top-2 right-2 z-10 bg-background/80"
+                          onClick={() => setComparisonProperties(comparisonProperties.filter(p => p.id !== property.id))}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                        <div className="glass p-4 rounded-lg space-y-3">
+                          <img
+                            src={property.images?.[0] ? getOptimizedImageUrl(property.images[0], 'card') : getFallbackImageUrl(property.type)}
+                            alt={property.title}
+                            className="w-full h-32 object-cover rounded"
+                          />
+                          <h4 className="font-semibold text-sm line-clamp-2">{property.title}</h4>
+                          <Separator />
+                          <div className="space-y-2 text-sm">
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Price</span>
+                              <span className="font-semibold text-primary">${(property.price / 1000000).toFixed(1)}M</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Size</span>
+                              <span className="font-semibold">{property.sqft.toLocaleString()} SF</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Type</span>
+                              <span>{property.type}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Class</span>
+                              <span>{property.class}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Occupancy</span>
+                              <span>{property.occupancy}%</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Trust Score</span>
+                              <span className="font-semibold">{property.trustScore}/100</span>
+                            </div>
+                            {property.yearBuilt && (
+                              <div className="flex justify-between">
+                                <span className="text-muted-foreground">Year Built</span>
+                                <span>{property.yearBuilt}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </div>
+            )}
+
+            {/* Available Properties */}
+            {comparisonProperties.length < 3 && (
+              <div>
+                <h3 className="font-semibold mb-3">Available Properties</h3>
+                <ScrollArea className="max-h-[40vh]">
+                  <div className="grid grid-cols-2 gap-3">
+                    {filteredProperties
+                      .filter(p => !comparisonProperties.find(cp => cp.id === p.id))
+                      .slice(0, 10)
+                      .map((property) => (
+                        <Button
+                          key={property.id}
+                          variant="outline"
+                          className="h-auto p-3 justify-start text-left"
+                          onClick={() => {
+                            if (comparisonProperties.length < 3) {
+                              setComparisonProperties([...comparisonProperties, property]);
+                            }
+                          }}
+                        >
+                          <div className="flex gap-3 items-start w-full">
+                            <img
+                              src={property.images?.[0] ? getOptimizedImageUrl(property.images[0], 'card') : getFallbackImageUrl(property.type)}
+                              alt={property.title}
+                              className="w-16 h-16 object-cover rounded"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="font-semibold text-sm line-clamp-1">{property.title}</div>
+                              <div className="text-xs text-muted-foreground line-clamp-1">{property.address}</div>
+                              <div className="text-xs font-semibold text-primary mt-1">
+                                ${(property.price / 1000000).toFixed(1)}M
+                              </div>
+                            </div>
+                          </div>
+                        </Button>
+                      ))}
+                  </div>
+                </ScrollArea>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Analytics Dialog */}
+      <Dialog open={showAnalytics} onOpenChange={setShowAnalytics}>
+        <DialogContent className="glass max-w-6xl max-h-[90vh]">
+          <DialogHeader>
+            <DialogTitle>Property Value Analytics</DialogTitle>
+            <DialogDescription>Historical property value trends and market analysis</DialogDescription>
+          </DialogHeader>
+          <ScrollArea className="max-h-[75vh]">
+            <div className="space-y-6 p-4">
+              {/* Market Overview Chart */}
+              <div>
+                <h3 className="font-semibold mb-4">Market Value Trends (Last 12 Months)</h3>
+                <div className="glass p-4 rounded-lg">
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={[
+                      { month: 'Jan', avgValue: 2.8, class_a: 3.2, class_b: 2.6, class_c: 2.2 },
+                      { month: 'Feb', avgValue: 2.9, class_a: 3.3, class_b: 2.7, class_c: 2.3 },
+                      { month: 'Mar', avgValue: 3.0, class_a: 3.5, class_b: 2.8, class_c: 2.4 },
+                      { month: 'Apr', avgValue: 3.1, class_a: 3.6, class_b: 2.9, class_c: 2.5 },
+                      { month: 'May', avgValue: 3.2, class_a: 3.7, class_b: 3.0, class_c: 2.6 },
+                      { month: 'Jun', avgValue: 3.3, class_a: 3.9, class_b: 3.1, class_c: 2.7 },
+                      { month: 'Jul', avgValue: 3.4, class_a: 4.0, class_b: 3.2, class_c: 2.8 },
+                      { month: 'Aug', avgValue: 3.5, class_a: 4.1, class_b: 3.3, class_c: 2.9 },
+                      { month: 'Sep', avgValue: 3.6, class_a: 4.2, class_b: 3.4, class_c: 3.0 },
+                      { month: 'Oct', avgValue: 3.7, class_a: 4.3, class_b: 3.5, class_c: 3.1 },
+                      { month: 'Nov', avgValue: 3.8, class_a: 4.5, class_b: 3.6, class_c: 3.2 },
+                      { month: 'Dec', avgValue: 3.9, class_a: 4.6, class_b: 3.7, class_c: 3.3 },
+                    ]}>
+                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                      <XAxis dataKey="month" className="text-xs" />
+                      <YAxis label={{ value: 'Value ($M)', angle: -90, position: 'insideLeft' }} />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: 'hsl(var(--background))',
+                          border: '1px solid hsl(var(--border))',
+                          borderRadius: '8px'
+                        }}
+                      />
+                      <Legend />
+                      <Line type="monotone" dataKey="avgValue" stroke="hsl(var(--primary))" name="Average" strokeWidth={2} />
+                      <Line type="monotone" dataKey="class_a" stroke="hsl(var(--trust-high))" name="Class A" strokeWidth={2} />
+                      <Line type="monotone" dataKey="class_b" stroke="hsl(var(--trust-medium))" name="Class B" strokeWidth={2} />
+                      <Line type="monotone" dataKey="class_c" stroke="hsl(var(--trust-low))" name="Class C" strokeWidth={2} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+
+              {/* Key Metrics */}
+              <div>
+                <h3 className="font-semibold mb-4">Key Market Metrics</h3>
+                <div className="grid grid-cols-4 gap-4">
+                  <div className="glass p-4 rounded-lg">
+                    <div className="text-sm text-muted-foreground mb-1">Avg Growth</div>
+                    <div className="text-2xl font-bold text-trust-high">+12.5%</div>
+                    <div className="text-xs text-muted-foreground mt-1">Year over Year</div>
+                  </div>
+                  <div className="glass p-4 rounded-lg">
+                    <div className="text-sm text-muted-foreground mb-1">Total Volume</div>
+                    <div className="text-2xl font-bold text-primary">$156M</div>
+                    <div className="text-xs text-muted-foreground mt-1">Last Quarter</div>
+                  </div>
+                  <div className="glass p-4 rounded-lg">
+                    <div className="text-sm text-muted-foreground mb-1">Avg Occupancy</div>
+                    <div className="text-2xl font-bold">87%</div>
+                    <div className="text-xs text-muted-foreground mt-1">All Properties</div>
+                  </div>
+                  <div className="glass p-4 rounded-lg">
+                    <div className="text-sm text-muted-foreground mb-1">Price per SF</div>
+                    <div className="text-2xl font-bold">$425</div>
+                    <div className="text-xs text-muted-foreground mt-1">Market Average</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Property Type Distribution */}
+              <div>
+                <h3 className="font-semibold mb-4">Value by Property Type</h3>
+                <div className="glass p-4 rounded-lg">
+                  <ResponsiveContainer width="100%" height={250}>
+                    <LineChart data={[
+                      { month: 'Jan', Office: 2.5, Retail: 1.8, Industrial: 2.2, Multifamily: 3.1 },
+                      { month: 'Mar', Office: 2.6, Retail: 1.9, Industrial: 2.4, Multifamily: 3.3 },
+                      { month: 'May', Office: 2.7, Retail: 2.0, Industrial: 2.6, Multifamily: 3.5 },
+                      { month: 'Jul', Office: 2.8, Retail: 2.1, Industrial: 2.8, Multifamily: 3.7 },
+                      { month: 'Sep', Office: 2.9, Retail: 2.2, Industrial: 3.0, Multifamily: 3.9 },
+                      { month: 'Nov', Office: 3.0, Retail: 2.3, Industrial: 3.2, Multifamily: 4.1 },
+                      { month: 'Dec', Office: 3.1, Retail: 2.4, Industrial: 3.4, Multifamily: 4.3 },
+                    ]}>
+                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                      <XAxis dataKey="month" />
+                      <YAxis label={{ value: 'Value ($M)', angle: -90, position: 'insideLeft' }} />
+                      <Tooltip 
+                        contentStyle={{ 
+                          backgroundColor: 'hsl(var(--background))',
+                          border: '1px solid hsl(var(--border))',
+                          borderRadius: '8px'
+                        }}
+                      />
+                      <Legend />
+                      <Line type="monotone" dataKey="Office" stroke="#8884d8" strokeWidth={2} />
+                      <Line type="monotone" dataKey="Retail" stroke="#82ca9d" strokeWidth={2} />
+                      <Line type="monotone" dataKey="Industrial" stroke="#ffc658" strokeWidth={2} />
+                      <Line type="monotone" dataKey="Multifamily" stroke="#ff7c7c" strokeWidth={2} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
             </div>
           </ScrollArea>
         </DialogContent>
