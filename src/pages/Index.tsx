@@ -277,7 +277,6 @@ const Index = () => {
           </div>
           <div>
             <h1 className="font-bold text-lg">TrustEstate AI</h1>
-            <p className="text-xs text-muted-foreground">Powered by CBRE & Gemini</p>
           </div>
         </div>
 
@@ -838,13 +837,13 @@ const Index = () => {
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="absolute top-2 right-2 z-10 bg-background/80 hover:bg-background"
+                          className="absolute top-2 right-2 z-10 h-8 w-8 rounded-md bg-background/80 hover:bg-background border border-border/50 hover:scale-110 transition-all"
                           onClick={(e) => {
                             e.stopPropagation();
                             setComparisonProperties(comparisonProperties.filter(p => p.id !== property.id));
                           }}
                         >
-                          <X className="h-4 w-4" />
+                          <X className="h-5 w-5" />
                         </Button>
                         <div className="glass p-4 rounded-lg space-y-3">
                           <img

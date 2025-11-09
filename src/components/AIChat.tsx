@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send, Mic, Sparkles, ExternalLink, Loader2 } from "lucide-react";
+import { Send, Mic, Sparkles, ExternalLink, Loader2, X } from "lucide-react";
 import { queryAI, type ChatMessage, type AIResponse } from "@/lib/gemini";
 import { toast } from "sonner";
 import properties from "@/data/properties.json";
@@ -162,8 +162,14 @@ const AIChat = ({ className, onClose, initialMessages }: AIChatProps) => {
             Real-time
           </Badge>
           {onClose && (
-            <Button variant="ghost" size="icon" onClick={handleClose} aria-label="Close assistant">
-              ×
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-8 w-8 rounded-md bg-background/80 hover:bg-background border border-border/50 hover:scale-110 transition-all"
+              onClick={handleClose} 
+              aria-label="Close assistant"
+            >
+              <X className="h-5 w-5" />
             </Button>
           )}
         </div>

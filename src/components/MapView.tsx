@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, memo } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, ZoomIn, ZoomOut, Locate, Maximize2, Minimize2 } from "lucide-react";
+import { MapPin, ZoomIn, ZoomOut, Locate, Maximize2, Minimize2, X } from "lucide-react";
 import { toast } from "sonner";
 import { getFallbackImageUrl, getOptimizedImageUrl } from "@/lib/imageUtils";
 
@@ -351,10 +351,11 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
             </div>
             <Button
               variant="ghost"
-              size="sm"
+              size="icon"
+              className="h-8 w-8 rounded-md bg-background/80 hover:bg-background border border-border/50"
               onClick={() => setSelectedProperty(null)}
             >
-              ×
+              <X className="h-5 w-5" />
             </Button>
           </div>
           {selectedProperty.images?.[0] && (
@@ -390,7 +391,14 @@ const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
                 <h3 className="font-semibold text-lg">{selectedProperty.title}</h3>
                 <div className="text-sm text-muted-foreground">{selectedProperty.address}</div>
               </div>
-              <Button variant="ghost" onClick={() => setShowDetails(false)}>×</Button>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="h-9 w-9 rounded-md bg-background/80 hover:bg-background border border-border/50 hover:scale-110 transition-all"
+                onClick={() => setShowDetails(false)}
+              >
+                <X className="h-5 w-5" />
+              </Button>
             </div>
             <img
               src={
