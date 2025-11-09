@@ -21,6 +21,7 @@ import {
   login,
   getUnreadAlertCount,
   hasCompletedOnboarding,
+  getSavedProperties,
 } from "@/lib/localStorage";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -39,6 +40,7 @@ const Index = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [chatHistory, setChatHistory] = useState<ChatMessage[] | null>(null);
   const [showFilters, setShowFilters] = useState(false);
+  const [showSavedProperties, setShowSavedProperties] = useState(false);
   const [filters, setFilters] = useState({
     location: "",
     types: new Set<string>(),
@@ -214,7 +216,14 @@ const Index = () => {
 
               {/* Navigation */}
               <nav className="space-y-2">
-                <Button variant="ghost" className="w-full justify-start">
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start"
+                  onClick={() => {
+                    setShowSavedProperties(true);
+                    setSidebarOpen(false);
+                  }}
+                >
                   <Bookmark className="mr-2 h-4 w-4" />
                   Saved Properties
                 </Button>
@@ -651,6 +660,49 @@ const Index = () => {
               </div>
             </div>
           </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Saved Properties Dialog */}
+      <Dialog open={showSavedProperties} onOpenChange={setShowSavedProperties}>
+        <DialogContent className="glass max-w-4xl max-h-[90vh]">
+          <DialogHeader>
+            <DialogTitle>Saved Properties</DialogTitle>
+            <DialogDescription>Your bookmarked properties</DialogDescription>
+          </DialogHeader>
+          <ScrollArea className="max-h-[70vh]">
+            <div className="space-y-4 p-4">
+              {(() => {
+                const savedProps = getSavedProperties();
+                const savedPropertyData = savedProps
+                  .map(sp => redistributed.find(p => p.id === sp.propertyId))
+                  .filter(Boolean);
+
+                if (savedPropertyData.length === 0) {
+                  return (
+                    <div className="text-center py-12">
+                      <Bookmark className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                      <p className="text-muted-foreground">No saved properties yet</p>
+                      <p className="text-sm text-muted-foreground mt-2">
+                        Click the bookmark icon on any property to save it
+                      </p>
+                    </div>
+                  );
+                }
+
+                return savedPropertyData.map((property) => (
+                  <PropertyCard 
+                    key={property.id} 
+                    property={property} 
+                    onSelect={(p) => {
+                      setSelectedProperty(p);
+                      setShowSavedProperties(false);
+                    }}
+                  />
+                ));
+              })()}
+            </div>
+          </ScrollArea>
         </DialogContent>
       </Dialog>
 
