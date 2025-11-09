@@ -26,6 +26,7 @@ import {
 } from "@/lib/localStorage";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { getFallbackImageUrl, getOptimizedImageUrl } from "@/lib/imageUtils";
 
 const Index = () => {
@@ -721,89 +722,48 @@ const Index = () => {
             <DialogDescription>Select up to 3 properties to compare side by side</DialogDescription>
           </DialogHeader>
           
-          {/* Property Selection */}
-          <div className="flex gap-2 items-center">
-            <Input 
-              placeholder="Search properties to compare..." 
-              value={comparisonSearch}
-              onChange={(e) => setComparisonSearch(e.target.value)}
-            />
-            <Badge variant="outline">{comparisonProperties.length}/3 selected</Badge>
-          </div>
-
-          {/* Scrollable Content */}
-          <ScrollArea className="flex-1 -mx-6 px-6">
-            <div className="space-y-6 pr-4">
-              {/* Selected Properties for Comparison */}
+          {/* Property Selection Dropdowns */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Badge variant="outline">{comparisonProperties.length}/3 selected</Badge>
               {comparisonProperties.length > 0 && (
-                <div>
-                  <h3 className="font-semibold mb-3">Selected Properties</h3>
-                  <div className="grid grid-cols-3 gap-4">
-                    {comparisonProperties.map((property) => (
-                      <div key={property.id} className="relative">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="absolute top-2 right-2 z-10 bg-background/80 hover:bg-background"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setComparisonProperties(comparisonProperties.filter(p => p.id !== property.id));
-                          }}
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                        <div className="glass p-4 rounded-lg space-y-3">
-                          <img
-                            src={property.images?.[0] ? getOptimizedImageUrl(property.images[0], 'card') : getFallbackImageUrl(property.type)}
-                            alt={property.title}
-                            className="w-full h-32 object-cover rounded"
-                          />
-                          <h4 className="font-semibold text-sm line-clamp-2">{property.title}</h4>
-                          <Separator />
-                          <div className="space-y-2 text-sm">
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Price</span>
-                              <span className="font-semibold text-primary">${(property.price / 1000000).toFixed(1)}M</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Size</span>
-                              <span className="font-semibold">{property.sqft.toLocaleString()} SF</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Type</span>
-                              <span>{property.type}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Class</span>
-                              <span>{property.class}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Occupancy</span>
-                              <span>{property.occupancy}%</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Trust Score</span>
-                              <span className="font-semibold">{property.trustScore}/100</span>
-                            </div>
-                            {property.yearBuilt && (
-                              <div className="flex justify-between">
-                                <span className="text-muted-foreground">Year Built</span>
-                                <span>{property.yearBuilt}</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setComparisonProperties([])}
+                >
+                  Clear All
+                </Button>
               )}
+            </div>
 
-              {/* Available Properties */}
-              {comparisonProperties.length < 3 && (
-                <div>
-                  <h3 className="font-semibold mb-3">Available Properties</h3>
-                  <div className="grid grid-cols-2 gap-3">
+            {/* Property Selector Dropdown */}
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="w-full justify-between"
+                  disabled={comparisonProperties.length >= 3}
+                >
+                  <span>
+                    {comparisonProperties.length >= 3
+                      ? "Maximum 3 properties selected"
+                      : "Select a property to compare..."}
+                  </span>
+                  <Search className="ml-2 h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[600px] p-0" align="start">
+                <div className="p-2 border-b">
+                  <Input
+                    placeholder="Search properties..."
+                    value={comparisonSearch}
+                    onChange={(e) => setComparisonSearch(e.target.value)}
+                    className="h-9"
+                  />
+                </div>
+                <ScrollArea className="h-[300px]">
+                  <div className="p-2">
                     {redistributed
                       .filter(p => {
                         const matchesSearch = comparisonSearch.toLowerCase() === "" || 
@@ -812,15 +772,15 @@ const Index = () => {
                         const notSelected = !comparisonProperties.find(cp => cp.id === p.id);
                         return matchesSearch && notSelected;
                       })
-                      .slice(0, 20)
                       .map((property) => (
                         <Button
                           key={property.id}
-                          variant="outline"
-                          className="h-auto p-3 justify-start text-left hover:bg-muted"
+                          variant="ghost"
+                          className="w-full h-auto p-3 justify-start text-left mb-1"
                           onClick={() => {
                             if (comparisonProperties.length < 3) {
                               setComparisonProperties([...comparisonProperties, property]);
+                              setComparisonSearch("");
                             }
                           }}
                         >
@@ -828,19 +788,94 @@ const Index = () => {
                             <img
                               src={property.images?.[0] ? getOptimizedImageUrl(property.images[0], 'card') : getFallbackImageUrl(property.type)}
                               alt={property.title}
-                              className="w-16 h-16 object-cover rounded"
+                              className="w-12 h-12 object-cover rounded flex-shrink-0"
                             />
                             <div className="flex-1 min-w-0">
                               <div className="font-semibold text-sm line-clamp-1">{property.title}</div>
                               <div className="text-xs text-muted-foreground line-clamp-1">{property.address}</div>
                               <div className="text-xs font-semibold text-primary mt-1">
-                                ${(property.price / 1000000).toFixed(1)}M
+                                ${(property.price / 1000000).toFixed(1)}M • {property.type} • Class {property.class}
                               </div>
                             </div>
                           </div>
                         </Button>
                       ))}
                   </div>
+                </ScrollArea>
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          {/* Selected Properties Comparison */}
+          <ScrollArea className="flex-1 -mx-6 px-6">
+            <div className="space-y-4 pr-4">
+              {comparisonProperties.length > 0 ? (
+                <div className="grid grid-cols-3 gap-4">
+                  {comparisonProperties.map((property) => (
+                    <div key={property.id} className="relative">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute top-2 right-2 z-10 bg-background/80 hover:bg-background"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setComparisonProperties(comparisonProperties.filter(p => p.id !== property.id));
+                        }}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                      <div className="glass p-4 rounded-lg space-y-3">
+                        <img
+                          src={property.images?.[0] ? getOptimizedImageUrl(property.images[0], 'card') : getFallbackImageUrl(property.type)}
+                          alt={property.title}
+                          className="w-full h-32 object-cover rounded"
+                        />
+                        <h4 className="font-semibold text-sm line-clamp-2">{property.title}</h4>
+                        <Separator />
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Price</span>
+                            <span className="font-semibold text-primary">${(property.price / 1000000).toFixed(1)}M</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Size</span>
+                            <span className="font-semibold">{property.sqft.toLocaleString()} SF</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">$/SF</span>
+                            <span className="font-semibold">${Math.round(property.price / property.sqft)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Type</span>
+                            <span>{property.type}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Class</span>
+                            <span>{property.class}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Occupancy</span>
+                            <span>{property.occupancy}%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Trust Score</span>
+                            <span className="font-semibold">{property.trustScore}/100</span>
+                          </div>
+                          {property.yearBuilt && (
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Year Built</span>
+                              <span>{property.yearBuilt}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <Search className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                  <p className="text-muted-foreground">Select properties from the dropdown above to compare</p>
                 </div>
               )}
             </div>
