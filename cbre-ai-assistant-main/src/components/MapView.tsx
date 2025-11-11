@@ -36,7 +36,7 @@ interface MapViewProps {
   center?: { lat: number; lng: number };
 }
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyBElBNiFjwNPe7crCoJ_5e6ZL8YU-26oC4";
+const GOOGLE_MAPS_API_KEY = "AIzaSyCuTnm4KB_XBYNiq7vMCXAi1b-n66HvGIg";
 
 const MapView = ({ properties, onPropertySelect, center }: MapViewProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
