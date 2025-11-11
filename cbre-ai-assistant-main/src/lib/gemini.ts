@@ -32,7 +32,7 @@ export interface QueryContext {
 }
   
 // Gemini API configuration
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "AIzaSyCyY5R7nvehNJtbNy5FO993k6QoXOeWpCg";
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "AIzaSyBVMOPRQj77Lxrjbv6REv2OOAc8c71lSME";
 
 if (!GEMINI_API_KEY) {
   console.error("VITE_GEMINI_API_KEY is not set. Please add it to your .env file.");
